@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    >
+
+    <LinearLayout
+        android:layout_marginTop="6dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#a000"
+            android:layout_marginRight="12dp"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11111111111111111111" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_cg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_detail"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/button_gyz_detail"
+            android:padding="2dp"
+            android:text="待整改"
+            android:textColor="#fff" />
+
+      <!-- <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/dzg_tv"
+            android:id="@+id/easyRV"
+            android:layout_marginLeft="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_below="@+id/tv_detail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+
+        <!--</LinearLayout>-->
+
+
+    </RelativeLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/oneImgIv"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/margin_size_common"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/ic_pic_fail"
+            fresco:placeholderImageScaleType="centerCrop" />
+
+        <LinearLayout
+            android:id="@+id/morePicLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv6"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv7"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv8"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgIv9"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_pic_fail"
+                    fresco:placeholderImageScaleType="centerCrop" />
+            </LinearLayout>
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/tv_gongyinghzan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="检查站点 : "
+                android:textColor="#C2C2C2"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_below="@+id/tv_gongyinghzan"
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="检查时间 : "
+                android:textColor="#C2C2C2"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_riqi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginLeft="10dp"
+                android:text="检查日期 : "
+                android:textColor="#C2C2C2"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_jcr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_riqi"
+                android:layout_marginLeft="10dp"
+                android:text="检查人 :"
+                android:textColor="#C2C2C2"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_danwei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_jcr"
+                android:layout_marginLeft="10dp"
+                android:text="检查单位 : "
+                android:textColor="#C2C2C2"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="32dp"
+            android:id="@+id/btn_zg"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_style"
+            android:text="整改"
+            android:textColor="#4F91B3" />
+        <Button
+            android:visibility="gone"
+            android:layout_toLeftOf="@+id/btn_zg"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="32dp"
+            android:id="@+id/btn_wzg"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_shi_style"
+            android:text="整改"
+            android:textColor="#fff" />
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+</LinearLayout>

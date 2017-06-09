@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<view-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:background="#000"></view>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:maxEms="12"
+            android:text="17sp"
+            android:textColor="#a000"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="70dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_news"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_style"
+            android:focusable="false"
+            android:text="否"
+            android:textColor="#3E697E"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_height="1px"
+        android:background="#D9D9D9" />
+</LinearLayout>

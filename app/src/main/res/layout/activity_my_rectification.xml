@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<include layout="@layout/layout_title"></include>
+
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        android:id="@+id/type_page_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.lcsrq.view.PullToRefreshView
+            android:id="@+id/pullToRefreshView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#f2f2f2"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/lv_wdzg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f2f2f2"
+                android:clickable="true"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:focusable="true"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"></ListView>
+        </com.example.lcsrq.view.PullToRefreshView>
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:background="#fff"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp">
+
+            <TextView
+                android:singleLine="true"
+                android:maxEms="6"
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="公司"
+                android:textColor="#404040"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icom_xlx" />
+        </LinearLayout>
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="1dip"
+            android:layout_height="25dp"
+            android:background="#DCDCDC" />
+        <!--状态-->
+        <LinearLayout
+            android:id="@+id/ll_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="状态"
+                android:textColor="#404040"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icom_xlx" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#F2F2F2" />
+
+</LinearLayout>

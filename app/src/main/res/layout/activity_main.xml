@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+
+    <EditText
+        android:id="@+id/postedContentEt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_banner_height"
+        android:background="@color/white"
+        android:cursorVisible="true"
+
+
+        android:gravity="top"
+        android:hint="今天健身了吗？  心情如何..."
+        android:padding="@dimen/margin_size_common"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint_text_color"
+        android:textCursorDrawable="@drawable/edittext_cursor"
+        android:textSize="@dimen/text_size_normal" />
+
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:horizontalSpacing="3dp"
+        android:numColumns="4"
+        android:padding="@dimen/margin_size_common"
+        android:verticalSpacing="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_normal"
+            android:layout_marginLeft="@dimen/margin_size_common"
+            android:layout_marginRight="@dimen/margin_size_common"
+            android:background="@color/gray_line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_size_common">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/locationTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_mini"
+            android:text="所在的位置"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+</LinearLayout>

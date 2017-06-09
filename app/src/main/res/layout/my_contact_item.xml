@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="#fff"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.thinkcool.circletextimageview.CircleTextImageView
+            android:id="@+id/yuann_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:citv_border_color="@android:color/white"
+            app:citv_border_width="2dp"
+            android:layout_gravity="center"
+            app:citv_text_text="照片"
+            app:citv_text_size="15sp"
+            app:citv_text_padding="20dp"
+            app:citv_text_color="@android:color/white"
+            app:citv_fill_color="#50555D"
+            />
+
+        <RelativeLayout
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginBottom="5dp"
+                android:textSize="12sp"
+                android:textColor="#656565"
+                android:id="@+id/tv_name"
+                android:layout_marginLeft="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_dw"
+                android:layout_toRightOf="@+id/tv_name"
+                android:textSize="12sp"
+                android:textColor="#656565"
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="12sp"
+                android:textColor="#656565"
+                android:layout_marginTop="2dp"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginLeft="70dp"
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_toRightOf="@+id/tv_name"
+                android:textSize="12sp"
+                android:textColor="#656565"
+                android:layout_marginTop="2dp"
+                android:layout_below="@+id/tv_danwei"
+                android:layout_marginLeft="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_sj"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="14dp"
+            android:layout_height="20dp" />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="#EBEBEB" />
+</LinearLayout>

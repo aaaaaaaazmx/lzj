@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/ll_rool"
+        layout="@layout/layout_title"></include>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_zhoubian"
+        android:layout_alignParentTop="true"
+        android:text="周边搜索"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_below="@+id/ll_rool"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.baidu.mapapi.map.MapView
+        android:layout_below="@+id/btn_zhoubian"
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.baidu.mapapi.map.MapView>
+    </LinearLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="@mipmap/bg_map_bottom"
+        android:clickable="true"
+        android:id="@+id/id_marker_ly"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/id_info_img"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/img_border"
+            android:scaleType="fitXY"
+            android:src="@mipmap/a01" >
+        </ImageView>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+          >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/id_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="老米家泡馍"
+                    android:textColor="#fff5eb" />
+
+                <TextView
+                    android:id="@+id/id_info_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="距离200米"
+                    android:textColor="#fff5eb" />
+                <TextView
+                    android:id="@+id/id_info_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11111111111111"
+                    android:textColor="#fff5eb" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_goAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/if_info_zan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到这里去"
+                    android:layout_gravity="center"
+                    android:textColor="#fff5eb" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/maker"
+                    android:clickable="true" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

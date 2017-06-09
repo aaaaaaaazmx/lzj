@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/type_page_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:maxEms="9"
+                android:ellipsize="end"
+                android:text="1111"
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#595959"
+                android:textSize="15sp" />
+
+            <TextView
+                android:text="222"
+                android:layout_below="@+id/tv_title"
+                android:textSize="12sp"
+                android:id="@+id/tv_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:drawablePadding="5dp"
+                android:textColor="#D0D0D0" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#9A9A9A" />
+            <ImageView
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/iv_img"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_height="1px"
+            android:background="#D9D9D9" />
+
+
+
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
+
+
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    android:background="#fff"
+    android:orientation="vertical">
+
+
+    <EditText
+    android:focusable="true"
+    android:id="@+id/postedContentEt"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/main_banner_height"
+    android:background="@color/white"
+    android:cursorVisible="false"
+    android:gravity="top"
+    android:hint="请输入..."
+    android:padding="@dimen/margin_size_common"
+    android:textColor="@color/black"
+    android:textColorHint="@color/hint_text_color"
+    android:textCursorDrawable="@drawable/edittext_cursor"
+    android:textSize="@dimen/text_size_normal" />
+
+
+    <com.example.lcsrq.view.BaseGridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:horizontalSpacing="3dp"
+        android:numColumns="4"
+        android:padding="@dimen/margin_size_common"
+        android:verticalSpacing="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_normal"
+            android:layout_marginLeft="@dimen/margin_size_common"
+            android:layout_marginRight="@dimen/margin_size_common"
+            android:background="@color/gray_line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_size_common">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/locationTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_mini"
+            android:text="所在的位置"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:textColor="#4F91B3"
+        android:id="@+id/btn_bc"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_style"
+        android:padding="10dip"
+        android:text="保存" />
+</LinearLayout>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Android="http://schemas.android.com/apk/res-auto"
+    package="com.example.lcsrq">
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="21"
+       />
+
+    <!-- Required -->
+    <permission
+        android:name="com.example.lcsrq.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission." />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+
+
+    <!--youmeng-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- Permission for Unit Test -->
+    <uses-permission android:name="android.permission.GET_TASKS"></uses-permission>
+    <!-- 连网 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-permission android:name="com.example.lcsrq.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <application
+        android:name=".activity.manger.MyAppliacation"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppSplash">
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="GZ8tuGLWuddfY4ZVOxGh70QQc8yxWI0N" />
+
+        <activity android:name=".activity.manger.SplashActivity">
+            <data
+                android:host="map"
+                android:scheme="baidumap"></data>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
+
+
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <!--登陆页面-->
+        <activity android:name=".activity.manger.LoginActivity">
+            <!--引导页面-->
+        </activity>
+        <!--引导页面-->
+        <activity android:name=".activity.manger.GuideActivity"></activity>
+        <!-- 车辆管理 -->
+        <activity android:name=".activity.manger.car.CarMangerActivity" />
+        <activity android:name=".activity.manger.car.CarDetailActivity" />
+        <!-- 供应站管理 -->
+        <activity android:name=".activity.manger.gyzmanger.GyzMangerActivity" />
+        <activity android:name=".activity.manger.gyzmanger.MapActivity"></activity>
+        <activity android:name=".activity.manger.gyzmanger.GyzYanshouActivity"></activity>
+        <activity
+            android:name=".activity.manger.gyzmanger.GyzMapActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".activity.manger.gyzmanger.GyzCheckActivity"
+            android:theme="@style/Theme.PageIndicatorDefaults"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+
+        <activity android:name=".activity.manger.gyzmanger.GyzDetailActivity" />
+        <activity
+            android:name=".activity.manger.gyzmanger.GyzXxwhActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait" />
+        <!-- 打非治违 -->
+        <activity android:name=".activity.manger.hdhc.HdhcCheckActivity" />
+        <activity android:name=".activity.manger.hdhc.HdhcActivity" />
+        <activity android:name=".activity.manger.hdhc.DfzwActivity" />
+        <activity android:name=".activity.manger.hdhc.DfzwDetaiActivity"></activity>
+        <activity
+            android:name=".activity.manger.hdhc.ReportActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 记分系统 -->
+        <activity android:name=".activity.manger.jfxt.ScoringActivity" />
+        <activity android:name=".activity.manger.jfxt.ScroingKfxmActivity" />
+        <activity android:name=".activity.manger.jfxt.ScroingJfdx" />
+        <activity android:name=".activity.manger.jfxt.ScoringListActivity"></activity>
+        <!-- 诚信记录 -->
+        <activity android:name=".activity.manger.cxjl.CxjlActivity" />
+        <activity android:name=".activity.manger.cxjl.CxInfoActivity" />
+
+        <!-- 法律法规 -->
+        <activity android:name=".activity.manger.lawfg.LawActivity" />
+        <activity android:name=".activity.manger.lawfg.LawDetailActivity" />
+
+        <!-- 行业培训 -->
+        <activity android:name=".activity.manger.training.TrainingActivity" />
+        <activity android:name=".activity.manger.training.ErrorRecordActivity" />
+
+        <!-- 主页面 -->
+        <activity android:name=".HomeActivity" />
+
+        <!-- 信息查询 -->
+        <activity android:name=".activity.manger.xxcx.Zhandian_info" />
+        <activity android:name=".activity.manger.xxcx.InformationActivity" />
+        <activity android:name=".activity.manger.xxcx.InfomationCarActivity" />
+        <activity android:name=".activity.manger.xxcx.InfoGuideActivity"></activity>
+
+        <!-- 行业培训 -->
+        <activity android:name=".activity.manger.training.YuAppointmentActivity" />
+        <activity android:name=".activity.manger.training.TestKtActivity" />
+        <activity android:name=".activity.manger.training.ChoiseQsActivity" />
+
+        <!-- 首页Listview详情 -->
+        <activity android:name=".activity.manger.IndustryDetailActivity" />
+        <activity android:name=".activity.manger.CountyDetailActivity" />
+
+        <!-- 测试popwindow框 -->
+
+        <!-- 图片选择 -->
+        <activity android:name=".xiangce.ChoicePicActivity" />
+        <activity android:name=".crame.PostedNewActivity" />
+
+        <!-- 我的 -->
+        <activity android:name=".activity.manger.My.MyRectification" />
+        <activity android:name=".activity.manger.My.MyHdActivity"></activity>
+        <activity android:name=".activity.manger.My.MyJuBaoActivity"></activity>
+        <activity android:name=".activity.manger.My.MyZgActivity"></activity>
+        <activity android:name=".activity.manger.My.MyScoreActivity"></activity>
+        <activity android:name=".activity.manger.My.MyHdDetailsActivity"></activity>
+        <activity android:name=".activity.manger.My.MyZhengGaiActiviity"></activity>
+        <activity android:name=".activity.manger.My.JuBaoActivity"></activity>
+        <!-- s输入框 -->
+        <activity android:name=".activity.manger.InputTextActivity" />
+        <activity android:name=".activity.manger.xxcx.People_info" />
+        <activity android:name=".activity.manger.xxcx.CarInfo" />
+        <activity android:name=".activity.manger.xxcx.MessageIntentActivity" />
+        <activity android:name=".activity.manger.report.IReportctivity" />
+
+        <!--个人详情-->
+        <activity android:name=".activity.manger.PeopleDetail"></activity>
+        <!--定位-->
+        <activity android:name=".activity.manger.gyzmanger.DingWeiActivity"></activity>
+
+        <!--获取所有的黑点黑车-->
+        <activity android:name=".activity.manger.hdhc.MyHdHcactvity"></activity>
+        <!--我的通讯录-->
+        <activity android:name=".activity.manger.My.MycontactActivity"></activity>
+        <activity android:name=".activity.manger.gyzmanger.GyzTijiaoActivity" />
+
+        <!--我的举报 - 弹出简介须知 -->
+        <activity android:name=".activity.manger.report.DialogJubao"></activity>
+        <activity android:name=".activity.manger.report.MyJuabaoMap" />
+        <activity android:name=".activity.manger.report.ReportGuideActivity"></activity>
+
+        <!--百度地图-->
+        <activity android:name=".activity.manger.map.BaiduMapActivity"></activity>
+        <!--jpush-->
+        <!-- For test only 测试的主程序-->
+        <!--<activity-->
+            <!--android:name="com.example.jpushdemo.MainActivity"-->
+            <!--android:label="@string/app_name" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!--&lt;!&ndash; For test only 测试高级功能 &ndash;&gt;-->
+        <!--<activity android:name="com.example.jpushdemo.PushSetActivity" android:label="@string/app_name"></activity>-->
+        <!--&lt;!&ndash; For test only 测试设置 &ndash;&gt;-->
+        <!--<activity android:name="com.example.jpushdemo.SettingActivity" android:label="@string/app_name"></activity>-->
+        <!--&lt;!&ndash; For test only 测试状态通知栏，需要打开的Activity &ndash;&gt;-->
+        <!--<activity android:name="com.example.jpushdemo.TestActivity" android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="jpush.testAction" />-->
+                <!--<category android:name="jpush.testCategory" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!-- Rich push 核心功能 since 2.0.6-->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:theme="@style/MyDialogStyle"
+            android:exported="false">
+        </activity>
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.example.lcsrq" />
+            </intent-filter>
+        </activity>
+
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":mult"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.example.lcsrq" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.example.lcsrq" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="com.example.lcsrq.receiver.PushReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.example.lcsrq" />
+            </intent-filter>
+        </receiver>
+        <!--极光推送-->
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="a493e57706b843b9708558b9" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <!--友盟统计-->
+        <meta-data android:value="591e91f4b27b0a1cea00118d" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="csrq" android:name="UMENG_CHANNEL"/>
+    </application>
+
+</manifest>

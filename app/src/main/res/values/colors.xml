@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#333333</color>
+    <!-- 曲线动态-->
+    <color name="tanlan">#D2D2D2</color>
+    <!--行业动态-->
+
+    <!--标题栏-->
+    <color name="title_bg">#18909D</color>
+    <color name="statusline_bg">#55584f60</color>
+    <color name="title_text">#ffffff</color>
+    <!--底部栏-->
+    <color name="bottom_bg">#ffffff</color>
+    <color name="bottom_text_color">#cccccc</color>
+    <!--分割线-->
+    <color name="gray_line">#cccccc</color>
+    <!--页面背景-->
+    <color name="activity_bg">#cccccc</color>
+    <!--按钮-->
+    <color name="button_bg">#cccccc</color>
+    <!--hint-->
+    <color name="hint_text_color">#b3c1bc</color>
+
+    <!--其他通用色值-->
+    <color name="touming">#00000000</color>
+    <color name="touming1">#fff</color>
+    <color name="bantouming">#33000000</color>
+    <color name="bantouming2">#66cccccc</color>
+    <!--<color name="black">#333333</color>-->
+    <color name="white">#ffffff</color>
+    <color name="yellow">#dbf339</color>
+    <color name="green">#19709D</color>
+    <!--<color name="gray_other">#999999</color>-->
+
+    <!--列表-->
+    <color name="tl">#01C357</color>
+    <!--删除的-->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#f3564f</color>
+
+    <!-- zxing -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="bright_green">#ff00a976</color>
+
+
+    <!--颜色-->
+    <color name="primary">#2196F3</color>
+    <color name="darkPrimary">#1976D2</color>
+    <color name="accent">#FF4081</color>
+    <color name="title_bag">#2196F3</color>
+    <color name="text_color_context">#666666</color><!-- 字体颜色  标题灰色 -->
+    <color name="bag_gray">#f4f4f4</color>
+    <color name="bag_gray_transparent">#00FFFFFF</color>
+    <color name="text_color_golden">#fe6925</color>
+    <color name="window_gray">#f4f4f4</color>
+    <color name="text_color_qianhui">#999999</color><!-- 字体颜色  标题灰色 -->
+</resources>

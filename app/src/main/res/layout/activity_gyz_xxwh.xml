@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECECEC"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title"></include>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/dz1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="检查人:"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/dz1"
+            android:ellipsize="end"
+            android:maxEms="13"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="长沙岳麓区麓谷大道688号" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/dz2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="站点:"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_zhandian"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/dz2"
+            android:ellipsize="end"
+            android:maxEms="13"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="长沙岳麓区麓谷大道688号" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/dz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="地址:"
+            android:textSize="15sp" />
+
+        <TextView
+            android:maxEms="18"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/dz"
+            android:id="@+id/tv_dizhi"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="长沙岳麓区麓谷大道688号" />
+
+        <ImageView
+            android:id="@+id/iv_1"
+            android:layout_width="15dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/icon_dw" />
+    </RelativeLayout>
+
+
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/postedContentEt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_banner_height"
+        android:background="@color/white"
+        android:cursorVisible="false"
+        android:gravity="top"
+        android:hint="请输入..."
+        android:padding="@dimen/margin_size_common"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint_text_color"
+        android:textCursorDrawable="@drawable/edittext_cursor"
+        android:textSize="@dimen/text_size_normal" />
+
+
+    <com.example.lcsrq.view.BaseGridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:horizontalSpacing="3dp"
+        android:numColumns="4"
+        android:padding="@dimen/margin_size_common"
+        android:verticalSpacing="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_normal"
+            android:layout_marginLeft="@dimen/margin_size_common"
+            android:layout_marginRight="@dimen/margin_size_common"
+            android:background="@color/gray_line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_size_common">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/locationTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_mini"
+            android:text="所在的位置"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+</LinearLayout>

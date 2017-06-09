@@ -1,0 +1,54 @@
+<resources>
+    <!-- 标题栏文字大小 -->
+    <dimen name="title_bar_text_size">16.0dp</dimen>
+    <!-- 标题栏的高度 -->
+    <dimen name="title_bar_height">50.0dp</dimen>
+    <!--banner高度-->
+    <dimen name="main_banner_height">160.0dp</dimen>
+    <!--用户信息高度-->
+    <dimen name="people_info_height">230.0dp</dimen>
+    <!--达人用户高度-->
+    <dimen name="main_user_height">90.0dp</dimen>
+    <dimen name="main_user_width">80.0dp</dimen>
+    <!--头像-->
+    <dimen name="main_user_icon_layout_height">60.0dp</dimen>
+    <dimen name="main_user_icon">50.0dp</dimen>
+    <dimen name="main_user_icon_layout_height_small">40.0dp</dimen>
+    <dimen name="main_user_icon_small">30.0dp</dimen>
+    <dimen name="main_user_vip_icon_height">10.0dp</dimen>
+    <dimen name="main_user_vip_icon_width">20.0dp</dimen>
+    <!-- 主页导航栏 -->
+    <dimen name="tab_main_bottom_height">50.0dp</dimen>
+    <dimen name="tab_main_bottom_icon">20.0dp</dimen>
+    <dimen name="tab_main_bottom_text">14.0dp</dimen>
+    <dimen name="tab_main_bottom_center_circle">56.0dp</dimen>
+    <!--分割线-->
+    <dimen name="line_normal">1px</dimen>
+    <!--listview高度-->
+    <dimen name="listview_height_normal">50.0dp</dimen>
+    <!--按钮高度-->
+    <dimen name="btn_height_normal">40.0dp</dimen>
+    <!-- 字体的大小 -->
+    <dimen name="text_size_small">12dp</dimen>
+    <dimen name="text_size_normal">14dp</dimen>
+    <dimen name="text_size_middle">16dp</dimen>
+    <dimen name="text_size_large">20dp</dimen>
+    <!--icon-->
+    <dimen name="icon_size_small">20dp</dimen>
+    <dimen name="icon_size_middle">30dp</dimen>
+    <dimen name="icon_size_large">40dp</dimen>
+    <dimen name="icon_center_size">50dp</dimen>
+    <!--margin-->
+    <dimen name="margin_size_mini">5dp</dimen>
+    <dimen name="margin_size_small">10dp</dimen>
+    <dimen name="margin_size_common">10dp</dimen>
+    <dimen name="margin_size_middle">25dp</dimen>
+    <!--日期选择高度-->
+    <dimen name="date_viewpager_height">90dp</dimen>
+
+    <!--登录注册的输入框宽度-->
+    <dimen name="common_width">250dp</dimen>
+    <!--<dimen name="text_size_large">18dp</dimen>-->
+    <!--<dimen name="text_size_more_large">20dp</dimen>-->
+
+</resources>

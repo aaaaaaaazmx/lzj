@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!--第一部分-->
+    <RelativeLayout
+        android:padding="1dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rl_diyi"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_beichachuren"
+        android:textSize="12sp"
+        android:textColor="#929292"
+        android:layout_centerVertical="true"
+        android:text="被查出人:杨某某"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:textSize="12sp"
+            android:textColor="#929292"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:text="132132132132"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <!--第二部分-->
+    <LinearLayout
+        android:padding="1dp"
+        android:id="@+id/ll_dier"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/rl_diyi"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_shenfenzheng"
+            android:textSize="12sp"
+            android:textColor="#929292"
+            android:text="身份证 : 1111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="1dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/ll_dier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_qiyuan"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="#929292"
+            android:text="气源 : 哪里的气源"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--第三部分-->
+    <RelativeLayout
+        android:padding="1dp"
+        android:id="@+id/rl_disan"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_sp"
+            android:textSize="12sp"
+            android:textColor="#929292"
+            android:layout_centerVertical="true"
+            android:text="没收实瓶:多少多少"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_kp"
+            android:textSize="12sp"
+            android:textColor="#929292"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:text="没收空瓶 : 多少多少"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginLeft="@dimen/margin_size_common"
+        android:id="@+id/cc_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="6dp"
+        android:text="1111111111111111111111111111111111111111111111"
+        android:textColor="#606060"
+        android:textSize="15sp" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_marginBottom="10dp"
+        android:id="@+id/oneImgIv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="@dimen/margin_size_common"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="11dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@mipmap/ic_pic_fail"
+        fresco:placeholderImageScaleType="centerCrop" />
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:id="@+id/morePicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv1"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv3"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv4"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv5"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv6"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv7"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv8"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgIv9"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_pic_fail"
+                fresco:placeholderImageScaleType="centerCrop" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

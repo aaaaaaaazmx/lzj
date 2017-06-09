@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/oneImgIv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="@dimen/margin_size_common"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@mipmap/ic_pic_fail"
+        fresco:placeholderImageScaleType="centerCrop"
+        android:layout_marginBottom="7dp"
+        />
+
+
+
+        <TextView
+            android:layout_below="@+id/tv_gongyinghzan"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="检查时间:"
+            android:textColor="#C2C2C2"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:id="@+id/tv_gongyinghzan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginLeft="10dp"
+            android:text="供应站:"
+            android:textColor="#C2C2C2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_below="@+id/tv_gongyinghzan"
+            android:id="@+id/tv_danwei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="检查单位:"
+            android:textColor="#C2C2C2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_below="@+id/tv_danwei"
+            android:id="@+id/tv_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="检查详情:"
+            android:textColor="#C2C2C2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_below="@+id/tv_detail"
+            android:id="@+id/tv_jcr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="检查人:"
+            android:textColor="#C2C2C2"
+            android:textSize="13sp" />
+
+</LinearLayout>

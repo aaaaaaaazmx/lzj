@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
+    <include layout="@layout/layout_title"></include>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F7F7F7" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F7F7F7" />
+
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/type_page_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.lcsrq.view.PullToRefreshView
+            android:id="@+id/pullToRefreshView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ListView
+                android:scrollbars="none"
+                android:dividerHeight="0dp"
+                android:divider="@android:color/transparent"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/lv_jfxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+        </com.example.lcsrq.view.PullToRefreshView>
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
+</LinearLayout>

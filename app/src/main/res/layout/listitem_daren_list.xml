@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_common_title"
+    android:layout_width="65dp"
+    android:layout_height="80dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/userIconIv"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            fresco:placeholderImage="@mipmap/ic_self_nologin_touxiang"
+            fresco:roundAsCircle="true" />
+
+        <ImageView
+            android:id="@+id/userVipIv"
+            android:layout_width="@dimen/main_user_vip_icon_width"
+            android:layout_height="@dimen/main_user_vip_icon_height"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/userNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_small"></TextView>
+
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_cc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:textColor="#535353"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_ccr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_cc"
+            android:background="@color/white"
+            android:cursorVisible="false"
+            android:hint="请输入查处人姓名"
+            android:textColor="#535353"
+            android:textColorHint="@color/hint_text_color"
+            android:textCursorDrawable="@drawable/edittext_cursor"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_tj"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/icon_tj" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#D9D9D9" />
+</LinearLayout>

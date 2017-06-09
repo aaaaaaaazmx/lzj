@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:textColor="#19709D"
+            android:drawablePadding="10dp"
+            android:id="@+id/tv_ren"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/icon_cxr"
+            android:gravity="center"
+            android:text="人员查询    "
+            android:textSize="24dp" />
+
+        <TextView
+            android:textColor="#19709D"
+            android:drawablePadding="10dp"
+            android:id="@+id/tv_chepai"
+            android:textSize="24dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="车辆查询"
+            android:drawableLeft="@mipmap/icon_cpcx"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:textColor="#19709D"
+            android:drawablePadding="10dp"
+            android:id="@+id/tv_zhandian"
+            android:layout_width="wrap_content"
+           android:layout_height="0dp"
+           android:layout_gravity="center_horizontal"
+           android:layout_weight="1"
+           android:drawableLeft="@mipmap/icon_zdcx"
+           android:gravity="center"
+           android:text="供应站查询"
+           android:textSize="24dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <Button
+            android:textSize="15sp"
+            android:id="@+id/btn_fanhui"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_style"
+            android:padding="15dip"
+            android:text="返回"
+            android:textColor="#22779F" />
+    </LinearLayout>
+
+</LinearLayout>

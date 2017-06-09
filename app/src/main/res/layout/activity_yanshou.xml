@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/layout_title"></include>
+
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/type_page_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.lcsrq.view.PullToRefreshView
+            android:background="#f2f2f2"
+            android:id="@+id/pullToRefreshView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F2F2F2" />
+
+            <ListView
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/lv_yanshou"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </com.example.lcsrq.view.PullToRefreshView>
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
+
+</LinearLayout>

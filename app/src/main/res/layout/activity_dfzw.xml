@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/layout_title"></include>
+    <LinearLayout
+        android:background="#fff"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp">
+
+            <TextView
+                android:singleLine="true"
+                android:maxEms="6"
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="公司"
+                android:textColor="#404040"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icom_xlx" />
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="1dip"
+            android:layout_height="25dp"
+            android:background="#DCDCDC" />
+
+        <LinearLayout
+            android:id="@+id/ll_qx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/tv_quxian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="区县"
+                android:textColor="#404040"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icom_xlx" />
+
+        </LinearLayout>
+        <!--111111111111111111111111111111-->
+        <View
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_width="1dip"
+            android:layout_height="25dp"
+            android:background="#DCDCDC" />
+
+        <LinearLayout
+            android:id="@+id/ll_street"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/tv_jiedao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="街道"
+                android:textColor="#404040"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icom_xlx" />
+        </LinearLayout> <View
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_width="1dip"
+            android:layout_height="25dp"
+            android:background="#DCDCDC" />
+
+        <LinearLayout
+            android:id="@+id/ll_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="状态"
+                android:textColor="#404040"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icom_xlx" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F2F2F2" />
+
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/type_page_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.example.lcsrq.view.PullToRefreshView
+        android:background="#f2f2f2"
+        android:id="@+id/pullToRefreshView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ListView
+            android:scrollbars="none"
+            android:id="@+id/list_dfzw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent"></ListView>
+    </com.example.lcsrq.view.PullToRefreshView>
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
+</LinearLayout>
