@@ -91,6 +91,9 @@ public class GyzTijiaoActivity extends BaseActivity {
             tv_problem.setVisibility(View.VISIBLE);
             lv_tijiao.setVisibility(View.VISIBLE);
 
+
+
+
             for (GyzCheckBean bean:list ) {
                 String imageUrl = bean.getUploads();
                 if (!TextUtils.isEmpty(imageUrl)){
