@@ -64,6 +64,7 @@ public class MyHdDetailsActivity extends BaseActivity {
     private JuBaoBean dfzwdatas;
     private TextView commonRightText;
     private String flag;
+    private TextView tv_dizhi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,17 +189,19 @@ public class MyHdDetailsActivity extends BaseActivity {
                  tv_content1 = (TextView) findViewById(R.id.tv_content1);
                  */
                 tv_creat.setText("时间 : " + data.getCreat_at());
-                tv_address.setText(data.getAddress());
+                tv_address.setText(data.getContent());
                 tv_address.setTextColor(Color.BLACK); //  设置颜色字体
-//                tv_cp.setText("车牌号 : " +data.getCart_number());
+                tv_cp.setText("车牌号 : " +data.getCart_number()); //  车牌号
 
                 if (dfzwList.size()!= 0) {
                     tv_jbcs.setText("举报次数 : " + dfzwList.size() + "");
-                    tv_yjfzr.setText("一级负责人 : " + dfzwList.get(0).getM_nickname());
-                    tv_ejfzr.setText("二级负责人 : " + dfzwList.get(0).getMan());
+//                    tv_yjfzr.setText("一级负责人 : " + dfzwList.get(0).getM_nickname());
+//                    tv_ejfzr.setText("二级负责人 : " + dfzwList.get(0).getMan());
                 }
-
+                tv_yjfzr.setText("一级负责人 : " + data.getFzrs().get(0).getUname());
+                tv_ejfzr.setText("二级负责人 : " + data.getFzrs().get(1).getUname());
                 tv_content1.setText(data.getContent());  //  查处内容
+                tv_dizhi.setText("举报地址 : " + data.getAddress()); //  查处地址
             }
         }
     };
@@ -264,7 +267,8 @@ public class MyHdDetailsActivity extends BaseActivity {
         tv_ejfzr = (TextView) findViewById(R.id.tv_ejfzr);
         // 内容
         tv_content1 = (TextView) findViewById(R.id.tv_content1);
-
+        // 地址
+        tv_dizhi = (TextView) findViewById(R.id.tv_dizhi);
         // 状态
         iv_state = (ImageView) findViewById(R.id.iv_state);
 

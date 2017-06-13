@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <RelativeLayout
-        android:padding="5dp"
+        android:padding="10dp"
         android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -18,20 +18,21 @@
             android:layout_marginLeft="10dp"
             android:textSize="15sp"
             android:layout_centerVertical="true"
-            android:textColor="#666666"
+            android:textColor="#333333"
             android:id="@+id/tv_car_cp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="车牌" />
 
     <TextView
-        android:textSize="15sp"
+        android:maxLines="1"
+        android:textSize="12sp"
         android:layout_centerVertical="true"
         android:layout_marginBottom="1dp"
         android:padding="5dp"
         android:layout_marginTop="1dp"
         android:layout_centerHorizontal="true"
-        android:textColor="#666666"
+        android:textColor="#808080"
         android:id="@+id/tv_gs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +51,9 @@
 </RelativeLayout>
     </RelativeLayout>
     <View
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#D9D9D9" />
+        android:background="#D9D9D9"
+        />
 </LinearLayout>

@@ -104,6 +104,9 @@ public class GyzJcAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
 //        return subcategory[groupPosition].length;
+        if (data.getCklogtimeslist().size() == 0){
+            return 0;
+        }
         return data.getCklogtimeslist().size();
     }
 

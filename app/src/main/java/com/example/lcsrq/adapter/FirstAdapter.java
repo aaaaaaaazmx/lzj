@@ -3,6 +3,7 @@ package com.example.lcsrq.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -82,6 +83,11 @@ public class FirstAdapter extends BaseAdapter {
         holder.tv_title.setText(list.get(position).getTitle());
 
         BitmapUtils utils = new BitmapUtils(mContext);
+
+        // 如果为0 或者为空，就设置错误图片
+        if (list.get(position).getUpload_path().equals("0") || TextUtils.isEmpty(list.get(position).getUpload_path())){
+            holder.iv_img.setImageResource(R.mipmap.mrt_zgt);
+        }
         utils.display(holder.iv_img,list.get(position).getUpload_path());
         holder.tv_data.setText(list.get(position).getCreat_at());
 

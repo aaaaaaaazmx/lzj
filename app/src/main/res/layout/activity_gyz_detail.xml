@@ -77,6 +77,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/tv_fenshu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -159,6 +160,11 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
+                    <TextView
+                        android:text="证书有效期 : null"
+                        android:id="@+id/tv_zhengshu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -200,6 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
+                android:layout_marginTop="5dp"
                 android:listSelector="@android:color/transparent"></com.example.lcsrq.view.ExpandableListViewDY>
             <!--<View-->
                 <!--android:layout_width="match_parent"-->
@@ -213,6 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
+                android:layout_marginTop="5dp"
                 android:listSelector="@android:color/transparent"></com.example.lcsrq.view.ExpandableListViewDY>
             <!--<View-->
                 <!--android:layout_width="match_parent"-->
@@ -227,6 +235,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
+                android:layout_marginTop="5dp"
                 android:listSelector="@android:color/transparent"></com.example.lcsrq.view.ExpandableListViewDY>
 
             <!--<View-->
@@ -242,6 +251,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
+                android:layout_marginTop="5dp"
                 android:listSelector="@android:color/transparent"></com.example.lcsrq.view.ExpandableListViewDY>
 
             <!--<View-->
@@ -258,6 +268,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
+                android:layout_marginTop="5dp"
                 android:listSelector="@android:color/transparent"></com.example.lcsrq.view.ExpandableListViewDY>
 
             <View
@@ -298,6 +309,7 @@
                 android:src="@mipmap/icon_y" />
 
             <TextView
+                android:textColor="#2A7BA5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -319,6 +331,7 @@
                 android:src="@mipmap/icon_xxwf" />
 
             <TextView
+                android:textColor="#F7A7A7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

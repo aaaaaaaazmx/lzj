@@ -68,6 +68,7 @@ public class ScoringAdapter extends BaseAdapter {
             holder.tv_dt = (TextView) convertView.findViewById(R.id.tv_dt);
             holder.tv_creat = (TextView) convertView.findViewById(R.id.tv_creat);
             holder.iv_pic = (SimpleDraweeView) convertView.findViewById(R.id.iv_pic);
+            holder.tv_oid_name = (TextView) convertView.findViewById(R.id.tv_oid_name);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -76,6 +77,7 @@ public class ScoringAdapter extends BaseAdapter {
         holder.tv_title.setText("记分对象: " + datas.get(position).getOid_name());
         holder.tv_dt.setText(datas.get(position).getCompany_name());
         holder.tv_data.setText(datas.get(position).getOid_value() + "分");
+        holder.tv_oid_name.setText("记分人员 : "  + datas.get(position).getOid_name());
         switch (datas.get(position).getStatus()){
             case "1" :
                 holder.iv_pic.setImageResource(R.mipmap.icon_dqs);
@@ -102,5 +104,6 @@ public class ScoringAdapter extends BaseAdapter {
         TextView tv_dt;
         TextView tv_data;
         TextView tv_creat;
+        TextView tv_oid_name;
     }
 }

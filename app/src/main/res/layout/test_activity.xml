@@ -5,7 +5,6 @@
     android:orientation="vertical">
 
     <include layout="@layout/layout_title" />
-
     <com.example.lcsrq.view.PullToRefreshView
         android:id="@+id/pullToRefreshView"
         android:layout_width="match_parent"
@@ -21,5 +20,4 @@
             android:dividerHeight="0dp"
             android:listSelector="@android:color/transparent"></ListView>
     </com.example.lcsrq.view.PullToRefreshView>
-
 </LinearLayout>

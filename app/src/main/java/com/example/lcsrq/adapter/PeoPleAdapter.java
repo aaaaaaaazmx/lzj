@@ -66,7 +66,7 @@ public class PeoPleAdapter extends BaseAdapter {
             hodler = (ViewHodler) convertView.getTag();
         }
 
-        hodler.iv_sj.setImageResource(R.mipmap.icon_sj);
+        hodler.iv_sj.setImageResource(R.mipmap.icon_dhhm);
         hodler.tv_name.setText(data.get(position).getM_nickname());
         hodler.tv_phone.setText(data.get(position).getM_account());
 //        hodler.tv_fl.setText(data.get(position).getM_account());

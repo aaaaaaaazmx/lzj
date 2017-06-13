@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzDetailActivity;
+import com.example.lcsrq.adapter.CarDetailAdapter;
 import com.example.lcsrq.adapter.CarMangerAdapter;
 import com.example.lcsrq.adapter.GYZAdapter;
 import com.example.lcsrq.adapter.GyzLskfAdapter;
@@ -51,6 +53,7 @@ public class CarDetailActivity extends BaseActivity {
     private String did;
 
     private  TextView tv_cp,tv_jsy,tv_jf,tv_yyy,tv_sj_number,tv_dl,tv_jq,tv_company;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +67,19 @@ public class CarDetailActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.arg1 == 1){
+
+
+                CarDetailAdapter adapter = new CarDetailAdapter(CarDetailActivity.this);
+                adapter.setData(contentCarDetailRespData);
+                kf_list.setGroupIndicator(null);
+                kf_list.setGroupIndicator(null);
+                kf_list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
 //                System.out.println("datattttt" +  contentCarDetailRespData.getCompany());
                 tv_cp.setText(contentCarDetailRespData.getTitle());
                 tv_jsy.setText(contentCarDetailRespData.getDriver1_name());
-//                tv_jf.setText();    缺少计分情况
+                tv_jf.setText(contentCarDetailRespData.getJf_value());
                 tv_yyy.setText(contentCarDetailRespData.getDriver2_name());
                 tv_sj_number.setText(contentCarDetailRespData.getTel());
                 tv_dl.setText(contentCarDetailRespData.getYxtime());
@@ -100,10 +112,8 @@ public class CarDetailActivity extends BaseActivity {
         loginModel.getListOfCarDetail(CarDetailActivity.this, carDetailReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
-
                 contentCarDetailRespData  = JSON.parseObject((String) msg, ContentCarDetailRespData.class);
 //                System.out.println("contentCarDetailRespData" + contentCarDetailRespData.getCompany());
-
                 Message message = handler.obtainMessage();
                 message.arg1 = 1;
                 handler.sendMessage(message);
@@ -129,19 +139,15 @@ public class CarDetailActivity extends BaseActivity {
     protected void findViews() {
         Intent intent = getIntent();
         did  = intent.getStringExtra("did"); // 18
+//        Toast.makeText(CarDetailActivity.this,did + "",Toast.LENGTH_SHORT).show();
 
         kf_list = (ExpandableListView) findViewById(R.id.kf_list);// 扣分下拉列表
         gyz_list = (ExpandableListView) findViewById(R.id.gyz_list);    // 供应站下拉列表
 
 
 
-        GyzLskfAdapter adapter = new GyzLskfAdapter(this);
-
-//         去掉左边箭头
-        kf_list.setGroupIndicator(null);
 
 
-        kf_list.setAdapter(adapter);
 
         commonLeftBtn = (LinearLayout) findViewById(R.id.commonLeftBtn);
         commonLeftBtn.setVisibility(View.VISIBLE);

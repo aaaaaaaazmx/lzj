@@ -1,6 +1,7 @@
 package com.example.lcsrq.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 
 import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.My.MyRectification;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzCheckActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzYanshouActivity;
 import com.example.lcsrq.bean.req.TiJiaoZgstate;
 import com.example.lcsrq.bean.respbean.Data_ckloglist;
+import com.example.lcsrq.bean.resq.GyzCheckRespData;
 import com.example.lcsrq.bean.resq.GyzCheckZgJlRespData;
 import com.example.lcsrq.http.OnLoadComBackListener;
 import com.example.lcsrq.model.LoginModel;
@@ -25,6 +28,7 @@ import com.example.lcsrq.xiangce.UiTool;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lidroid.xutils.BitmapUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +36,8 @@ import java.util.ArrayList;
  */
 
 public class YanShouAdapter extends BaseAdapter {
-    private   ArrayList<Data_ckloglist> datas = new ArrayList<>();
+    private   ArrayList<GyzCheckZgJlRespData> datas = new ArrayList<>();
+    private ArrayList<String >lists = new ArrayList<String>();
     private Activity activity;
     private Button btn_zg;
 
@@ -40,11 +45,11 @@ public class YanShouAdapter extends BaseAdapter {
         this.activity = activity;
     }
 
-    public  ArrayList<Data_ckloglist> getDatas() {
+    public  ArrayList<GyzCheckZgJlRespData> getDatas() {
         return datas;
     }
 
-    public void setDatas( ArrayList<Data_ckloglist> datas) {
+    public void setDatas( ArrayList<GyzCheckZgJlRespData> datas) {
         this.datas = datas;
     }
 
@@ -109,51 +114,53 @@ public class YanShouAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
+        //隐藏图片
+        holder.oneImgIv.setVisibility(View.GONE);
         // 图片
-        String imgUrlStr = datas.get(position).getUpload_json();
-        if (!TextUtils.isEmpty(imgUrlStr) && imgUrlStr != "0") {
-            final String[] imgurls = imgUrlStr.split(",");
-            if (imgurls.length == 1) {
-                holder.oneImgIv.setVisibility(View.VISIBLE);
-                holder.morePicLayout.setVisibility(View.GONE);
-                DensityUtil.lzj(holder.oneImgIv, imgurls[0]);
-                holder.oneImgIv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        UiTool.showPic(activity, imgurls[0]);
-                    }
-                });
-            } else if (imgurls.length > 1) {
-                holder.oneImgIv.setVisibility(View.GONE);
-                holder.morePicLayout.setVisibility(View.VISIBLE);
-                for (int i = 0; i < holder.imgs.length; i++) {
-                    if (i < imgurls.length) {
-                        DensityUtil.lzj(holder.imgs[i], imgurls[i]);
-                        final int index = i;
-                        holder.imgs[i].setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                UiTool.showPic(activity, imgurls[index]);
-                            }
-                        });
-                    } else {
-                        int lineImg = imgurls.length / 3;
-                        int lineNoImg = i / 3;
-                        if (lineNoImg > lineImg) {
-                            holder.imgs[i].setVisibility(View.GONE);
-                        } else {
-                            holder.imgs[i].setVisibility(View.INVISIBLE);
-                        }
-                    }
-                }
-            }
-        } else {
-            holder.morePicLayout.setVisibility(View.GONE);
-            holder.oneImgIv.setVisibility(View.GONE);
-        }
+//        String imgUrlStr = datas.get(position).getUpload_json();
+//        if (!TextUtils.isEmpty(imgUrlStr) && imgUrlStr != "0") {
+//            final String[] imgurls = imgUrlStr.split(",");
+//            if (imgurls.length == 1) {
+//                holder.oneImgIv.setVisibility(View.VISIBLE);
+//                holder.morePicLayout.setVisibility(View.GONE);
+//                DensityUtil.lzj(holder.oneImgIv, imgurls[0]);
+//                holder.oneImgIv.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        UiTool.showPic(activity, imgurls[0]);
+//                    }
+//                });
+//            } else if (imgurls.length > 1) {
+//                holder.oneImgIv.setVisibility(View.GONE);
+//                holder.morePicLayout.setVisibility(View.VISIBLE);
+//                for (int i = 0; i < holder.imgs.length; i++) {
+//                    if (i < imgurls.length) {
+//                        DensityUtil.lzj(holder.imgs[i], imgurls[i]);
+//                        final int index = i;
+//                        holder.imgs[i].setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                UiTool.showPic(activity, imgurls[index]);
+//                            }
+//                        });
+//                    } else {
+//                        int lineImg = imgurls.length / 3;
+//                        int lineNoImg = i / 3;
+//                        if (lineNoImg > lineImg) {
+//                            holder.imgs[i].setVisibility(View.GONE);
+//                        } else {
+//                            holder.imgs[i].setVisibility(View.INVISIBLE);
+//                        }
+//                    }
+//                }
+//            }
+//        } else {
+//            holder.morePicLayout.setVisibility(View.GONE);
+//            holder.oneImgIv.setVisibility(View.GONE);
+//        }
 
         holder.tv_danwei.setText("检查单位 : " +datas.get(position).getCheck_dw());
-        holder.tv_detail.setText(datas.get(position).getRemark());
+        holder.tv_detail.setText(datas.get(position).getContent());
         holder.tv_gongyinghzan.setText("检查站点 : " + datas.get(position).getSupply_name());
         holder.tv_jcr.setText("检查人 : " + datas.get(position).getM_nickname());
         holder.tv_time.setText("检查时间 : " + datas.get(position).getCreat_at());
@@ -169,19 +176,27 @@ public class YanShouAdapter extends BaseAdapter {
                 holder.btn_zg.setText("已验收");
                 break;
             case "4":
-                holder.btn_zg.setText("验收");
+                holder.btn_zg.setText("合格");
                 break;
         }
         // 未验收
-        holder.btn_wzg.setText("未验收");
+        holder.btn_wzg.setText("不合格");
         holder.btn_wzg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               lists.add(datas.get(position).getCheck_id());
                 datas.remove(position);   //  提交成功直接移除
                 notifyDataSetChanged();
+                // 没有了,直接跳转
+                if (datas.size() == 0){
+                    Intent intent = new Intent(activity, GyzCheckActivity.class);
+                    intent.putStringArrayListExtra("check_id",lists);
+//                    intent.putExtra("check_id","2");
+                    activity.startActivity(intent);
+                    activity.finish();
+                }
             }
         });
-
 
         // 整改点击事件  提交整改状态
         holder.btn_zg.setOnClickListener(new View.OnClickListener() {
@@ -206,8 +221,18 @@ public class YanShouAdapter extends BaseAdapter {
                     @Override
                     public void onSuccess(Object msg) {
                         Toast.makeText(activity,"提交成功", Toast.LENGTH_SHORT).show();
+                        lists.add(datas.get(position).getCheck_id());
                         datas.remove(position);   //  提交成功直接移除
                         notifyDataSetChanged();
+//                        lists.add(datas.get(position).getCheck_id());
+                        // 没有了,直接跳转
+                        if (datas.size() == 0){
+                            Intent intent = new Intent(activity, GyzCheckActivity.class);
+                            intent.putStringArrayListExtra("check_id",lists);
+//                            intent.putExtra("check_id","2");
+                            activity.startActivity(intent);
+                            activity.finish();
+                        }
                     }
                     @Override
                     public void onError(String msg) {

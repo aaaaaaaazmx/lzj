@@ -38,6 +38,8 @@ import com.example.lcsrq.view.PullToRefreshView;
 import com.example.lcsrq.xiangce.UiTool;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
+import org.w3c.dom.ls.LSException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -68,14 +70,20 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yanshou);
-//        initData(); //加载第二页的数据或者是第三页的数据
-        yashouDatas = ( ArrayList<Data_ckloglist>) getIntent().getSerializableExtra("data");
-        Toast.makeText(GyzYanshouActivity.this,yashouDatas.size() + "",Toast.LENGTH_SHORT).show();
         supply_id = getIntent().getStringExtra("supply_id");
-        Toast.makeText(GyzYanshouActivity.this,supply_id+"",Toast.LENGTH_SHORT).show();
-        yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
-        yanShouAdapter.setDatas(yashouDatas);
-        lv_yanshou.setAdapter(yanShouAdapter);
+        initData(); //加载第二页的数据或者是第三页的数据
+
+
+//        Toast.makeText(GyzYanshouActivity.this,yashouDatas.size() + "",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(GyzYanshouActivity.this,supply_id+"",Toast.LENGTH_SHORT).show();
+
+    // 传过来的存在问题
+        yashouDatas = ( ArrayList<Data_ckloglist>) getIntent().getSerializableExtra("data");
+//        yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
+//        yanShouAdapter.setDatas(yashouDatas);
+//        lv_yanshou.setAdapter(yanShouAdapter);
+
+
 
     }
 
@@ -83,28 +91,31 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-//            if (msg.arg1 == 1) {
-//                page++;
-//                shanglaPager = page;
-//                yashouDatas.addAll(Datas);
-//                yanShouAdapter.notifyDataSetChanged();
-//            }
+            if (msg.arg1 == 1){
+                yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
+                yanShouAdapter.setDatas(Datas);
+                lv_yanshou.setAdapter(yanShouAdapter);
+                Toast.makeText(GyzYanshouActivity.this,Datas.size() + "",Toast.LENGTH_SHORT).show();
+            }
         }
     };
     private int page = 2;
     // 加载数据
     private void initData() {
         loginModel = new LoginModel();
-        final GyzCheckZgJlReqData gyzCheckZgJlReqData = new GyzCheckZgJlReqData();
-        gyzCheckZgJlReqData.setPage(page);
-        gyzCheckZgJlReqData.setStatus(1);// 待整改
+        GyzCheckZgJlReqData gyzCheckZgJlReqData = new GyzCheckZgJlReqData();
+
+        gyzCheckZgJlReqData.setStatus(0);// 待整改
         gyzCheckZgJlReqData.setSupply_id(Integer.parseInt(supply_id));
+
         loginModel.putGyzCheckZgJl(GyzYanshouActivity.this, gyzCheckZgJlReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
                 closeDialog();
+
                 pullToRefreshView.onHeaderRefreshComplete();
                 pullToRefreshView.onFooterRefreshComplete();
+
                 Datas = (ArrayList<GyzCheckZgJlRespData>) msg;
 
                 Message message = handler.obtainMessage();
@@ -135,7 +146,7 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
         commonTitleTv.setText("验收");
 
         commonRightText = (TextView) findViewById(R.id.commonRightText);
-        commonRightText.setVisibility(View.VISIBLE);
+        commonRightText.setVisibility(View.GONE);
         commonRightText.setText("跳转检查");
 
         // 下拉刷新
@@ -282,12 +293,11 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
     // 下拉刷新和加载更多
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
-                initData();
+        pullToRefreshView.onFooterRefreshComplete();
     }
 
     @Override
     public void onHeaderRefresh(PullToRefreshView view) {
-            yanShouAdapter.notifyDataSetChanged();
             pullToRefreshView.onHeaderRefreshComplete();
     }
 }

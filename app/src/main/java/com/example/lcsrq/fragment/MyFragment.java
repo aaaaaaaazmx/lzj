@@ -25,6 +25,7 @@ import com.example.lcsrq.activity.manger.hdhc.HdhcCheckActivity;
 import com.example.lcsrq.activity.manger.hdhc.MyHdHcactvity;
 import com.example.lcsrq.base.BaseFragment;
 import com.example.lcsrq.bean.resq.JuBaoBean;
+import com.example.lcsrq.model.LoginModel;
 import com.example.lcsrq.value.Global;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -44,6 +45,7 @@ public class MyFragment extends BaseFragment {
     private SimpleDraweeView noLoginUserIconIv;
     private RelativeLayout rl_myjubao,rl_myjiancha;
     private RelativeLayout rl_jf;
+    private View view;
 
     public MyFragment() {
         super();
@@ -52,15 +54,28 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.inflater = inflater;
-        View view = inflater.inflate(R.layout.activity_me, container, false);
-        user_name = (TextView) view.findViewById(R.id.user_name);
+//        view = inflater.inflate(R.layout.activity_me, container, false);
+//        user_name = (TextView) view.findViewById(R.id.user_name);
 
+//        findViews(view);
+//        addAction();
+//        initData();
+//        return view;
 
-        findViews(view);
-        addAction();
-        initData();
+        if (view == null){
+            view =  inflater.inflate( R.layout.activity_me,null);
+            user_name = (TextView) view.findViewById(R.id.user_name);
+            findViews(view);
+            addAction();
+            initData();
+        }else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent!=null){
+                parent.removeView(view);
+            }
+        }
         return view;
+
     }
 
     private void initData() {
@@ -140,7 +155,12 @@ public class MyFragment extends BaseFragment {
         //  跳转我的整改
         if (v.getId() == R.id.rl_my_zg) {
 //            startActivity(new Intent(getActivity(), MyRectification.class));
-            startActivity(new Intent(getActivity(), MyZhengGaiActiviity.class));
+            // 从业人员和管理人员都可以查看我的
+            if (Global.m_roleid.equals("1") || Global.m_roleid.equals("3")){
+                startActivity(new Intent(getActivity(), MyZhengGaiActiviity.class));
+            }else {
+                Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();
+            }
         } else if (v.getId() == R.id.rl_my_hdhc) {
             // 我的黑点
             if (Global.m_roleid.equals("3")) {
@@ -150,14 +170,22 @@ public class MyFragment extends BaseFragment {
                 Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();
             }
         }else if(v.getId() == R.id.rl_contact){
-                 // 我的通讯录
+            // 我的通讯录
+            if (Global.m_roleid.equals("3")){
                 startActivity(new Intent(getActivity(), MycontactActivity.class));
+            }else {
+                Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();
+            }
+
 
         }else if (v.getId() == R.id.rl_myjubao){
             //我的举报
 //            startActivity(new Intent(getActivity(),MyHdHcactvity.class));
 //            startActivity(new Intent(getActivity(),MyJuBaoActivity.class));
-            startActivity(new Intent(getActivity(),JuBaoActivity.class));
+
+              startActivity(new Intent(getActivity(),JuBaoActivity.class));
+
+
         }else if (v.getId() == R.id.rl_myjiancha){
             //  我的检查
             if (Global.m_roleid.equals("3")) {
@@ -169,7 +197,11 @@ public class MyFragment extends BaseFragment {
         }
         //w我的记分
         if (v.getId() == R.id.rl_jf){
-            startActivity(new Intent(getActivity(), MyScoreActivity.class));
+            if (Global.m_roleid.equals("3")){
+                Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();
+            }else {
+                startActivity(new Intent(getActivity(), MyScoreActivity.class));
+            }
         }
     }
     @Override

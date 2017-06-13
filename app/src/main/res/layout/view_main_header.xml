@@ -65,8 +65,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_gyz" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:paddingTop="5dp"
                 android:text="供应站管理"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,8 +87,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_clcl" />
 
             <TextView
@@ -97,7 +97,7 @@
                 android:paddingTop="5dp"
                 android:text="车辆管理"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,8 +109,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_dfzw" />
 
             <TextView
@@ -119,7 +119,7 @@
                 android:paddingTop="5dp"
                 android:text="打非治违"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -146,8 +146,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_jf" />
 
             <TextView
@@ -156,7 +156,7 @@
                 android:paddingTop="5dp"
                 android:text="记分管理"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -168,17 +168,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_hypx" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:text="行业培训"
+                android:text="警钟长鸣"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_wyjb"
@@ -189,8 +189,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_jb" />
 
             <TextView
@@ -199,7 +199,7 @@
                 android:paddingTop="5dp"
                 android:text="我要举报"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -226,8 +226,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_xxcx" />
 
             <TextView
@@ -236,7 +236,7 @@
                 android:paddingTop="5dp"
                 android:text="信息查询"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -248,8 +248,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_cx" />
 
             <TextView
@@ -258,7 +258,7 @@
                 android:paddingTop="5dp"
                 android:text="诚信记录"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_flfg"
@@ -270,8 +270,8 @@
 
             <ImageView
                 android:id="@+id/iv_flfg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@mipmap/icon_flfg" />
 
             <TextView
@@ -281,7 +281,7 @@
                 android:paddingTop="5dp"
                 android:text="法律法规"
                 android:textColor="#333"
-                android:textSize="15dp" />
+                android:textSize="13dp" />
         </LinearLayout>
 
 
@@ -344,7 +344,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="行业动态"
-                android:textColor="#D2D2D2"
+                android:textColor="#808080"
                 android:textSize="14dp" />
 
             <View

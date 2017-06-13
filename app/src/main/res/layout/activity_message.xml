@@ -8,12 +8,27 @@
    <include layout="@layout/layout_title" />
 
 
-   <ListView
-       android:listSelector="@android:color/transparent"
-       android:id="@+id/lv_list"
+   <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+       android:id="@+id/type_page_progress"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+       android:layout_height="match_parent">
 
-   </ListView>
+      <com.example.lcsrq.view.PullToRefreshView
+          android:id="@+id/pullToRefreshView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+         <ListView
+             android:id="@+id/lv_list"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:divider="@null"
+             android:dividerHeight="0dp"
+             android:listSelector="@android:color/transparent"
+             android:scrollbars="none"></ListView>
+      </com.example.lcsrq.view.PullToRefreshView>
+   </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
 
 </LinearLayout>

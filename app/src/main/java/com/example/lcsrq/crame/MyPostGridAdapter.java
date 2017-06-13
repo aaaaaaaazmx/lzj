@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.lcsrq.R;
+import com.example.lcsrq.xiangce.UiTool;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -60,19 +62,29 @@ public class MyPostGridAdapter extends BaseAdapter {
             holder.closeIv.setVisibility(View.GONE);
         } else {
             holder.closeIv.setVisibility(View.VISIBLE);
-
             if (urls.get(position) != null) {
                 holder.img.setScaleType(SimpleDraweeView.ScaleType.CENTER_CROP);
                 holder.img.setImageBitmap(urls.get(position));
-
             }
         }
+
         holder.closeIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 deletePicImp.deletePic(position);
             }
         });
+        //查看大图
+        if(position!=urls.size()){
+            holder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UiTool.showPic(context,urls.get(position));
+                }
+            });
+        }
+
         return convertView;
     }
 

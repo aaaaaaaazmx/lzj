@@ -9,7 +9,7 @@
     <RelativeLayout
         android:background="#fff"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -28,9 +28,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
-        fresco:actualImageScaleType="focusCrop"
-        fresco:roundAsCircle="true"
-        fresco:roundedCornerRadius="180dp" />
+        />
 
 
         <!--<com.thinkcool.circletextimageview.CircleTextImageView-->
@@ -54,10 +52,13 @@
             android:layout_height="wrap_content">
             <!--标题-->
             <TextView
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="1"
                 android:layout_marginBottom="30dp"
                 android:text="1"
                 android:textSize="12sp"
-                android:textColor="#656565"
+                android:textColor="#333333"
                 android:id="@+id/tv_title"
                 android:layout_marginLeft="70dp"
                 android:layout_width="wrap_content"
@@ -69,7 +70,7 @@
                 android:layout_marginBottom="30dp"
                 android:text="2013-1-23"
                 android:textSize="12sp"
-                android:textColor="#656565"
+                android:textColor="#cccccc"
                 android:id="@+id/tv_content"
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
@@ -77,9 +78,11 @@
 
             <!--内容-->
             <TextView
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="2"
                 android:textSize="12sp"
-                android:textColor="#656565"
+                android:textColor="#808080"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="70dp"
                 android:id="@+id/tv_data"

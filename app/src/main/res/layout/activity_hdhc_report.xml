@@ -87,7 +87,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:textColor="#a000"
+                    android:textColor="#333333"
                     android:id="@+id/tv_leixing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:textColor="#a000"
+                    android:textColor="#333333"
                     android:id="@+id/tv_cph"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,8 +143,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:maxLength="1"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:inputType="number"
                     android:id="@+id/et_carnum"
                     android:layout_width="match_parent"
@@ -156,7 +155,7 @@
                     android:background="@color/white"
                     android:cursorVisible="true"
                     android:hint="请输入车牌号.."
-                    android:textColor="@color/black"
+                    android:textColor="#808080"
                     android:textColorHint="@color/hint_text_color"
                     android:textCursorDrawable="@drawable/edittext_cursor"
                     android:textSize="15sp" />
@@ -186,7 +185,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:textColor="#a000"
+                    android:textColor="#333333"
                     android:id="@+id/tv_diqu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,7 +205,7 @@
                     android:layout_toRightOf="@+id/tv_diqu"
                     android:background="@color/white"
                     android:cursorVisible="true"
-                    android:textColor="@color/black"
+                   android:textColor="#808080"
                     android:textColorHint="@color/hint_text_color"
                     android:textCursorDrawable="@drawable/edittext_cursor"
                     android:textSize="15sp" />
@@ -238,7 +237,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:textColor="#a000"
+                    android:textColor="#333333"
                     android:id="@+id/tv_dizhi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -273,7 +272,7 @@
                     android:background="@color/white"
                     android:cursorVisible="true"
                     android:hint="请选择地址..."
-                    android:textColor="@color/black"
+                   android:textColor="#808080"
                     android:textColorHint="@color/hint_text_color"
                     android:textCursorDrawable="@drawable/edittext_cursor"
                     android:textSize="15sp" />

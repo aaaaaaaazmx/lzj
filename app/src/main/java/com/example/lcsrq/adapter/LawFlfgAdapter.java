@@ -80,14 +80,17 @@ public class LawFlfgAdapter extends BaseAdapter {
             hodler.iv_pic = (SimpleDraweeView) convertView.findViewById(R.id.iv_pic);
             hodler.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             hodler.tv_data = (TextView) convertView.findViewById(R.id.tv_data);
+            hodler.tv_content = (TextView) convertView.findViewById(R.id.tv_content);
             convertView.setTag(hodler);
         }else {
             hodler = (ViewHodler) convertView.getTag();
         }
         DensityUtil.lzj(hodler.iv_pic,flfgList.get(position).getUpload_path());
-        hodler.tv_data.setText(flfgList.get(position).getCreat_at());
+        hodler.tv_data.setText(flfgList.get(position).getRemark());
         hodler.tv_title.setText(flfgList.get(position).getTitle());
-
+        String creat_at = flfgList.get(position).getCreat_at();
+        String substring = creat_at.substring(0, 10);
+        hodler.tv_content.setText(substring);
         return convertView;
     }
 
@@ -95,6 +98,8 @@ public class LawFlfgAdapter extends BaseAdapter {
         SimpleDraweeView iv_pic;
         TextView tv_title;
         TextView tv_data;
+        TextView tv_content;
+
     }
 
 }

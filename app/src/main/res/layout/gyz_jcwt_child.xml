@@ -160,7 +160,7 @@
 
             <TextView
                 android:textSize="15sp"
-                android:textColor="#666666"
+                android:textColor="#333333"
                 android:id="@+id/tv_jcr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
 
             <TextView
                 android:textSize="12sp"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:id="@+id/tv_creat_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
 
             <TextView
                 android:textSize="12sp"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:id="@+id/tv_danwei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

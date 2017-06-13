@@ -101,6 +101,7 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
     private String weizhi;
     private String title;
     private TextView tv_name,tv_zhandian;
+    private Button btn_submit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,14 +118,18 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
 
     @Override
     protected void addAction() {
+
+
+        // 提交修改
+        btn_submit.setOnClickListener(this);
+
         commonLeftBtn.setOnClickListener(this);
         commonRightBtn.setOnClickListener(this);
 
         postedContentEt.setOnClickListener(this);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
                 if (arg2 == bitmaps.size()) {
                     UiTool.hideKeyboard(GyzXxwhActivity.this);
                     if (bitmaps.size() >= 9) {
@@ -141,6 +146,9 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
 
     @Override
     protected void findViews() {
+
+        // 提交修改
+        btn_submit = (Button) findViewById(R.id.btn_submit);
 
         commonLeftBtn = (LinearLayout) findViewById(R.id.commonLeftBtn);
         commonLeftBtn.setVisibility(View.VISIBLE);
@@ -159,6 +167,8 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
         commonRightText.setVisibility(View.VISIBLE);
         commonRightText.setText("确定");
         commonRightText.setBackgroundResource(R.drawable.corner_toumingbg_greenborder_2dp);
+        commonRightText.setVisibility(View.GONE); // 隐藏右上角
+
 
         postedContentEt = (EditText) findViewById(R.id.postedContentEt);
         locationTv = (TextView) findViewById(R.id.locationTv);
@@ -181,7 +191,14 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.commonRightBtn) {
+        // 提交修改
+        if (view.getId() == R.id.btn_submit){
+
+            dizhi = tv_dizhi.getText().toString();
+            showLoading("正在加载");
+            sendPicPost(); // 上传照片,并返回地址
+
+        }else  if (view.getId() == R.id.commonRightBtn) {
             dizhi = tv_dizhi.getText().toString();
             showLoading("正在加载");
             sendPicPost(); // 上传照片,并返回地址

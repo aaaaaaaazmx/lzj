@@ -264,7 +264,6 @@ public class LoginModel {
 
     // 车辆管理.获取车辆列表详情
     public void getListOfCarDetail(Context context, ContentCarDetailReqData baseReq, final OnLoadComBackListener listener) {
-
         ModelHttp.postHttpClient(context, UrlParser.Key_cartshow, baseReq, new ProcessListener() {
 
             @Override

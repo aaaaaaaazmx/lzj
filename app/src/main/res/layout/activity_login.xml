@@ -47,6 +47,7 @@
                     android:textSize="15sp" />
 
                 <EditText
+                    android:cursorVisible="true"
                     android:maxEms="11"
                     android:singleLine="true"
                     android:maxLines="1"
@@ -57,8 +58,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:background="@android:color/transparent"
-                    android:cursorVisible="false"
                     android:hint="请输入电话号码                   "
+                    android:textColorHint="@color/hint_text_color"
+                    android:textCursorDrawable="@drawable/edittext_cursor"
                     android:maxLength="11"
                     android:textColor="#636363"
                     android:textSize="17sp" />
@@ -81,6 +83,7 @@
 
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -96,7 +99,9 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:cursorVisible="false"
+                    android:cursorVisible="true"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textCursorDrawable="@drawable/edittext_cursor"
                     android:hint="            "
                     android:inputType="number"
                     android:maxLength="6"

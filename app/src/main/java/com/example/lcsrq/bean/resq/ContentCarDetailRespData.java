@@ -29,6 +29,7 @@ package com.example.lcsrq.bean.resq;
  "driver2_name":"押送员",
  */
 
+import com.example.lcsrq.bean.respbean.Data_jftloglist;
 import com.example.lcsrq.bean.respbean.Supplylist;
 
 import java.io.Serializable;
@@ -83,6 +84,24 @@ public class ContentCarDetailRespData implements Serializable{
     public String driver2_name;
 //    public String supplylist;
     public ArrayList<Supplylist> supplylist;
+    public String jf_value;
+    public ArrayList<Data_jftloglist> jftloglist; //  历史扣分项目
+
+    public String getJf_value() {
+        return jf_value;
+    }
+
+    public void setJf_value(String jf_value) {
+        this.jf_value = jf_value;
+    }
+
+    public ArrayList<Data_jftloglist> getJftloglist() {
+        return jftloglist;
+    }
+
+    public void setJftloglist(ArrayList<Data_jftloglist> jftloglist) {
+        this.jftloglist = jftloglist;
+    }
 
     public String getId() {
         return id;

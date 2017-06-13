@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzDetailActivity;
 import com.example.lcsrq.bean.resq.ContentGyzDetailRespData;
+import com.lidroid.xutils.db.annotation.Id;
 
 /**
  * Created by 苏毅 on 2017/3/31.
@@ -110,7 +111,11 @@ public class GyzDzgAdapter extends BaseExpandableListAdapter {
         // TODO Auto-generated method stub
 //        return subcategory[groupPosition].length;
         // 返回0 表示没有数据
-        return data.getCkloglist().size();
+        if (data.getCkloglist().size() == 0){
+            return 0;
+        }else {
+            return data.getCkloglist().size();
+        }
     }
 
     //取得显示给定分组给定子位置的数据用的视图
@@ -129,10 +134,12 @@ public class GyzDzgAdapter extends BaseExpandableListAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         //  时间和站点
-        holder.dzg_tv.setText("检查站点 : " + data.getCkloglist().get(childPosition).getSupply_name());
+//        holder.dzg_tv.setText("检查站点 : " + data.getCkloglist().get(childPosition).getSupply_name());
+        holder.dzg_tv.setText("存在问题 : " + data.getCkloglist().get(childPosition).getContent());
         holder.tv_creat.setText("检查时间 : " +data.getCkloglist().get(childPosition).getCreat_at());
-        holder.tv_danwei.setText("检查单位 : " + data.getCklogtimeslist().get(childPosition).getCheck_dw());
+        holder.tv_danwei.setText("检查单位 : " + data.getCkloglist().get(childPosition).getCheck_dw());
 
 //        ImageView iv_1 = (ImageView) inflate.findViewById(R.id.iv_1);
 //        ImageView iv_2 = (ImageView) inflate.findViewById(R.id.iv_2);
@@ -152,13 +159,13 @@ public class GyzDzgAdapter extends BaseExpandableListAdapter {
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         // TODO Auto-generated method stub
-        return data.getCkloglist().size();
+        return childPosition;
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         // TODO Auto-generated method stub
-        return data.getCkloglist().get(groupPosition);
+        return childPosition;
     }
 
     class ViewHolder {

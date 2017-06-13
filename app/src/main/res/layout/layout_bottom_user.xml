@@ -83,7 +83,7 @@
                 android:textColor="@color/bottom_text_color"
                 android:layout_marginTop="3dp"
                 android:textSize="@dimen/tab_main_bottom_text"
-                android:text="消息"/>
+                android:text="通知通报"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/selfLayout"

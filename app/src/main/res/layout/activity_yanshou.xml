@@ -6,6 +6,10 @@
     >
 
     <include layout="@layout/layout_title"></include>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F2F2F2" />
 
     <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
         xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
@@ -20,10 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#F2F2F2" />
+
 
             <ListView
                 android:divider="@android:color/transparent"

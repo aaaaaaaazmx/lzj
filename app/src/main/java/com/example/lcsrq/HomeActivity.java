@@ -49,6 +49,7 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTabSelection(index);
+
         loginModel = new LoginModel();
         iniData();  //  加载我的页面信息
     }
@@ -81,8 +82,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void findViews() {
-        index = getIntent().getIntExtra("index", 0);
-        fragmentManager = this.getSupportFragmentManager();
+
         fragmentManager = this.getSupportFragmentManager();
 
         // 首页
@@ -179,7 +179,7 @@ public class HomeActivity extends BaseActivity {
                 if (!securityFragment.isAdded()){
                     transaction.replace(R.id.container, securityFragment);
                 }
-                transaction.show(myFragment);
+                transaction.show(securityFragment);
                 break;
         }
         transaction.commit();
@@ -210,6 +210,16 @@ public class HomeActivity extends BaseActivity {
     private void hideFragments(FragmentTransaction transaction) {
         if (firstFragment != null) {
             transaction.hide(firstFragment);
+        }
+
+        if (secondFragment != null) {
+            transaction.hide(secondFragment);
+        }
+        if (myFragment != null) {
+            transaction.hide(myFragment);
+        }
+        if (securityFragment != null) {
+            transaction.hide(securityFragment);
         }
     }
 

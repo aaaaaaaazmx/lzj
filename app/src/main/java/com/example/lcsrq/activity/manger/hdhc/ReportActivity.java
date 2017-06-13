@@ -728,6 +728,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
             contentSumbitHdhcReqData.setContent(content); // 内容
             contentSumbitHdhcReqData.setUploads(urlStrs); //  图片地址
             contentSumbitHdhcReqData.setAreasid(areas); //  区域ID
+
             loginModel.getSubmitHdhc(ReportActivity.this, contentSumbitHdhcReqData, new OnLoadComBackListener() {
                         @Override
                         public void onSuccess(Object msg) {
@@ -742,7 +743,9 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 
                         }
                     }
+
             );
+            closeDialog();
         }else {
             //  黑点举报
             ContentSumbitHdhcReqData contentSumbitHdhcReqData = new ContentSumbitHdhcReqData();

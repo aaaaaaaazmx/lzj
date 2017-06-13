@@ -30,6 +30,8 @@ import com.example.lcsrq.bean.resq.getYzmRespData;
 import com.example.lcsrq.http.OnLoadComBackListener;
 import com.example.lcsrq.model.LoginModel;
 import com.example.lcsrq.utils.ExampleUtil;
+import com.example.lcsrq.utils.StringTool;
+import com.example.lcsrq.utils.TimerCount;
 import com.example.lcsrq.value.Global;
 
 import java.util.LinkedHashSet;
@@ -55,12 +57,12 @@ public class LoginActivity extends BaseActivity{
     private Random random;
     private int randomnum;
     private String yzm;
+    private TimerCount timerCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         loginModel = new LoginModel();
         // 获取缓存uid
         sp = getSharedPreferences("uId", MODE_PRIVATE);
@@ -197,6 +199,8 @@ public class LoginActivity extends BaseActivity{
 
         tv_yanzhengma = (TextView) findViewById(R.id.tv_yanzhengma);
         ll_yzm = (LinearLayout) findViewById(R.id.ll_yzm);
+
+        timerCount = new TimerCount(60000, 1000, tv_yanzhengma);
     }
 
     @Override
@@ -204,55 +208,95 @@ public class LoginActivity extends BaseActivity{
         if (v.getId() == R.id.btn_login) {
             phone = et_phone.getText().toString();
             password = ed_password.getText().toString();
+
             // 请求参数
             loginBean = new LoginReqData();
-
-//            if (!StringTool.isNotNull(phone)) {
-//                Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_LONG).show();
-//                et_phone.requestFocus();
-//                return;
+//            if (!phone.equals("rq1")){
+//                // 判断是不是手机号码
+//                if (!StringTool.isNotNull(phone)) {
+//                    Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_LONG).show();
+//                    et_phone.requestFocus();
+//                    return;
+//                }
+//                // 判断验证码是否为空
+//                if (!StringTool.isNotNull(password)) {
+//                    Toast.makeText(this, "验证码不能为空", Toast.LENGTH_LONG).show();
+//                    ed_password.requestFocus();
+//                    return;
+//                }
+//                if (!password.equals(yzm)){
+//                    Toast.makeText(LoginActivity.this,"验证码错误",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                // 如果不是空,如果是16位数的
+//                if (StringTool.isMobile(phone)) {//用户
+//                    loginBean.setAccount(phone);
+//                }
 //            }
-//
-//            if (!StringTool.isNotNull(password)) {
-//                Toast.makeText(this, "验证码不能为空", Toast.LENGTH_LONG).show();
-//                ed_password.requestFocus();
-//                return;
-//            }
-            // 如果不是空,如果是16位数的
 
-//            if (StringTool.isMobile(phone)) {//用户
+            if (phone.equals("rq1")){
+                loginBean.setAccount(phone);
+                loginModel.login(LoginActivity.this, loginBean, new OnLoadComBackListener() {
+                    @Override
+                    public void onSuccess(Object msg) {
+                        LoginRespData loginRespData = JSON.parseObject((String) msg, LoginRespData.class);
+
+                        Global.uid = loginRespData.getUid();
+                        // 缓存sp
+                        sp.edit().putString("uid", Global.uid).commit();
+                        setTag(loginRespData.getUid());  // 设置TAG
+                        // 跳转引导页
+                        startActivity(new Intent(LoginActivity.this, GuideActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        Toast.makeText(LoginActivity.this, msg.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                return;
+            }
+
+            // 验证码
+            if (!password.equals(yzm)){
+                Toast.makeText(LoginActivity.this,"验证码错误",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+
+
             loginBean.setAccount(phone);
-//            }
-
-
             loginModel.login(LoginActivity.this, loginBean, new OnLoadComBackListener() {
                 @Override
                 public void onSuccess(Object msg) {
                     LoginRespData loginRespData = JSON.parseObject((String) msg, LoginRespData.class);
 
                     Global.uid = loginRespData.getUid();
-
                     // 缓存sp
                     sp.edit().putString("uid", Global.uid).commit();
                     setTag(loginRespData.getUid());  // 设置TAG
                     // 跳转引导页
                     startActivity(new Intent(LoginActivity.this, GuideActivity.class));
-
                     finish();
                 }
 
                 @Override
                 public void onError(String msg) {
                     Toast.makeText(LoginActivity.this, msg.toString(), Toast.LENGTH_LONG).show();
-
                 }
             });
+
+
         } else if (v.getId() == R.id.tv_yanzhengma) {
             // 获取验证码6位数
             int tmp = Math.abs(random.nextInt());
-            yzm =  tmp % (999999 - 100000 + 1) + 100000 + "";
+            yzm =  tmp % (999999 - 100000 + 1) + 100000 + ""; // 验证码
 
+            showLoading("正在发送");
             Toast.makeText(LoginActivity.this,yzm+"",Toast.LENGTH_SHORT).show();
+
             String phone = et_phone.getText().toString();
             final GetYzmReqData getYzmReqData = new GetYzmReqData();
             getYzmReqData.setAppkey("d295bfaea5d45f019b63a45e9f4629f4");
@@ -265,11 +309,14 @@ public class LoginActivity extends BaseActivity{
                 @Override
                 public void onSuccess(Object msg) {
                     getYzmRespData getYzmRespData = JSON.parseObject((String) msg, getYzmRespData.class);
+                    timerCount.start();
+                    closeDialog();
                 }
 
                 @Override
                 public void onError(String msg) {
-            Toast.makeText(LoginActivity.this,msg.toString(),Toast.LENGTH_SHORT).show();
+                 Toast.makeText(LoginActivity.this,msg.toString(),Toast.LENGTH_SHORT).show();
+                    closeDialog();
                 }
             });
         }

@@ -24,7 +24,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +40,7 @@ import com.baidu.mapapi.utils.OpenClientUtil;
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.HomeActivity;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.PeopleDetail;
 import com.example.lcsrq.activity.manger.hdhc.HdhcCheckActivity;
 import com.example.lcsrq.adapter.GyzCyrAdapter;
 import com.example.lcsrq.adapter.GyzDzgAdapter;
@@ -104,6 +107,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
     private List<GyzCheckZgJlRespData> yashouDatas = new ArrayList<>();
     private boolean First = true;
     private DingweiUtil dingweiUtil;
+    private TextView tv_fenshu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -179,13 +183,17 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 tv_address.setText(data.getAddress());
                 tv_company.setText(data.getCompany());
                 tv_gs_phone.setText(data.getTel());
+                tv_fenshu.setText("累计记分 : " + data.getJf_value() + "分");
 
                 //  公司负责人
                 GyzGsFzrAdapter gyzGsFzrAdapter = new GyzGsFzrAdapter(GyzDetailActivity.this, new GyzGsFzrAdapter.OnAddOrdelClick() {
                     @Override
                     public void onCcClick(int position) {
+                        if (data.getData_fzr_company().size() == 0){
+                            return;
+                        }
                         // 拨打电话的链接
-                        phonenum  = data.getData_fzr().get(position).getTel();
+                        phonenum  = data.getData_fzr_company().get(position).getTel();
                         // 弹出确认拨打框
                         final AlertDialog dialog = new AlertDialog.Builder(new ContextThemeWrapper(GyzDetailActivity.this, R.style.Theme_Transparent)).create();
                         dialog.setView(LayoutInflater.from(GyzDetailActivity.this).inflate(R.layout.sure_pop, null), 0, 0, 0, 0);
@@ -222,15 +230,28 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                     }
                 });
                 gsfzr_list.setGroupIndicator(null);
-                gyzGsFzrAdapter.setData_fzr(data.getData_fzr());
+                gyzGsFzrAdapter.setData_fzr(data.getData_fzr_company());
                 gsfzr_list.setAdapter(gyzGsFzrAdapter);
-                gsfzr_list.expandGroup(0);
+//                gsfzr_list.expandGroup(0);
 
+                gsfzr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        String uid = data.getData_fzr_company().get(childPosition).getUid();
+                        Intent intent = new Intent(GyzDetailActivity.this, PeopleDetail.class);
+                        intent.putExtra("UID",uid);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
 
                 // 负责人f
                 GyzFzrAdapter gyzFzrAdapter = new GyzFzrAdapter(GyzDetailActivity.this, new GyzFzrAdapter.OnAddOrdelClick() {
                     @Override
                     public void onCcClick(int position) {
+                        if (data.getData_fzr().size() == 0){
+                            return;
+                        }
                         phonenum = data.getData_fzr().get(position).getTel();
 
                         // 弹出确认拨打框
@@ -270,12 +291,28 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 fzr_list.setGroupIndicator(null);
                 gyzFzrAdapter.setData_fzr(data.getData_fzr());
                 fzr_list.setAdapter(gyzFzrAdapter);
-                fzr_list.expandGroup(0);
+//                fzr_list.expandGroup(0);
+
+                // 点击item跳转详情
+                fzr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        String uid = data.getData_fzr().get(childPosition).getUid();
+
+                        Intent intent = new Intent(GyzDetailActivity.this, PeopleDetail.class);
+                        intent.putExtra("UID",uid);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
 
                 // 从业人
                 GyzCyrAdapter cyrFzrAdapter = new GyzCyrAdapter(GyzDetailActivity.this, new GyzCyrAdapter.OnAddOrdelClick() {
                     @Override
                     public void onCcClick(int position) {
+                        if (data.getData_ysg().size() == 0){
+                            return;
+                        }
                         // 拨打电话
                         phonenum = data.getData_ysg().get(position).getTel();
                         // 弹出确认拨打框
@@ -315,14 +352,27 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 cyrFzrAdapter.setData_ysg(data.getData_ysg());
                 cyr_list.setGroupIndicator(null);
                 cyr_list.setAdapter(cyrFzrAdapter);
-                cyr_list.expandGroup(0); // 默认展开
+//                cyr_list.expandGroup(0); // 默认展开
+
+                //  点击ITEM跳转详情
+                cyr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        String uid = data.getData_ysg().get(childPosition).getUid();
+                        Intent intent = new Intent(GyzDetailActivity.this, PeopleDetail.class);
+                        intent.putExtra("UID",uid);
+                        startActivity(intent);
+                       return true;
+                    }
+                });
+
 
                 // 检查记录
                 GyzJcAdapter gyzJcAdapter = new GyzJcAdapter(GyzDetailActivity.this);
                 gyzJcAdapter.setData(data);
                 jc_list.setGroupIndicator(null);
                 jc_list.setAdapter(gyzJcAdapter);
-                jc_list.expandGroup(0);
+//                jc_list.expandGroup(0);
 
 
                 // 存在问题
@@ -330,8 +380,14 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 dzgAdapter.setData(data);
                 dzg_list.setGroupIndicator(null);
                 dzg_list.setAdapter(dzgAdapter);
-                dzg_list.expandGroup(0);
+//                dzg_list.expandGroup(0);
 
+                // 历史扣分项目
+                GyzLskfAdapter lskfadapter = new GyzLskfAdapter(GyzDetailActivity.this);
+                lskfadapter.setData(data);
+                lskf_list.setGroupIndicator(null);
+                lskf_list.setAdapter(lskfadapter);
+//                lskf_list.expandGroup(0);
 
             } else if (msg.arg2 == 2) {
                 // 轮播图
@@ -380,7 +436,6 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
         contentGyzDetailReqData.setDid(Integer.parseInt(did));
 
         loginModel.getListOfGyzDetail(GyzDetailActivity.this, contentGyzDetailReqData, new OnLoadComBackListener() {
-
             @Override
             public void onSuccess(Object msg) {
                 data = JSON.parseObject((String) msg, ContentGyzDetailRespData.class);
@@ -455,6 +510,8 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
 
     @Override
     protected void findViews() {
+        // 扣分项目
+        tv_fenshu = (TextView) findViewById(R.id.tv_fenshu);
         // 电话
         iv_phone = (ImageView) findViewById(R.id.iv_phone);
 
@@ -501,10 +558,10 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
 
         // 历史扣分记录
         lskf_list = (ExpandableListViewDY) findViewById(R.id.lskf_list);
-        GyzLskfAdapter adapter = new GyzLskfAdapter(this);
-        lskf_list.setGroupIndicator(null);
-        lskf_list.setAdapter(adapter);
-        lskf_list.expandGroup(0);
+//        GyzLskfAdapter adapter = new GyzLskfAdapter(this);
+//        lskf_list.setGroupIndicator(null);
+//        lskf_list.setAdapter(adapter);
+//        lskf_list.expandGroup(0);
 
         // 轮播图
         viewpagerLayout = (ViewPager) findViewById(R.id.viewpagerLayout);
@@ -579,9 +636,10 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
 //                intent.putExtra("dizhi",data.getAddress() + "");
 //                intent.putExtra("title",data.getTitle() + "");
 //                startActivity(intent);
-//                return;
+//                return;xx
 //            }
             showLoading("正在加载");
+            ArrayList<Data_ckloglist> ckloglist = data.getCkloglist();
             boolean oPen = isOPen(GyzDetailActivity.this);
             if (oPen){
                 //  判断多少米
@@ -592,8 +650,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                     //  如果存在问题是空的, 就跳转checkactivity
                     if (data.getCkloglist().size() != 0){
                         Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
-                        intent.putExtra("data",(Serializable)yashouDatas);
-                        intent.putExtra("ckloglist",(Serializable)data);
+                        intent.putExtra("data",(Serializable)ckloglist);
                         intent.putExtra("supply_id",data.getId());
                         startActivity(intent);
                     }else {
@@ -626,12 +683,13 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                     closeDialog();
                     Toast.makeText(GyzDetailActivity.this,"您目前没有在查处范围",Toast.LENGTH_SHORT).show();
                 }
+
                 //目前是直接跳转CHECKaCTIVITY 并
-                ArrayList<Data_ckloglist> ckloglist = data.getCkloglist();
                 Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
                 intent.putExtra("data",(Serializable)ckloglist);
                 intent.putExtra("supply_id",data.getId());
                 startActivity(intent);
+
             }else {
                 closeDialog();
                 // 请打开GPS
@@ -666,8 +724,14 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                         Toast.makeText(GyzDetailActivity.this,"您没有权限!",Toast.LENGTH_SHORT).show();
                     }
                 }else {
+                    closeDialog();
                     Toast.makeText(GyzDetailActivity.this,"您目前没有在维护范围",Toast.LENGTH_SHORT).show();
                 }
+//                closeDialog();
+//                Intent intent = new Intent(GyzDetailActivity.this, GyzXxwhActivity.class);
+//                intent.putExtra("dizhi",data.getAddress() + "");
+//                intent.putExtra("title",data.getTitle() + "");
+//                startActivity(intent);
             }else {
                 closeDialog();
                 // 请打开GPS

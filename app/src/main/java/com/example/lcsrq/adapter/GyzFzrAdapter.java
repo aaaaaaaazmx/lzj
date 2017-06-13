@@ -37,7 +37,7 @@ public class GyzFzrAdapter extends BaseExpandableListAdapter {
     int[] logos = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
 
     //  父Item的标签
-    private String[] category = new String[]{"负责人名单  "};
+    private String[] category = new String[]{"供应站负责人  "};
 
     //子视图显示文字
     private String[][] subcategory = new String[][]{
@@ -139,6 +139,9 @@ public class GyzFzrAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         // TODO Auto-generated method stub
 //        return subcategory[groupPosition].length;
+        if (data_fzr.size() ==0){
+            return 0;
+        }
         return data_fzr.size();
     }
 

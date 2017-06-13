@@ -97,12 +97,26 @@ public class ScoringActivity extends BaseActivity implements MyPostGridAdapter.D
     private String jfid;
     private String dxid;
     private LoginModel loginModel;
+    private String choise;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jfxt_jf);
         loginModel = new LoginModel();
+
+        // 选择的类型
+        choise = getIntent().getStringExtra("choise");
+        type = Integer.parseInt(choise);
+        if(type == 1){
+            tv_jflx.setText("人员");
+        }
+        if(type == 2){
+            tv_jflx.setText("站点");
+        }
+        if(type == 3){
+            tv_jflx.setText("车辆");
+        }
     }
 
     @Override
@@ -398,6 +412,7 @@ public class ScoringActivity extends BaseActivity implements MyPostGridAdapter.D
                     @Override
                     public void onSuccess(Object msg) {
                         Toast.makeText(ScoringActivity.this,"提交成功",Toast.LENGTH_SHORT).show();
+                        finish();
                         closeDialog();
                     }
 

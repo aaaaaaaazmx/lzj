@@ -32,7 +32,7 @@ public class GyzCyrAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;
     //设置组视图的显示文字
-    private String[] category = new String[]{"从业人名单  "};
+    private String[] category = new String[]{"从业人  "};
 
     //子视图显示文字
     private String[][] subcategory = new String[][]{
@@ -133,6 +133,9 @@ public class GyzCyrAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         // TODO Auto-generated method stub
 //        return subcategory[groupPosition].length;
+        if (data_ysg.size() == 0){
+            return 0;
+        }
         return data_ysg.size();
     }
 
@@ -168,7 +171,7 @@ public class GyzCyrAdapter extends BaseExpandableListAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.iv_sj.setImageResource(R.mipmap.icon_sj);
+        holder.iv_sj.setImageResource(R.mipmap.icon_dhhm);
         holder.tv_name.setText(data_ysg.get(childPosition).getM_nickname());
         holder.tv_phone.setText(data_ysg.get(childPosition).getTel());
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.PeopleDetail;
 import com.example.lcsrq.bean.respbean.Data_fzr;
+import com.example.lcsrq.bean.respbean.Data_fzr_company;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class GyzGsFzrAdapter extends BaseExpandableListAdapter {
     int[] logos = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
 
     //  父Item的标签
-    private String[] category = new String[]{"公司负责人名单  "};
+    private String[] category = new String[]{"公司负责人  "};
 
     //子视图显示文字
     private String[][] subcategory = new String[][]{
@@ -47,14 +48,14 @@ public class GyzGsFzrAdapter extends BaseExpandableListAdapter {
 
 
     private OnAddOrdelClick onAddOrdelClick;
-    private ArrayList<Data_fzr> data_fzr  = new ArrayList<>();
+    private ArrayList<Data_fzr_company> data_fzr  = new ArrayList<>();
     private final Random random;
 
-    public ArrayList<Data_fzr> getData_fzr() {
+    public ArrayList<Data_fzr_company> getData_fzr() {
         return data_fzr;
     }
 
-    public void setData_fzr(ArrayList<Data_fzr> data_fzr) {
+    public void setData_fzr(ArrayList<Data_fzr_company> data_fzr) {
         this.data_fzr = data_fzr;
     }
 
@@ -129,6 +130,9 @@ public class GyzGsFzrAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         // TODO Auto-generated method stub
 //        return subcategory[groupPosition].length;
+        if (data_fzr.size() == 0){
+            return 0;
+        }
         return data_fzr.size();
     }
 
@@ -158,7 +162,8 @@ public class GyzGsFzrAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (GyzCyrAdapter.ViewHolder) convertView.getTag();
         }
-        holder.iv_sj.setImageResource(R.mipmap.icon_sj);
+
+        holder.iv_sj.setImageResource(R.mipmap.icon_dhhm);
         holder.tv_name.setText(data_fzr.get(childPosition).getM_nickname());
         holder.tv_phone.setText(data_fzr.get(childPosition).getTel());
 
@@ -182,7 +187,6 @@ public class GyzGsFzrAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 String uid = data_fzr.get(childPosition).getUid();
-
                 Intent intent = new Intent(activity, PeopleDetail.class);
                 intent.putExtra("UID",uid);
                 activity.startActivity(intent);

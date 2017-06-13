@@ -231,6 +231,7 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
     // 获取车辆
     private void getCar() {
         infoReqData.setType(type);
+
         if (!TextUtils.isEmpty(name)){
             infoReqData.setKeyword(name);
         }

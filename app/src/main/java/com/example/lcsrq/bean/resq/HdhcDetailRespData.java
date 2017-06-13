@@ -1,6 +1,9 @@
 package com.example.lcsrq.bean.resq;
 
+import com.example.lcsrq.bean.respbean.FzrsBean;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by 苏毅 on 2017/4/14.
@@ -16,6 +19,15 @@ public class HdhcDetailRespData implements Serializable{
     public String content;
     public String creat_at;
     public String upload_json;
+    private ArrayList<FzrsBean> fzrs;
+
+    public ArrayList<FzrsBean> getFzrs() {
+        return fzrs;
+    }
+
+    public void setFzrs(ArrayList<FzrsBean> fzrs) {
+        this.fzrs = fzrs;
+    }
 
     public String getId() {
         return id;

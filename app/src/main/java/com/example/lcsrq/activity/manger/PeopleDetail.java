@@ -42,6 +42,7 @@ public class PeopleDetail extends BaseActivity {
     private TextView tv_jineng;
     private TextView tv_youxiaoqi;
     private UserinfoRespData datas;
+    private TextView tv_jfqk;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class PeopleDetail extends BaseActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.arg1 == 1){
+                // 用户名
+                user_name.setText("姓名 : " + datas.getM_nickname());
                 // 放置图片
                 user_avator.setImageURI(Uri.parse(datas.getHead_photo()));
                 // 设置编号
@@ -72,6 +75,8 @@ public class PeopleDetail extends BaseActivity {
                 tv_jineng.setText("技能证书编号 : "+datas.getM_datajson().getMcode() + "");
                 // 技能有效期
                 tv_youxiaoqi.setText("技能证书有效期 : "+datas.getM_datajson().getStart_end());
+                //  记分情况
+                tv_jfqk.setText(datas.getJf_value() + "分");
             }
         }
     };
@@ -131,6 +136,8 @@ public class PeopleDetail extends BaseActivity {
         tv_jineng = (TextView) findViewById(R.id.tv_jineng);
         // 技能证书有效期
         tv_youxiaoqi = (TextView) findViewById(R.id.tv_youxiaoqi);
+        // 计分情况
+        tv_jfqk = (TextView) findViewById(R.id.tv_jfqk);
     }
 
     @Override

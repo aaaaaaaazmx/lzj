@@ -69,16 +69,36 @@ public class SecurityFragment extends BaseFragment implements PullToRefreshView.
     private ImageView commonRightImage;
     private LinearLayout ll_root;
     private ArrayList<GyzListResppData> zgData;
-
+    private boolean first = true; // 表示第一次进入
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.aqyh_activity, null);
-        loginModel = new LoginModel();
-        findViews(view);
-        showLoading("正在加载");
-        initData();
-        addAction();
+//        view = View.inflate(getActivity(), R.layout.aqyh_activity, null);
+//        loginModel = new LoginModel();
+//        findViews(view);
+//
+//            showLoading("正在加载");
+//            initData();
+//            addAction();
+//            first = false;
+//            Toast.makeText(getActivity(),first + "",Toast.LENGTH_SHORT).show();
+//
+//        return view;
+
+
+        if (view == null){
+            view =  inflater.inflate( R.layout.aqyh_activity,null);
+            loginModel = new LoginModel();
+            findViews(view);
+            initData();
+            addAction();
+        }else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent!=null){
+                parent.removeView(view);
+            }
+        }
         return view;
     }
 
@@ -334,6 +354,6 @@ public class SecurityFragment extends BaseFragment implements PullToRefreshView.
     @Override
     public void onHeaderRefresh(PullToRefreshView view) {
         page = 2;
-       getMyRecti();
+        initData();
     }
 }

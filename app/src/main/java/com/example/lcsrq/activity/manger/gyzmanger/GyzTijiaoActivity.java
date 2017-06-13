@@ -68,6 +68,8 @@ public class GyzTijiaoActivity extends BaseActivity {
     private TiJiaoAdapte ccrAdapter;
     private int totalHeight = 0;
     private ArrayList<GyzTijiaoBean> lists = new ArrayList<>();
+    private TextView tv_problem;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,7 @@ public class GyzTijiaoActivity extends BaseActivity {
         }
 
         if (list.size() > 0){
+            tv_problem.setVisibility(View.VISIBLE);
             lv_tijiao.setVisibility(View.VISIBLE);
 
             for (GyzCheckBean bean:list ) {
@@ -125,6 +128,9 @@ public class GyzTijiaoActivity extends BaseActivity {
 
     @Override
     protected void findViews() {
+        // 存在问题这一行
+        tv_problem = (TextView) findViewById(R.id.tv_problem);
+
         lv_tijiao = (ListView) findViewById(R.id.lv_tijiao);
 
         TextView commonTitleTv = (TextView) findViewById(R.id.commonTitleTv);

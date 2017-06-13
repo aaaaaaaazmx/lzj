@@ -295,11 +295,11 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
 
         // 供应站地区列表
         ContentGyzRegionReqData contentGyzRegionReqData = new ContentGyzRegionReqData();
+
         // 如果是管理人员, 则根据UID来获取
         if (Global.m_roleid.equals("3")){
             contentGyzRegionReqData.setUid(Global.uid);
         }
-
          if (Global.My_dw.equals("长沙市燃气热力管理局")){
           contentGyzRegionReqData.setUid("");
         }
@@ -420,6 +420,35 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
         if (!Global.m_roleid.equals("3")){
             // 公司管理
             contentCompanyReqData.setUid(Integer.parseInt(Global.uid));
+        }
+
+        if (Global.My_dw.equals("长沙市燃气热力管理局") && Global.m_roleid.equals("3")){
+            loginModel.getListOfCompany(GyzMangerActivity.this, contentCompanyReqData, new OnLoadComBackListener() {
+                @Override
+                public void onSuccess(Object msg) {
+                    closeDialog();
+                    comPanyRespDatas = (ArrayList<ContentComPanyRespData>) msg;
+                    Message message = handler.obtainMessage();
+                    message.arg2 = 5;
+                    handler.sendMessage(message);
+                    pullToRefreshView.onHeaderRefreshComplete();
+                    pullToRefreshView.onFooterRefreshComplete();
+                }
+
+                @Override
+                public void onError(String msg) {
+                    Toast.makeText(GyzMangerActivity.this, "公司列表获取失败", Toast.LENGTH_LONG).show();
+                    pullToRefreshView.onHeaderRefreshComplete();
+                    pullToRefreshView.onFooterRefreshComplete();
+//                type_page_progress.showError(getResources().getDrawable(R.mipmap.monkey_nodata), Constant.EMPTY_TITLE, Constant.EMPTY_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        initData();
+//                    }
+//                });;
+                }
+            });
+            return;
         }
 
         loginModel.getListOfCompany(GyzMangerActivity.this, contentCompanyReqData, new OnLoadComBackListener() {

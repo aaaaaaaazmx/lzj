@@ -135,6 +135,7 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
     private String lunbotuJson;
     private String qxdongtaiJson;
     private String hydongtaiJson;
+    private View view;
 
     public FirstFragment() {
         super();
@@ -142,22 +143,35 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.inflater = inflater;
-        View view = inflater.inflate(R.layout.test_activity, container, false);
+        this.inflater = inflater;  //  这个是必须的
 
-        //  获取缓存
-        lunbotuJson = CacheUtils.getCache("lunbotu", getActivity());  // 轮播图
-        qxdongtaiJson = CacheUtils.getCache("qxdongtai", getActivity()); // 区县JSON
-        hydongtaiJson = CacheUtils.getCache("hydongtai", getActivity()); //  行业JSON
+//        view = inflater.inflate(R.layout.test_activity, container, false);
+//         // 获取缓存
+////       lunbotuJson = CacheUtils.getCache("lunbotu", getActivity());  // 轮播图
+////       qxdongtaiJson = CacheUtils.getCache("qxdongtai", getActivity()); // 区县JSON
+////       hydongtaiJson = CacheUtils.getCache("hydongtai", getActivity()); //  行业JSON
+//
+//            findViews(view);
+//            addAction();
+//            loginModel = new LoginModel();
+//            initData();  // 获取数据
+//            startTimer(0); // 开启定时器
+//        return view;
 
+
+        if (view == null){
+            view = inflater.inflate(R.layout.test_activity, container, false);
             findViews(view);
             addAction();
             loginModel = new LoginModel();
-            showLoading("正在加载");
             initData();  // 获取数据
-
-        startTimer(0); // 开启定时器
-
+            startTimer(0); // 开启定时器
+        }else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent!=null){
+                parent.removeView(view);
+            }
+        }
         return view;
     }
 
@@ -293,14 +307,6 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
 
     private void initData() {
         // 行业动态
-        if (!TextUtils.isEmpty(hydongtaiJson)) {
-            Message message = handler.obtainMessage();
-            message.arg2 = 10;
-            handler.sendMessage(message);
-            closeDialog();
-            pullToRefreshView.onFooterRefreshComplete();
-            pullToRefreshView.onHeaderRefreshComplete();
-        }else {
             final ContentReqData hydtReqData = new ContentReqData();
             hydtReqData.setCatid(9);
 
@@ -328,17 +334,8 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
                     pullToRefreshView.onHeaderRefreshComplete();
                 }
             });
-        }
 
         // 区县动态
-        if (!TextUtils.isEmpty(qxdongtaiJson)){
-            Message message = handler.obtainMessage();
-            message.arg1 = 10;
-            handler.sendMessage(message);
-            closeDialog();
-            pullToRefreshView.onFooterRefreshComplete();
-            pullToRefreshView.onHeaderRefreshComplete();
-        }
         final ContentReqData qxdtReqData = new ContentReqData();
         qxdtReqData.setCatid(10);
 
@@ -348,8 +345,8 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
                 qx = (ArrayList<ContentRespData1>) msg;
 
                 // 缓存曲线动态界面
-                String qxdongtai = JSON.toJSONString(qx);
-                CacheUtils.setCache("qxdongtai",qxdongtai,getActivity());
+//                String qxdongtai = JSON.toJSONString(qx);
+//                CacheUtils.setCache("qxdongtai",qxdongtai,getActivity());
 
                 Message message = handler.obtainMessage();
                 message.arg1 = 10;
@@ -377,8 +374,8 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
                 picRespDatas = (ArrayList<GetPicRespData>) msg;
 
                 // 缓存轮播图
-                String lunbotu = JSON.toJSONString(picRespDatas);
-                CacheUtils.setCache("lunbotu",lunbotu,getActivity());
+//                String lunbotu = JSON.toJSONString(picRespDatas);
+//                CacheUtils.setCache("lunbotu",lunbotu,getActivity());
 
                 Message message = new Message();
                 message.arg2 = 3;
@@ -533,16 +530,20 @@ public class FirstFragment extends BaseFragment implements PullToRefreshView.OnF
             closeDialog();
         } else if (v.getId() == R.id.gyz_manger) { // 供应站管理
 //            Toast.makeText(getActivity(), "点击了供应站管理", Toast.LENGTH_LONG).show();
+
           //  表示从业人员,直接跳转供应站详情
           if (Global.m_roleid.equals("1")){
+              showLoading("正在加载");
+              closeDialog();
               Intent intent = new Intent(getActivity(), GyzDetailActivity.class);
               intent.putExtra("data_id", Global.Mysupply_id); //  传过去一个供应站ID ,从业人员自身自带的
               startActivity(intent);
           }else {
               showLoading("正在加载");
-              startActivity(new Intent(getActivity(), GyzMangerActivity.class));
               closeDialog();
+              startActivity(new Intent(getActivity(), GyzMangerActivity.class));
           }
+
         } else if (v.getId() == R.id.ll_hdhc) {  // 黑点黑车
             showLoading("正在加载");
 //            startActivity(new Intent(getActivity(), HdhcActivity.class));

@@ -44,7 +44,6 @@ public class UserinfoRespData implements Serializable {
     private String company_name;
     private String supply_name;
 
-
     public String getCompany_name() {
         return company_name;
     }
@@ -70,6 +69,15 @@ public class UserinfoRespData implements Serializable {
     }
 
     private M_datajson m_datajson;
+    private String jf_value;
+
+    public String getJf_value() {
+        return jf_value;
+    }
+
+    public void setJf_value(String jf_value) {
+        this.jf_value = jf_value;
+    }
 
     public String getId() {
         return id;

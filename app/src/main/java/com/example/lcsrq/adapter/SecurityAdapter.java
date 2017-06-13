@@ -63,16 +63,18 @@ public class SecurityAdapter extends BaseAdapter {
             holder.tv_creat = (TextView) convertView.findViewById(R.id.tv_creat);
             holder.iv_pic = (SimpleDraweeView) convertView.findViewById(R.id.iv_pic);
             holder.tv_data= (TextView) convertView.findViewById(R.id.tv_data);
+            holder.tv_oid_name= (TextView) convertView.findViewById(R.id.tv_oid_name);
             // 去安全隐患不需要记分
-            holder.tv_data.setVisibility(View.GONE);
+            holder.tv_data.setVisibility(View.INVISIBLE);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_title.setText(datas.get(position).getSupply_name());
+        holder.tv_title.setText("存在问题 : " +datas.get(position).getContent());
         holder.tv_creat.setText(datas.get(position).getCreat_at());
         holder.iv_pic .setImageResource(R.mipmap.icon_anqyh);
-        holder.tv_dt.setText(datas.get(position).getCompany_name());
+        holder.tv_dt.setText("检查公司 : " + datas.get(position).getCompany_name());
+        holder.tv_oid_name.setText("检查站点 : " + datas.get(position).getSupply_name());
         return convertView;
     }
 
@@ -81,6 +83,7 @@ public class SecurityAdapter extends BaseAdapter {
         TextView tv_dt;
         TextView tv_data;
         TextView tv_creat;
+        TextView tv_oid_name;
         SimpleDraweeView iv_pic;
     }
 }

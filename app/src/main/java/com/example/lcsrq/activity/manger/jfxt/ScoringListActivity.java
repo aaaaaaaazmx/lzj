@@ -175,7 +175,8 @@ public class ScoringListActivity extends BaseActivity implements PullToRefreshVi
             finish();
         }
         if (v.getId() == R.id.commonRightImage){
-            startActivity(new Intent(ScoringListActivity.this,ScoringActivity.class));
+            // 跳转到选择页面
+            startActivity(new Intent(ScoringListActivity.this,ScoringChoise.class));
         }
     }
 

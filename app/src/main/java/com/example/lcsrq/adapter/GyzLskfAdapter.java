@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lcsrq.R;
+import com.example.lcsrq.bean.resq.ContentGyzDetailRespData;
 
 /**
  * Created by 苏毅 on 2017/3/31.
@@ -49,6 +50,16 @@ public class GyzLskfAdapter extends BaseExpandableListAdapter {
 
     public GyzLskfAdapter(Activity ac) {
         this.activity = ac;
+    }
+
+    private ContentGyzDetailRespData data;
+
+    public ContentGyzDetailRespData getData() {
+        return data;
+    }
+
+    public void setData(ContentGyzDetailRespData data) {
+        this.data = data;
     }
 
     @Override
@@ -93,7 +104,11 @@ public class GyzLskfAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
 //        return subcategory[groupPosition].length;
-        return 0;
+        if (data.getJftloglist().size() == 0){
+            return 0;
+        }else {
+            return data.getJftloglist().size();
+        }
     }
 
 
@@ -101,21 +116,26 @@ public class GyzLskfAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         //定义一个LinearLayout用于存放ImageView、TextView
-        View inflate = View.inflate(activity, R.layout.gyz_lskf_child, null);
+        ViewHolder holder;
+        if (convertView == null){
+            holder = new ViewHolder();
+             convertView = View.inflate(activity, R.layout.gyz_lskf_child, null);
+            holder.tv_kfxm = (TextView) convertView.findViewById(R.id.tv_kfxm);
+            holder.tv_kfs = (TextView) convertView.findViewById(R.id.tv_kfs);
+            holder.tv_kfry = (TextView) convertView.findViewById(R.id.tv_kfry);
+            holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+            convertView.setTag(holder);
+        }else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-        TextView tv_kfxm = (TextView) inflate.findViewById(R.id.tv_kfxm);
-        TextView tv_kfs = (TextView) inflate.findViewById(R.id.tv_kfs);
-        TextView tv_kfry = (TextView) inflate.findViewById(R.id.tv_kfry);
-        TextView tv_time = (TextView) inflate.findViewById(R.id.tv_time);
-
-        tv_time.setText(sj[groupPosition][childPosition]);
-        tv_kfs.setText(kf[groupPosition][childPosition]);
-        tv_kfxm.setText(kfxm[groupPosition][childPosition]);
-        tv_kfry.setText(subcategory[groupPosition][childPosition]);
-
+        holder. tv_time.setText(data.getJftloglist().get(childPosition).getCreat_at());
+        holder. tv_kfs.setText(data.getJftloglist().get(childPosition).getOid_value() + "分");
+        holder. tv_kfry.setText(data.getJftloglist().get(childPosition).getUname());
+        holder. tv_kfxm.setText(data.getJftloglist().get(childPosition).getPname());
 //        iv_pic.setImageResource(sublogos[groupPosition][childPosition]);
 //        tv_name.setText(subcategory[groupPosition][childPosition]);
-        return inflate;
+        return convertView;
     }
 
     //取得给定分组中给定子视图的ID. 该组ID必须在组中是唯一的.必须不同于其他所有ID（分组及子项目的ID）.
@@ -127,5 +147,12 @@ public class GyzLskfAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return subcategory[groupPosition][childPosition];
+    }
+
+    class  ViewHolder {
+        TextView tv_kfxm;
+        TextView tv_kfs;
+        TextView tv_kfry;
+        TextView tv_time;
     }
 }

@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.My.MyRectification;
@@ -76,7 +77,7 @@ public class DfzwDetailAdapter extends BaseAdapter {
             //  查处内容
             holder.cc_content = (TextView) convertView.findViewById(R.id.cc_content);
             //  被查出人
-            View tv_beichachuren = convertView.findViewById(R.id.tv_beichachuren);
+            holder. tv_beichachuren = (TextView) convertView.findViewById(R.id.tv_beichachuren);
             // 电话好嘛
             holder.tv_phone = (TextView) convertView.findViewById(R.id.tv_phone);
             // 身份证
@@ -137,27 +138,62 @@ public class DfzwDetailAdapter extends BaseAdapter {
             holder.oneImgIv.setVisibility(View.GONE);
         }
 
-
-        // 有点问题
-//        if (dfzwList.get(position).getData_json() != null){
-//            //   查处内容
-//            holder.cc_content.setText(dfzwList.get(position).getData_json().getData_remark() + "");
-//            //  被查出人
-//            holder.tv_beichachuren.setText("被查出人 : " + dfzwList.get(position).getData_json().getData_man());
-//            //  电话号码
-//            holder.tv_phone.setText(dfzwList.get(position).getData_json().getData_tel());
-//            // 身份证
-//            holder.tv_shenfenzheng.setText("身份证 : " + dfzwList.get(position).getData_json().getData_code());
-//            // 气源
-//            holder.tv_qiyuan.setText("气源 : " + dfzwList.get(position).getData_json().getData_qy());
-//            // 空瓶
-//            holder.tv_kp.setText("没收空瓶 : " + dfzwList.get(position).getData_json().getData_kp());
-//            // 实瓶
-//            holder.tv_kp.setText("没收实瓶 : " + dfzwList.get(position).getData_json().getData_sp());
-//        }
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_remark())){
+            //   查处内容
+            holder.cc_content.setText(dfzwList.get(position).getData_json().getData_remark() + "");
+        }else {
+            //   查处内容
+            holder.cc_content.setText("");
+        }
 
 
+        holder.tv_beichachuren.setText("被查出人 : " + dfzwList.get(position).getData_json().getData_man());
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_man())){
+            //  被查出人
+            holder.tv_beichachuren.setText("被查出人 : " + dfzwList.get(position).getData_json().getData_man());
+        }else {
+            holder.tv_beichachuren.setText("被查出人 : " + " ");
+        }
 
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_tel())){
+            //  电话号码
+            holder.tv_phone.setText(dfzwList.get(position).getData_json().getData_tel());
+        }else {
+            //  电话号码
+            holder.tv_phone.setText("");
+        }
+
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_code())){
+            // 身份证
+            holder.tv_shenfenzheng.setText("身份证 : " + dfzwList.get(position).getData_json().getData_code());
+        }else {
+            // 身份证
+            holder.tv_shenfenzheng.setText("身份证 : " + "" );
+        }
+
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_qy())){
+            // 气源
+            holder.tv_qiyuan.setText("气源 : " + dfzwList.get(position).getData_json().getData_qy());
+        }else {
+            // 气源
+            holder.tv_qiyuan.setText("气源 : " + "");
+        }
+
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_kp())){
+            // 空瓶
+            holder.tv_kp.setText("没收空瓶 : " + dfzwList.get(position).getData_json().getData_kp());
+        }else {
+            // 空瓶
+            holder.tv_kp.setText("没收空瓶 : " + "");
+        }
+
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_sp())){
+            // 实瓶
+            holder.tv_kp.setText("没收实瓶 : " + dfzwList.get(position).getData_json().getData_sp());
+        }else {
+            // 实瓶
+            holder.tv_kp.setText("没收实瓶 : " + "");
+        }
         return convertView;
     }
 

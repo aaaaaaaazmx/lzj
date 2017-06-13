@@ -32,7 +32,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:text="记分类型:"
-                    android:textColor="#5F5F5F"
+                    android:textColor="#333333"
                     android:textSize="15sp" />
 
                 <TextView
@@ -43,15 +43,15 @@
                     android:layout_centerVertical="true"
                     android:text=" "
                     android:textSize="12sp"
-                    android:textColor="#a000" />
+                    android:textColor="#808080" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:src="@mipmap/icom_xlx" />
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_arrow_gray_right" />
             </RelativeLayout>
 
             <View
@@ -72,7 +72,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:text="记分项目:"
-                    android:textColor="#5F5F5F"
+                    android:textColor="#333333"
                     android:textSize="15sp" />
 
                 <TextView
@@ -84,15 +84,15 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="  "
-                    android:textColor="#a000" />
+                    android:textColor="#808080" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:src="@mipmap/icom_xlx" />
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_arrow_gray_right" />
             </RelativeLayout>
 
             <View
@@ -113,7 +113,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:text="记分对象:"
-                    android:textColor="#5F5F5F"
+                    android:textColor="#333333"
                     android:textSize="15sp" />
 
                 <TextView
@@ -125,15 +125,22 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text=" "
-                    android:textColor="#a000" />
+                    android:textColor="#808080" />
 
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:src="@mipmap/icom_xlx" />-->
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:src="@mipmap/icom_xlx" />
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_arrow_gray_right" />
             </RelativeLayout>
 
             <View
@@ -213,6 +220,7 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:textColor="#333333"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -220,6 +228,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:textColor="#808080"
                     android:id="@+id/tv_zfry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

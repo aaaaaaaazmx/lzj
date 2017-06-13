@@ -29,7 +29,7 @@
                 android:maxEms="18"
                 android:singleLine="true"
                 android:text="内容"
-                android:textColor="#666666"
+                android:textColor="#333333"
                 android:textSize="15sp" />
             <TextView
                 android:visibility="gone"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:text="一级负责人:待查处"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:textSize="12sp"
                 />
             <TextView
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:text="一级负责人:待查处"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:textSize="12sp"
                 />
 
@@ -76,7 +76,7 @@
                 android:maxEms="18"
                 android:singleLine="true"
                 android:text="地址"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:textSize="12sp" />
 
             <TextView
@@ -93,14 +93,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="13472211544"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/ccfs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="处理方式 : 待处理"
-                android:textColor="#BABABA"
+                android:textColor="#808080"
                 android:textSize="12sp" />
 
             <TextView

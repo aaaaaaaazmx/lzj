@@ -57,6 +57,7 @@ public class CarAdapter extends BaseAdapter {
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_tel = (TextView) convertView.findViewById(R.id.tv_tel);
             holder.tv_go = (TextView) convertView.findViewById(R.id.tv_go);
+            holder.tv_go.setVisibility(View.GONE);
             convertView.setTag(holder);
         }else {
                 holder = (ViewHolder) convertView.getTag();

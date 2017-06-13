@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:text="查询类型:"
-            android:textColor="#5F5F5F"
+            android:textColor="#333333"
             android:textSize="15sp" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:textColor="#DDDDDD" />
+            android:textColor="#808080" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:text="车牌号码 :"
-            android:textColor="#5F5F5F"
+            android:textColor="#333333"
             android:textSize="15sp" />
 
         <EditText
@@ -89,7 +89,7 @@
             android:background="@color/white"
             android:cursorVisible="true"
             android:hint="请输入.."
-            android:textColor="@color/black"
+            android:textColor="#808080"
             android:textColorHint="@color/hint_text_color"
             android:textCursorDrawable="@drawable/edittext_cursor"
             android:textSize="15sp" />

@@ -8,7 +8,7 @@
     <include layout="@layout/layout_title"></include>
 
     <RelativeLayout
-        android:visibility="gone"
+
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +16,7 @@
         android:padding="10dp">
 
         <TextView
+            android:textColor="#808080"
             android:id="@+id/dz1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +48,7 @@
         android:padding="10dp">
 
         <TextView
+            android:textColor="#808080"
             android:id="@+id/dz2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +80,7 @@
         android:padding="10dp">
 
         <TextView
+            android:textColor="#808080"
             android:id="@+id/dz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,8 +105,8 @@
 
         <ImageView
             android:id="@+id/iv_1"
-            android:layout_width="15dp"
-            android:layout_height="24dp"
+            android:layout_width="13dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
             android:src="@mipmap/icon_dw" />
@@ -173,4 +176,19 @@
             android:textColor="@color/black" />
     </LinearLayout>
 
+    <Button
+
+        android:layout_marginBottom="5dp"
+        android:textSize="20sp"
+        android:focusable="true"
+        android:clickable="true"
+        android:id="@+id/btn_submit"
+        android:textColor="#4F91B3"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_style"
+        android:padding="10dip"
+        android:text="提交修改" />
 </LinearLayout>

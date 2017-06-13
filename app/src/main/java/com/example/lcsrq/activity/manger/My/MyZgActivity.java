@@ -151,7 +151,6 @@ public class MyZgActivity extends BaseActivity implements PullToRefreshView.OnFo
     
     private String gSid;
     private void getMyRecti(){
-
         // 我的整改
         MyrectificationReqDataim myrectificationReqDataim = new MyrectificationReqDataim();
         myrectificationReqDataim.setUid(Integer.parseInt(Global.uid));

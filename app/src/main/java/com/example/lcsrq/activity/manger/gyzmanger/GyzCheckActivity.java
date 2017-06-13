@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -136,12 +137,18 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
     private String check_id;
     private WindowManager.LayoutParams params;
     private String title;
+    private ArrayList<String> check_ids;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gyz_check);
         showLoading("正在加载");
+
+        // 带过来的问题项目ID
+        check_ids = getIntent().getStringArrayListExtra("check_id");
+//        Toast.makeText(GyzCheckActivity.this, check_ids.toString()+ "",Toast.LENGTH_SHORT).show();
+
         loginModel = new LoginModel();
         initData();
     }
@@ -178,6 +185,18 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
 //                });
 //                gyzCheckAdapter.setDatas(datas);
 //                list_check.setAdapter(gyzCheckAdapter);
+
+                // 从验收项目跳转过来的 要标红
+                for (int i = 0; i < duoData.size() ;i++){
+                ArrayList<GyzCheckRespData> oplist = duoData.get(i).getOplist(); // 假如这个东西有9个
+                for (int a = 0; a < oplist.size();a++){    // oplist.size 有5个
+                    for (int j = 0; j < check_ids.size(); j++) {
+                       if (oplist.get(a).getId().equals(check_ids.get(j).toString())) {
+                           oplist.get(a).setFlag(1);
+                       }
+                    }
+                }
+            };
 
 
                 indicator.setVisibility(View.VISIBLE);
@@ -655,6 +674,9 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
             list_check = (ListView) inflate.findViewById(R.id.list_check);
             listadapter = new ListviewAdapter();
             final ArrayList<GyzCheckRespData> oplist = duoData.get(position).getOplist();
+
+
+
             listadapter.setList(oplist);
             list_check.setAdapter(listadapter);
             container.addView(inflate);
@@ -721,6 +743,8 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
             holder.CheckBtn.setText("是");
             holder.CheckBtn.setTextColor(Color.parseColor("#3E697E"));
             holder.CheckBtn.setBackgroundResource(R.drawable.button_style);
+
+//
 
             if (lists.get(0).getFlag()!=1 && position == 0){
                 holder.CheckBtn.setText("是");

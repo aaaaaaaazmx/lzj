@@ -23,7 +23,6 @@ public class Data_ckloglist implements Serializable {
  m_nickname: "rq1"
  */
 
-
 private String logid;
 private String check_id;
 private String uid;
@@ -132,4 +131,5 @@ private String m_nickname;
     public void setM_nickname(String m_nickname) {
         this.m_nickname = m_nickname;
     }
+
 }
