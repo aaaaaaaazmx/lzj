@@ -122,6 +122,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
     private ArrayList<ContentGyzRegionRespData> reportDatas;
     private OptionsPickerView optionsPopupWindow;
     private OptionsPickerView pvOptions;
+    private RelativeLayout rl_nm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,12 +156,11 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         // 供应站地区列表
         ContentGyzRegionReqData contentGyzRegionReqData = new ContentGyzRegionReqData();
         contentGyzRegionReqData.setLevel(1);  //  返回2级列表
+
         loginModel.getListOfGyzRegion(ReportActivity.this, contentGyzRegionReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
                 reportDatas = (ArrayList<ContentGyzRegionRespData>) msg;
-
-
                 // 接受成功
                 Message message = new Message();
                 message.arg2 = 20;
@@ -182,14 +182,27 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 //        commonRightBtn.setOnClickListener(this);
         postedContentEt.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                if (arg2 == bitmaps.size()) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 点击查看大图
+                if (adapter.getCount() -1 == bitmaps.size() && bitmaps.size() > 0){
+                    if (position == bitmaps.size()){
+                        UiTool.setDialog(ReportActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        UiTool.showPic(ReportActivity.this,bitmaps.get(position));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                if (position == bitmaps.size()) {
                     UiTool.hideKeyboard(ReportActivity.this);
                     if (bitmaps.size() >= 9) {
                         Toast.makeText(ReportActivity.this, "最多能上传9张图片", Toast.LENGTH_LONG).show();
                     } else {
+//                        Toast.makeText(ReportActivity.this,position+ "",Toast.LENGTH_SHORT).show();
+                        // 也就是点击相机
                         UiTool.setDialog(ReportActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
                     }
                 }
@@ -219,6 +232,8 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         et_diqu = (TextView) findViewById(R.id.et_diqu); // 举报地区
         iv_xiala = (ImageView) findViewById(R.id.iv_xiala);
 
+        // 是否匿名
+        rl_nm = (RelativeLayout) findViewById(R.id.rl_nm);
         ImageGridAdapter.mSelectedImage.clear();  //清楚所有选择的图片
         titleTv = (TextView) findViewById(R.id.commonTitleTv);
         titleTv.setText("我要举报");
@@ -263,6 +278,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
             }else if (msg.arg2 == 20){
                 //  条件选择器
                  options1Items  = reportDatas;
+
                 for (int i=0;i<reportDatas.size();i++) {//遍历省份
                     ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
                     for (int c = 0; c < reportDatas.get(i).getChild().size(); c++) {
@@ -287,6 +303,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                         areas = id1 + "," + id2;
                     }
                 }).build();
+
                 pvOptions.setPicker(options1Items,options2Items);
             }
         }
@@ -302,6 +319,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             try {
+
                 fileName = String.valueOf(System.currentTimeMillis() + ".JPEG");
                 File dir = new File(Environment.getExternalStorageDirectory() + "/temp");
                 if (!dir.exists()) dir.mkdirs();
@@ -311,6 +329,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                 intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, u);
                 startActivityForResult(intent, TAKE_PICTURE);
+
             } catch (ActivityNotFoundException e) {
                 Toast.makeText(this, "没有找到储存目录", Toast.LENGTH_LONG).show();
             }
@@ -704,14 +723,16 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 
     @Override
     public void deletePic(int position) {
-
         Bitmap pic = bitmaps.get(position);
         pic.recycle();
-        bitmapsChoice.remove(position);
-        bitmaps.remove(position);
-        filenames.remove(position);
-        adapter.notifyDataSetChanged();
+            // 相册选择的图片
+        if (bitmapsChoice.size()!=0) {
+            bitmapsChoice.remove(position);
+        }
 
+            bitmaps.remove(position);
+            filenames.remove(position);
+            adapter.notifyDataSetChanged();
     }
 
     // 黑车举报

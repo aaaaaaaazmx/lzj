@@ -75,9 +75,10 @@ public class ScoringAdapter extends BaseAdapter {
         }
         holder.tv_creat.setText(datas.get(position).getCreat_at());
         holder.tv_title.setText("记分对象: " + datas.get(position).getOid_name());
-        holder.tv_dt.setText(datas.get(position).getCompany_name());
-        holder.tv_data.setText(datas.get(position).getOid_value() + "分");
+        holder.tv_dt.setText("记分公司 : " + datas.get(position).getCompany_name());
+        holder.tv_data.setText("记分情况 : " + datas.get(position).getOid_value() + "分");
         holder.tv_oid_name.setText("记分人员 : "  + datas.get(position).getOid_name());
+
         switch (datas.get(position).getStatus()){
             case "1" :
                 holder.iv_pic.setImageResource(R.mipmap.icon_dqs);

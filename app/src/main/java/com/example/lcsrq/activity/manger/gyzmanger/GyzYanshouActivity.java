@@ -42,6 +42,7 @@ import org.w3c.dom.ls.LSException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,7 +57,9 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
     private LinearLayout commonLeftBtn;
     private TextView commonTitleTv;
     private LoginModel loginModel;
-    private  ArrayList<Data_ckloglist> yashouDatas;
+    private  ArrayList<GyzCheckZgJlRespData> yashouDatas;
+    private  ArrayList<GyzCheckZgJlRespData> YzgDatas =  new ArrayList<>(); //  已整改的数据
+    private ArrayList<String > lists = new ArrayList<>();  // 需要标红的项目
     private ArrayList<GyzCheckZgJlRespData> Datas;
     private String supply_id;
     private PullToRefreshView pullToRefreshView;
@@ -71,20 +74,45 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yanshou);
         supply_id = getIntent().getStringExtra("supply_id");
-        initData(); //加载第二页的数据或者是第三页的数据
-
-
+//        initData(); //加载第二页的数据或者是第三页的数据
 //        Toast.makeText(GyzYanshouActivity.this,yashouDatas.size() + "",Toast.LENGTH_SHORT).show();
 //        Toast.makeText(GyzYanshouActivity.this,supply_id+"",Toast.LENGTH_SHORT).show();
 
-    // 传过来的存在问题
-        yashouDatas = ( ArrayList<Data_ckloglist>) getIntent().getSerializableExtra("data");
-//        yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
-//        yanShouAdapter.setDatas(yashouDatas);
-//        lv_yanshou.setAdapter(yanShouAdapter);
+        // 传过来的存在问题
+        yashouDatas = ( ArrayList<GyzCheckZgJlRespData>) getIntent().getSerializableExtra("data");
+        yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
 
+        // 筛选已整改
+        for (int i = 0; i< yashouDatas.size(); i++){
+            if (yashouDatas.get(i).getStatus().equals("2")){
+                YzgDatas.add(yashouDatas.get(i));
+            }
+        }
 
+        // 待整改和代签收
+        for (int i = 0;i <yashouDatas.size(); i++){
+            if (yashouDatas.get(i).getStatus().equals("1") || yashouDatas.get(i).getStatus().equals("4") ){
+//                yanShouAdapter.setLists();
+                lists.add(yashouDatas.get(i).getCheck_id());
+            }
+        }
 
+        Toast.makeText(GyzYanshouActivity.this,lists.size() + "",Toast.LENGTH_SHORT).show(); // 18个
+
+        //  如果已整改项目是空的 跳转到检查页面
+        if (YzgDatas.size() == 0){
+            Intent intent = new Intent(GyzYanshouActivity.this, GyzCheckActivity.class);
+            intent.putStringArrayListExtra("check_id",lists);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
+        //显示需要标红的项目
+        yanShouAdapter.setLists(lists);
+        //  显示已整改
+        yanShouAdapter.setDatas(YzgDatas);
+        lv_yanshou.setAdapter(yanShouAdapter);
     }
 
     Handler handler = new Handler() {
@@ -92,10 +120,15 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.arg1 == 1){
-                yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
-                yanShouAdapter.setDatas(Datas);
-                lv_yanshou.setAdapter(yanShouAdapter);
-                Toast.makeText(GyzYanshouActivity.this,Datas.size() + "",Toast.LENGTH_SHORT).show();
+//                yanShouAdapter = new YanShouAdapter(GyzYanshouActivity.this);
+//                yanShouAdapter.setDatas(Datas);
+//                lv_yanshou.setAdapter(yanShouAdapter);
+                //  传过来的SIZE
+//                Toast.makeText(GyzYanshouActivity.this,Datas.size() + "",Toast.LENGTH_SHORT).show();
+                page++;
+                YzgDatas.addAll(Datas);
+                yanShouAdapter.setDatas(YzgDatas);
+                yanShouAdapter.notifyDataSetChanged();
             }
         }
     };
@@ -104,10 +137,9 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
     private void initData() {
         loginModel = new LoginModel();
         GyzCheckZgJlReqData gyzCheckZgJlReqData = new GyzCheckZgJlReqData();
-
-        gyzCheckZgJlReqData.setStatus(0);// 待整改
+        gyzCheckZgJlReqData.setStatus("2");// 待整改
         gyzCheckZgJlReqData.setSupply_id(Integer.parseInt(supply_id));
-
+        gyzCheckZgJlReqData.setPage(page);
         loginModel.putGyzCheckZgJl(GyzYanshouActivity.this, gyzCheckZgJlReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
@@ -293,11 +325,12 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
     // 下拉刷新和加载更多
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
-        pullToRefreshView.onFooterRefreshComplete();
+                initData();
     }
 
     @Override
     public void onHeaderRefresh(PullToRefreshView view) {
+            page = 2;
             pullToRefreshView.onHeaderRefreshComplete();
     }
 }

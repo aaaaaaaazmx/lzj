@@ -43,6 +43,8 @@ public class PeopleDetail extends BaseActivity {
     private TextView tv_youxiaoqi;
     private UserinfoRespData datas;
     private TextView tv_jfqk;
+    private TextView tv_jfqk1;
+    private TextView tv_zw;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class PeopleDetail extends BaseActivity {
                 // 设置编号
                 tv_bianhao.setText("编号 : "+datas.getSn()+ "");
                 // 公司名称
-                tv_company.setText("公司名称 : " + datas.getCompany_name()+ "");
+                tv_company.setText("公司名称 : " + datas.getM_datajson().getDw()+ "");
                 //  身份证号码
                 tv_code.setText("身份证号码 : "+datas.getCode()+ "");
                 //  电话号码
@@ -75,8 +77,14 @@ public class PeopleDetail extends BaseActivity {
                 tv_jineng.setText("技能证书编号 : "+datas.getM_datajson().getMcode() + "");
                 // 技能有效期
                 tv_youxiaoqi.setText("技能证书有效期 : "+datas.getM_datajson().getStart_end());
-                //  记分情况
+                //  记分情况  这是以前的隐藏了
                 tv_jfqk.setText(datas.getJf_value() + "分");
+
+                // 记分情况 2017 -6 - 16
+                tv_jfqk1.setText("记分情况 : " + datas.getJf_value() + "分");
+
+                //  职位
+                tv_zw.setText("职位 : " + datas.getM_datajson().getZw());
             }
         }
     };
@@ -138,6 +146,10 @@ public class PeopleDetail extends BaseActivity {
         tv_youxiaoqi = (TextView) findViewById(R.id.tv_youxiaoqi);
         // 计分情况
         tv_jfqk = (TextView) findViewById(R.id.tv_jfqk);
+        //  记分情况 1
+        tv_jfqk1 = (TextView) findViewById(R.id.tv_jfqk1);
+        //  职位
+        tv_zw = (TextView) findViewById(R.id.tv_zw);
     }
 
     @Override

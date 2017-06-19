@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.PeopleDetail;
 import com.example.lcsrq.activity.manger.gyzmanger.DingWeiActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzDetailActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzMangerActivity;
@@ -157,6 +158,8 @@ public class MycontactActivity extends BaseActivity implements PullToRefreshView
                             intent1.putExtra("bundle",bundle);
                             setResult(100,intent1);
                             finish();
+                            return;
+
                         }else
                             if (nameID == 1){
                             String id1 = datas.get(position).getId();
@@ -170,8 +173,12 @@ public class MycontactActivity extends BaseActivity implements PullToRefreshView
                             bundle.putString("UID",datas.get(position).getId()+"");
                             setResult(200,intent);
                             finish();
+                                return;
                         }
 
+                        Intent intent = new Intent(MycontactActivity.this, PeopleDetail.class);
+                        intent.putExtra("UID",datas.get(position).getId());
+                        startActivity(intent);
                     }
                 });
             }else if (msg.arg2 == 5){
@@ -285,12 +292,16 @@ public class MycontactActivity extends BaseActivity implements PullToRefreshView
         startActivity(intent);
 
     }
-
+    private String jDid;
     private void getMyContact(){
         //获取通讯录
         MyContentReqData contentReqData = new MyContentReqData();
         if (!TextUtils.isEmpty(qXid)){
             contentReqData.setAreaid(Integer.parseInt(qXid));
+        }
+
+        if (!TextUtils.isEmpty(jDid)){
+            contentReqData.setAreaid(Integer.parseInt(jDid));
         }
         // 不需要什么参数
         loginModel.getContents(MycontactActivity.this, contentReqData, new OnLoadComBackListener() {
@@ -329,6 +340,9 @@ public class MycontactActivity extends BaseActivity implements PullToRefreshView
         MyContentReqData contentReqData = new MyContentReqData();
         if (!TextUtils.isEmpty(qXid)){
             contentReqData.setAreaid(Integer.parseInt(qXid));
+        }
+        if (!TextUtils.isEmpty(jDid)){
+            contentReqData.setAreaid(Integer.parseInt(jDid));
         }
         contentReqData.setPage(page);
         // 不需要什么参数
@@ -421,6 +435,17 @@ public class MycontactActivity extends BaseActivity implements PullToRefreshView
         ll_company.setOnClickListener(this);
         ll_qx.setOnClickListener(this);
         ll_street.setOnClickListener(this);
+        // 跳转个人详情页面
+
+//        lv_contact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //datas  数据
+//                Intent intent = new Intent(MycontactActivity.this, PeopleDetail.class);
+//                intent.putExtra("UID",datas.get(position).getId());
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -485,6 +510,14 @@ public class MycontactActivity extends BaseActivity implements PullToRefreshView
                     //返回的分别是三个级别的选中位置
                     String tx = options1ItemsJD.get(options1);
                     tv_jiedao.setText(tx);
+                    // 获取街道ID
+                    if (options1 == 0){
+                        jDid = "0";
+                    }else {
+                        jDid = children.get(options1 - 1).getId();
+                        Toast.makeText(MycontactActivity.this, jDid +"",Toast.LENGTH_SHORT).show();
+                    }
+                    getMyContact();
                 }
             }) .setTitleSize(20)
                     .setTitleColor(Color.BLACK)//标题文字颜色

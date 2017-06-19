@@ -27,7 +27,15 @@ public class Data_json implements Serializable {
     private String data_kp;
     private String data_cp;
     private String data_remark;
+    private String data_method;
 
+    public String getData_method() {
+        return data_method;
+    }
+
+    public void setData_method(String data_method) {
+        this.data_method = data_method;
+    }
     public String getData_man() {
         return data_man;
     }

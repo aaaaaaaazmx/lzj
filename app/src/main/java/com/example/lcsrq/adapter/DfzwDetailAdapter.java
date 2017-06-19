@@ -123,7 +123,7 @@ public class DfzwDetailAdapter extends BaseAdapter {
                             }
                         });
                     } else {
-                        int lineImg = imgurls.length / 3;
+                        int lineImg = imgurls.length / 4;  //  图片显示不全, 就得除以4
                         int lineNoImg = i / 3;
                         if (lineNoImg > lineImg) {
                             holder.imgs[i].setVisibility(View.GONE);
@@ -147,12 +147,12 @@ public class DfzwDetailAdapter extends BaseAdapter {
         }
 
 
-        holder.tv_beichachuren.setText("被查出人 : " + dfzwList.get(position).getData_json().getData_man());
+        holder.tv_beichachuren.setText("查处人 : " + dfzwList.get(position).getData_json().getData_man());
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_man())){
             //  被查出人
-            holder.tv_beichachuren.setText("被查出人 : " + dfzwList.get(position).getData_json().getData_man());
+            holder.tv_beichachuren.setText("查处人 : " + dfzwList.get(position).getData_json().getData_man());
         }else {
-            holder.tv_beichachuren.setText("被查出人 : " + " ");
+            holder.tv_beichachuren.setText("查处人 : " + " ");
         }
 
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_tel())){
@@ -189,10 +189,10 @@ public class DfzwDetailAdapter extends BaseAdapter {
 
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_sp())){
             // 实瓶
-            holder.tv_kp.setText("没收实瓶 : " + dfzwList.get(position).getData_json().getData_sp());
+            holder.tv_sp.setText("没收实瓶 : " + dfzwList.get(position).getData_json().getData_sp());
         }else {
             // 实瓶
-            holder.tv_kp.setText("没收实瓶 : " + "");
+            holder.tv_sp.setText("没收实瓶 : " + "");
         }
         return convertView;
     }

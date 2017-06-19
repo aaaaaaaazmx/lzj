@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzMangerActivity;
 import com.example.lcsrq.activity.manger.hdhc.DfzwActivity;
 import com.example.lcsrq.activity.manger.hdhc.DfzwDetaiActivity;
 import com.example.lcsrq.activity.manger.hdhc.MyHdHcactvity;
@@ -179,8 +180,10 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
             }
         });
     }
+    private String jDid;
     private  int state = 0;
     private void getHdList() {
+
         // 获取黑点列表
         HdhcReqData hcRepData = new HdhcReqData();
         hcRepData.setUid(Integer.parseInt(Global.uid));
@@ -188,6 +191,11 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
         if (!TextUtils.isEmpty(qXid)) {
             hcRepData.setAreaid(Integer.parseInt(qXid));
         }
+
+        if (!TextUtils.isEmpty(jDid)){
+            hcRepData.setAreaid(Integer.parseInt(jDid));
+        }
+
         hcRepData.setType(2);
         // 筛选状态
         //!TextUtils.isEmpty(tv_state.getText().toString())
@@ -203,10 +211,10 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
             }
         }
 
-        //getListOfHdhcforMY
-        //getListOfHdhc
+        //getListOfHdhcforMY   我的黑点黑车
+        //getListOfHdhc         分配给谁的黑点黑车
         hcRepData.setStatus(state); //筛选条件
-        loginModel.getListOfHdhcforMY(MyHdActivity.this, hcRepData, new OnLoadComBackListener() {
+        loginModel.getListOfHdhc(MyHdActivity.this, hcRepData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
                 type_page_progress.showContent();
@@ -235,9 +243,6 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
             }
         });
     }
-
-
-
     private void LoadMore() {
         // 获取黑点列表
         HdhcReqData hcRepData = new HdhcReqData();
@@ -245,6 +250,9 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
 //        // 如果区县ID是空的
         if (!TextUtils.isEmpty(qXid)) {
             hcRepData.setAreaid(Integer.parseInt(qXid));
+        }
+        if (!TextUtils.isEmpty(jDid)){
+            hcRepData.setAreaid(Integer.parseInt(jDid));
         }
         // 筛选状态
         //!TextUtils.isEmpty(tv_state.getText().toString())
@@ -263,7 +271,7 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
         hcRepData.setPage(page); //  加载页数
         hcRepData.setType(2);
 
-        loginModel.getListOfHdhcforMY(MyHdActivity.this, hcRepData, new OnLoadComBackListener() {
+        loginModel.getListOfHdhc(MyHdActivity.this, hcRepData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
                 type_page_progress.showContent();
@@ -411,6 +419,14 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
                     String state = options1ItemsState.get(options1);
                     tv_state.setText(state);
                     // 打非治违列表
+                    getHdList();
+                    // 获取街道ID
+                    if (options1 == 0){
+                        jDid = "0";
+                    }else {
+                        jDid = children.get(options1 - 1).getId();
+                        Toast.makeText(MyHdActivity.this, jDid +"",Toast.LENGTH_SHORT).show();
+                    }
                     getHdList();
                     adapter.notifyDataSetChanged();
                 }

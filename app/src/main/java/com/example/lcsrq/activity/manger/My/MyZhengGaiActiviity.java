@@ -23,6 +23,7 @@ import com.example.lcsrq.bean.req.MyrectificationReqDataim;
 import com.example.lcsrq.bean.resq.GyzCheckDuoRespData;
 import com.example.lcsrq.bean.resq.GyzCheckRespData;
 import com.example.lcsrq.bean.resq.MyrectificationRespDataim;
+import com.example.lcsrq.fragment.MyZgFrgament;
 import com.example.lcsrq.http.OnLoadComBackListener;
 import com.example.lcsrq.model.LoginModel;
 import com.example.lcsrq.value.Global;
@@ -42,7 +43,6 @@ import static com.example.lcsrq.R.id.list_check;
  */
 
 public class MyZhengGaiActiviity extends BaseActivity {
-
     private ViewPager vv_pager;
     private TabPageIndicator indicator;
     private LoginModel loginModel;
@@ -60,7 +60,22 @@ public class MyZhengGaiActiviity extends BaseActivity {
     @Override
     protected void addAction() {
         commonLeftBtn.setOnClickListener(this);
+        vv_pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private ViewGroup tab;
@@ -77,7 +92,7 @@ public class MyZhengGaiActiviity extends BaseActivity {
         FragmentPagerItems pages = new FragmentPagerItems(this);
 
         for (int i=0;i<4;i++) {
-            pages.add(FragmentPagerItem.of(Title[i], TabFragment.class));
+            pages.add(FragmentPagerItem.of(Title[i], MyZgFrgament.class));
         }
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(getSupportFragmentManager(), pages);

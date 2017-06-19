@@ -58,7 +58,7 @@
                     android:layout_toRightOf="@+id/tv_ccdw"
                     android:background="@color/white"
                     android:cursorVisible="true"
-                    android:hint="请输入负责人姓名"
+                    android:hint="请输入单位"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hint_text_color"
                     android:textCursorDrawable="@drawable/edittext_cursor"
@@ -255,7 +255,6 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:inputType="number"
                     android:singleLine="true"
                     android:maxLines="1"
                     android:id="@+id/tv_qy"

@@ -129,8 +129,19 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
         postedContentEt.setOnClickListener(this);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-                if (arg2 == bitmaps.size()) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 点击查看大图
+                if (adapter.getCount() -1 == bitmaps.size() && bitmaps.size() > 0){
+                    if (position == bitmaps.size()){
+                        UiTool.setDialog(GyzXxwhActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        UiTool.showPic(GyzXxwhActivity.this,bitmaps.get(position));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                if (position == bitmaps.size()) {
                     UiTool.hideKeyboard(GyzXxwhActivity.this);
                     if (bitmaps.size() >= 9) {
                         Toast.makeText(GyzXxwhActivity.this, "最多能上传9张图片", Toast.LENGTH_LONG).show();
@@ -617,7 +628,10 @@ public class GyzXxwhActivity extends BaseActivity implements MyPostGridAdapter.D
     public void deletePic(int position) {
         Bitmap pic = bitmaps.get(position);
         pic.recycle();
-        bitmapsChoice.remove(position); //  移除保存的图片
+        // 相册选择的图片
+        if (bitmapsChoice.size()!=0) {
+            bitmapsChoice.remove(position);
+        }
         bitmaps.remove(position);
         filenames.remove(position);
         adapter.notifyDataSetChanged();

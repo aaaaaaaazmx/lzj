@@ -20,6 +20,7 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.My.MycontactActivity;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzMangerActivity;
 import com.example.lcsrq.adapter.DfzwAdapter;
 import com.example.lcsrq.base.BaseActivity;
 import com.example.lcsrq.bean.req.ContentCompanyReqData;
@@ -95,7 +96,6 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
         loginModel = new LoginModel();
         initData();
     }
-
     private int page = 2;
 
     private void initData() {
@@ -167,9 +167,15 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
 
         hdhcReqData.setType(2);
 
+        // 地区联级筛选
         if (!TextUtils.isEmpty(qXid)){
             hdhcReqData.setAreaid(Integer.parseInt(qXid));
         }
+
+        if (!TextUtils.isEmpty(jDid)){
+            hdhcReqData.setAreaid(Integer.parseInt(jDid));
+        }
+
         //!TextUtils.isEmpty(tv_state.getText().toString())
         if (!TextUtils.isEmpty(tv_state.getText().toString())){
             if (tv_state.getText().toString().equals("不限")){
@@ -218,9 +224,15 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
         hdhcReqData.setType(2);
 
         hdhcReqData.setPage(page);
+
         if (!TextUtils.isEmpty(qXid)){
             hdhcReqData.setAreaid(Integer.parseInt(qXid));
         }
+
+        if (!TextUtils.isEmpty(jDid)){
+            hdhcReqData.setAreaid(Integer.parseInt(jDid));
+        }
+
         //!TextUtils.isEmpty(tv_state.getText().toString())
         if (!TextUtils.isEmpty(tv_state.getText().toString())){
             if (tv_state.getText().toString().equals("不限")){
@@ -341,6 +353,7 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
             }
         }
     };
+    String jDid; // 街道ID
 
     @Override
     protected void addAction() {
@@ -439,6 +452,13 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
                     //返回的分别是三个级别的选中位置
                     String tx = options1ItemsJD.get(options1);
                     tv_jiedao.setText(tx);
+                    // 获取街道ID
+                    if (options1 == 0){
+                        jDid = "0";
+                    }else {
+                        jDid = children.get(options1 - 1).getId();
+                    }
+                    getDfzw();
                 }
             }) .setTitleSize(20)
                     .setTitleColor(Color.BLACK)//标题文字颜色

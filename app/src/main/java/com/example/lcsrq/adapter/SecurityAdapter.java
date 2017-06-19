@@ -73,7 +73,10 @@ public class SecurityAdapter extends BaseAdapter {
         holder.tv_title.setText("存在问题 : " +datas.get(position).getContent());
         holder.tv_creat.setText(datas.get(position).getCreat_at());
         holder.iv_pic .setImageResource(R.mipmap.icon_anqyh);
-        holder.tv_dt.setText("检查公司 : " + datas.get(position).getCompany_name());
+//        holder.tv_dt.setText("检查公司 : " + datas.get(position).getCompany_name());
+
+        holder.tv_dt.setText("检查人员 : " + datas.get(position).getM_nickname());
+
         holder.tv_oid_name.setText("检查站点 : " + datas.get(position).getSupply_name());
         return convertView;
     }

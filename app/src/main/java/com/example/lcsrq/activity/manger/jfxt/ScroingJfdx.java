@@ -57,6 +57,8 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
     private ArrayList<XxCx_CarResp> zhandianData;
     private JfdxForZdAdater jfdxForZdAdater;
     private ArrayList<XxCx_CarResp> cardata;
+    private ArrayList<XxCx_CarResp> loadMoreCarData;
+    private ArrayList<XxCx_CarResp> loadMoreZhanData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
         loginModel = new LoginModel();
         type = getIntent().getIntExtra("type", -1); //  查找类型
         infoReqData = new InfoReqData();
+
     }
 
     @Override
@@ -77,7 +80,6 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (type){
-
                     case 1: // 人
                         Intent intent1 = new Intent(ScroingJfdx.this, HdhcCheckActivity.class);
                         Bundle bundle = new Bundle();
@@ -153,6 +155,18 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
                 jfdxForZdAdater = new JfdxForZdAdater(ScroingJfdx.this);
                 jfdxForZdAdater.setDatas(cardata);
                 lv_jfdx.setAdapter(jfdxForZdAdater);
+                jfdxForZdAdater.notifyDataSetChanged();
+            }
+            // 加载更多车辆
+            if (msg.arg1 == 40) {
+                page++;
+                cardata.addAll(loadMoreCarData);
+                jfdxForZdAdater.notifyDataSetChanged();
+            }
+            // 加载更多站点
+            if (msg.arg1 == 30){
+                page++;
+                zhandianData.addAll(loadMoreZhanData);
                 jfdxForZdAdater.notifyDataSetChanged();
             }
         }
@@ -265,7 +279,9 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
         });
     }
     private int page = 2;
+    // 这是查询人的对象
     private void LoadMore(){
+
         if (!TextUtils.isEmpty(name)){
             infoReqData.setKeyword(name);
         }
@@ -284,6 +300,7 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
                 Message message = new Message();
                 message.arg1 = 2;
                 handler.sendMessage(message);
+
                 closeDialog();
                 pullToRefreshView.onHeaderRefreshComplete();
                 pullToRefreshView.onFooterRefreshComplete();
@@ -298,7 +315,67 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
             }
         });
     }
+    // 这是查询车辆的对象
+    private void LoadMoreCar(){
+        infoReqData.setType(type);
 
+        if (!TextUtils.isEmpty(name)){
+            infoReqData.setKeyword(name);
+        }
+        infoReqData.setPage(page);
+        loginModel.getInfo_car(ScroingJfdx.this, infoReqData, new OnLoadComBackListener() {
+            @Override
+            public void onSuccess(Object msg) {
+                type_page_progress.showContent();
+                closeDialog();
+                loadMoreCarData = (ArrayList<XxCx_CarResp>) msg;
+                Message message = new Message();
+                message.arg1 = 40;
+                handler.sendMessage(message);
+                pullToRefreshView.onHeaderRefreshComplete();
+                pullToRefreshView.onFooterRefreshComplete();
+            }
+
+            @Override
+            public void onError(String msg) {
+                closeDialog();
+                Toast.makeText(ScroingJfdx.this,"没有更多的数据",Toast.LENGTH_SHORT).show();
+                pullToRefreshView.onHeaderRefreshComplete();
+                pullToRefreshView.onFooterRefreshComplete();
+
+            }
+        });
+    }
+    //  这是查询站点的对象
+    private void LoadMoreZhan(){
+        infoReqData.setType(type);
+        if (!TextUtils.isEmpty(name)){
+            infoReqData.setKeyword(name);
+        }
+        infoReqData.setPage(page);
+        loginModel.getInfo_car(ScroingJfdx.this, infoReqData, new OnLoadComBackListener() {
+            @Override
+            public void onSuccess(Object msg) {
+                type_page_progress.showContent();
+                loadMoreZhanData = (ArrayList<XxCx_CarResp>) msg;
+                Message message = new Message();
+                message.arg1 = 30;
+                handler.sendMessage(message);
+                closeDialog();
+                pullToRefreshView.onHeaderRefreshComplete();
+                pullToRefreshView.onFooterRefreshComplete();
+            }
+
+            @Override
+            public void onError(String msg) {
+                closeDialog();
+                Toast.makeText(ScroingJfdx.this,"没有更多的数据",Toast.LENGTH_SHORT).show();
+                pullToRefreshView.onHeaderRefreshComplete();
+                pullToRefreshView.onFooterRefreshComplete();
+
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.iv_exit){
@@ -341,12 +418,39 @@ public class ScroingJfdx extends BaseActivity implements PullToRefreshView.OnHea
 
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
-            LoadMore();
+        switch (type){
+            // 加载人
+            case 1:
+                LoadMore();
+                break;
+            // 加载站点
+            case 2:
+                LoadMoreZhan();
+                break;
+            // 加载车辆
+            case 3:
+                LoadMoreCar();
+                break;
+        }
+
     }
 
     @Override
     public void onHeaderRefresh(PullToRefreshView view) {
             page = 2;
-            getPeoPle();
+        switch (type){
+            // 加载人
+            case 1:
+             getPeoPle();
+                break;
+            // 加载站点
+            case 2:
+              getZhandian();
+                break;
+            // 加载车辆
+            case 3:
+               getCar();
+                break;
+        }
     }
 }

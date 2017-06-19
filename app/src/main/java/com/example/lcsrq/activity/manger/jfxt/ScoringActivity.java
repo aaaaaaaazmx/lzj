@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzXxwhActivity;
 import com.example.lcsrq.activity.manger.hdhc.ReportActivity;
 import com.example.lcsrq.base.BaseActivity;
 import com.example.lcsrq.bean.req.SubmitjftReqData;
@@ -129,19 +130,33 @@ public class ScoringActivity extends BaseActivity implements MyPostGridAdapter.D
         commonLeftBtn.setOnClickListener(this);
 
         postedContentEt.setOnClickListener(this);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                if (arg2 == bitmaps.size()) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 点击查看大图
+                if (adapter.getCount() -1 == bitmaps.size() && bitmaps.size() > 0){
+                    if (position == bitmaps.size()){
+                        UiTool.setDialog(ScoringActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        UiTool.showPic(ScoringActivity.this,bitmaps.get(position));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                if (position == bitmaps.size()) {
                     UiTool.hideKeyboard(ScoringActivity.this);
                     if (bitmaps.size() >= 9) {
                         Toast.makeText(ScoringActivity.this, "最多能上传9张图片", Toast.LENGTH_LONG).show();
                     } else {
+//                        Toast.makeText(ReportActivity.this,position+ "",Toast.LENGTH_SHORT).show();
+                        // 也就是点击相机
                         UiTool.setDialog(ScoringActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
                     }
                 }
             }
         });
+
         locationLayout.setOnClickListener(this);
     }
     // 图片
@@ -169,6 +184,7 @@ public class ScoringActivity extends BaseActivity implements MyPostGridAdapter.D
         }
         choicePhotoDialog.dismiss();
     }
+
     //相册
     private void XiangCe() {
 //        Intent intent = new Intent(this, ChoicePicActivity.class);
@@ -665,11 +681,17 @@ public class ScoringActivity extends BaseActivity implements MyPostGridAdapter.D
 
     @Override
     public void deletePic(int position) {
+
         Bitmap pic = bitmaps.get(position);
         pic.recycle();
-        bitmapsChoice.remove(position);
+
+        if (bitmapsChoice.size()!=0){
+            bitmapsChoice.remove(position);
+        }
+
         bitmaps.remove(position);
         filenames.remove(position);
         adapter.notifyDataSetChanged();
     }
+
 }

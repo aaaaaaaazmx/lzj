@@ -9,10 +9,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/layout_title"></include>
+
+        <include
+            layout="@layout/layout_title"></include>
 
 
         <ScrollView
+            android:id="@+id/sv_container"
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -22,7 +25,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"></View>
+
             <LinearLayout
+                android:focusable="true"
                 android:background="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -222,14 +231,14 @@
                                 android:textSize="12sp"
                                 android:id="@+id/tv_yjfzr"
                                 android:textColor="#808080"
-                                android:text="一级负责人: 杨某某"
+                                android:text="一级负责人: "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
                                 android:textSize="12sp"
                                 android:id="@+id/tv_ejfzr"
                                 android:textColor="#808080"
-                                android:text="二级负责人:杨某某"
+                                android:text="二级负责人: "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
@@ -246,14 +255,15 @@
                                 android:textSize="12sp"
                                 android:id="@+id/tv_jbcs"
                                 android:textColor="#808080"
-                                android:text="举报次数: 30"
+                                android:text="举报次数:  "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:visibility="gone"
                                 android:textSize="12sp"
                                 android:id="@+id/tv_cp"
                                 android:textColor="#808080"
-                                android:text="车牌号码:湘A-123456"
+                                android:text="车牌号码: "
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content" />
 
@@ -261,12 +271,9 @@
                                 android:textSize="12sp"
                                 android:id="@+id/tv_chuli"
                                 android:textColor="#808080"
-                                android:text="处理方式:关停"
+                                android:text="处理方式:  "
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content" />
-
-
-
 
                         </LinearLayout>
                     </LinearLayout>
@@ -579,6 +586,10 @@
 
                     <!--查处情况-->
                     <ListView
+                        android:focusable="false"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="0dp"
+                        android:listSelector="@android:color/transparent"
                         android:layout_weight="22"
                         android:visibility="gone"
                         android:id="@+id/cc_list"

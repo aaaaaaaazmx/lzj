@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.My.MyHdActivity;
 import com.example.lcsrq.activity.manger.My.MyHdDetailsActivity;
 import com.example.lcsrq.activity.manger.My.MyJuBaoActivity;
 import com.example.lcsrq.activity.manger.hdhc.DfzwActivity;
@@ -64,8 +65,6 @@ public class TabJbFragment extends Fragment implements PullToRefreshView.OnHeade
         initView(view);
         initData();
     }
-
-
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -79,14 +78,23 @@ public class TabJbFragment extends Fragment implements PullToRefreshView.OnHeade
                 lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                         // 跳传详情页面
-                        JuBaoBean hdhcRespData = hcData.get(position); // 带入的数据
-                        ArrayList<AllCclistRespData> cclist = hcData.get(position).getCclist();// 带入的数据
+
+//                        JuBaoBean hdhcRespData = hcData.get(position); // 带入的数据
+//                        ArrayList<AllCclistRespData> cclist = hcData.get(position).getCclist();// 带入的数据
+//                        Intent intent = new Intent(getActivity(), MyHdDetailsActivity.class);
+////                        intent.putExtra("dfzwdatas",(Serializable)hdhcRespData);
+//                        intent.putExtra("dfzw",(Serializable)cclist);
+//                        intent.putExtra("ID",hcData.get(position).getId());
+//                        intent.putExtra("state",hcData.get(position).getStatus());
+//                        Global.Flag = "0";
+//                        Global.States = "200";
+//                        startActivity(intent);
+
+                        ArrayList<AllCclistRespData> cclist = hcData.get(position).getCclist();
                         Intent intent = new Intent(getActivity(), MyHdDetailsActivity.class);
-//                        intent.putExtra("dfzwdatas",(Serializable)hdhcRespData);
-                        intent.putExtra("dfzw",(Serializable)cclist);
-                        intent.putExtra("ID",hcData.get(position).getId());
+                        intent.putExtra("dfzw", (Serializable) cclist);
+                        intent.putExtra("ID", hcData.get(position).getId());
                         intent.putExtra("state",hcData.get(position).getStatus());
                         Global.Flag = "0";
                         Global.States = "200";
@@ -110,7 +118,8 @@ public class TabJbFragment extends Fragment implements PullToRefreshView.OnHeade
         HdhcReqData hdRepData = new HdhcReqData();
         hdRepData.setUid(Integer.parseInt(Global.uid));
         hdRepData.setType(position);
-        loginModel.getListOfHdhc(getActivity(), hdRepData, new OnLoadComBackListener() {
+        // getListOfHdhcforMY
+        loginModel.getListOfHdhcforMY(getActivity(), hdRepData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
                 type_page_progress.showContent();
@@ -168,7 +177,7 @@ public class TabJbFragment extends Fragment implements PullToRefreshView.OnHeade
         hdRepData.setPage(page);
         hdRepData.setType(position);
 
-        loginModel.getListOfHdhc(getActivity(), hdRepData, new OnLoadComBackListener() {
+        loginModel.getListOfHdhcforMY(getActivity(), hdRepData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
                 type_page_progress.showContent();
@@ -183,7 +192,7 @@ public class TabJbFragment extends Fragment implements PullToRefreshView.OnHeade
             }
             @Override
             public void onError(String msg) {
-                Toast.makeText(getActivity(),msg.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"没有更多的数据",Toast.LENGTH_SHORT).show();
                 pullToRefreshView.onHeaderRefreshComplete();
                 pullToRefreshView.onFooterRefreshComplete();
             }

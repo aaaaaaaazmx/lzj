@@ -75,7 +75,7 @@
                 android:ellipsize="end"
                 android:maxEms="18"
                 android:singleLine="true"
-                android:text="地址"
+                android:text="地区:"
                 android:textColor="#808080"
                 android:textSize="12sp" />
 
@@ -92,7 +92,7 @@
                 android:id="@+id/tv_creat_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13472211544"
+                android:text="电话号码: 13472211544"
                 android:textColor="#808080"
                 android:textSize="12sp" />
             <TextView

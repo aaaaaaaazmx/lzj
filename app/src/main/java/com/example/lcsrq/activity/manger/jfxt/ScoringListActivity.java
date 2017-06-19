@@ -54,6 +54,13 @@ public class ScoringListActivity extends BaseActivity implements PullToRefreshVi
         Getlistjft();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 刷新
+        Getlistjft();
+    }
+
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -148,6 +155,7 @@ public class ScoringListActivity extends BaseActivity implements PullToRefreshVi
         lv_jfxt = (ListView) findViewById(R.id.lv_jfxt);
         commonTitleTv = (TextView) findViewById(R.id.commonTitleTv);
         commonTitleTv.setText("记分管理");
+
         commonLeftBtn = (LinearLayout) findViewById(R.id.commonLeftBtn);
         commonLeftBtn.setVisibility(View.VISIBLE);
 

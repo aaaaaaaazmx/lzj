@@ -197,11 +197,7 @@ public class MyFragment extends BaseFragment {
         }
         //w我的记分
         if (v.getId() == R.id.rl_jf){
-            if (Global.m_roleid.equals("3")){
-                Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();
-            }else {
                 startActivity(new Intent(getActivity(), MyScoreActivity.class));
-            }
         }
     }
     @Override

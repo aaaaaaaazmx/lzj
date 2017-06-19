@@ -68,6 +68,7 @@ public class LoginActivity extends BaseActivity{
         sp = getSharedPreferences("uId", MODE_PRIVATE);
         Global.uid = sp.getString("uid", null);
 
+
         if (Global.uid != null) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
@@ -244,6 +245,8 @@ public class LoginActivity extends BaseActivity{
                         Global.uid = loginRespData.getUid();
                         // 缓存sp
                         sp.edit().putString("uid", Global.uid).commit();
+
+
                         setTag(loginRespData.getUid());  // 设置TAG
                         // 跳转引导页
                         startActivity(new Intent(LoginActivity.this, GuideActivity.class));
@@ -258,11 +261,11 @@ public class LoginActivity extends BaseActivity{
                 return;
             }
 
-            // 验证码
-            if (!password.equals(yzm)){
-                Toast.makeText(LoginActivity.this,"验证码错误",Toast.LENGTH_SHORT).show();
-                return;
-            }
+            // 验证码  打开就需要发验证码
+//            if (!password.equals(yzm)){
+//                Toast.makeText(LoginActivity.this,"验证码错误",Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
 
 
@@ -295,7 +298,7 @@ public class LoginActivity extends BaseActivity{
             yzm =  tmp % (999999 - 100000 + 1) + 100000 + ""; // 验证码
 
             showLoading("正在发送");
-            Toast.makeText(LoginActivity.this,yzm+"",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this,yzm+"",Toast.LENGTH_SHORT).show();
 
             String phone = et_phone.getText().toString();
             final GetYzmReqData getYzmReqData = new GetYzmReqData();
@@ -315,7 +318,7 @@ public class LoginActivity extends BaseActivity{
 
                 @Override
                 public void onError(String msg) {
-                 Toast.makeText(LoginActivity.this,msg.toString(),Toast.LENGTH_SHORT).show();
+//                 Toast.makeText(LoginActivity.this,msg.toString(),Toast.LENGTH_SHORT).show();
                     closeDialog();
                 }
             });

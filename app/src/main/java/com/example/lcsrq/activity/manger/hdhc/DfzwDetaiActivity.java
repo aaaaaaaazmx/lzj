@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +71,8 @@ public class DfzwDetaiActivity extends BaseActivity {
     private JuBaoBean dfzwdatas;
     private TextView commonRightText;
     private String flag;
+    private ScrollView sv_container;
+    private RelativeLayout layout_common_title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class DfzwDetaiActivity extends BaseActivity {
             dfzwDetailAdapter.setDfzwList(dfzwList);
             cc_list.setAdapter(dfzwDetailAdapter);
 
+
             int count = dfzwDetailAdapter.getCount();
             //  动态设置listview的高度
             for (int i = 0; i< count ; i++){
@@ -103,6 +108,7 @@ public class DfzwDetaiActivity extends BaseActivity {
             ViewGroup.LayoutParams params = cc_list.getLayoutParams();
             params.height = totalHeight + (cc_list.getDividerHeight() * (dfzwDetailAdapter.getCount() - 1));
             cc_list.setLayoutParams(params);
+
         }
 
         //区别状态
@@ -121,6 +127,8 @@ public class DfzwDetaiActivity extends BaseActivity {
         if (state.equals("0")){
             iv_state.setVisibility(View.GONE);
         }
+
+
     }
     private HdhcDetailRespData data;
     int index = -1;
@@ -241,6 +249,12 @@ public class DfzwDetaiActivity extends BaseActivity {
 
     @Override
     protected void findViews() {
+        // sv_container
+        layout_common_title = (RelativeLayout) findViewById(R.id.layout_common_title);
+        layout_common_title.setFocusable(true);
+        layout_common_title.setFocusableInTouchMode(true);
+        layout_common_title.requestFocus();
+
         //  头部局
         commonLeftBtn = (LinearLayout) findViewById(R.id.commonLeftBtn);
         commonLeftBtn.setVisibility(View.VISIBLE);

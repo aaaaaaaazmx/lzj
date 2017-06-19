@@ -36,7 +36,8 @@ public class ContentGyzDetailRespData implements Serializable{
           this.lng = lng;
      }
 
-
+     // 证书有效期
+     public String start_end;
      public String id;
      public String title;
      public String remark;
@@ -63,6 +64,14 @@ public class ContentGyzDetailRespData implements Serializable{
 
      public void setData_fzr_company(ArrayList<Data_fzr_company> data_fzr_company) {
           this.data_fzr_company = data_fzr_company;
+     }
+
+     public String getStart_end() {
+          return start_end;
+     }
+
+     public void setStart_end(String start_end) {
+          this.start_end = start_end;
      }
 
      public String getJf_value() {

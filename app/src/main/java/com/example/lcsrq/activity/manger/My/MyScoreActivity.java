@@ -119,49 +119,60 @@ public class MyScoreActivity extends BaseActivity implements PullToRefreshView.O
     @Override
     protected void addAction() {
         commonLeftBtn.setOnClickListener(this);
+
         //  点击条目弹出对话框
         lv_myjf.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                // 管理人员不能点
+                if (Global.m_roleid.equals("3")){
+                    return;
+                }
 
-                final LayoutInflater inflaterDl = LayoutInflater.from(MyScoreActivity.this);
-                LinearLayout layout = (LinearLayout) inflaterDl.inflate(R.layout.js_pop, null);
-                builder = new AlertDialog.Builder(MyScoreActivity.this).create();
-                builder.show();
-                builder.getWindow().setContentView(layout);
+                //  只有代签收能点
+                if (myjftData.get(position).getStatus().equals("1")) {
 
-                WindowManager windowManager = MyScoreActivity.this.getWindowManager();
-                Display display = windowManager.getDefaultDisplay();
-                WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
-                lp.width = (int) (display.getWidth()) * 4/5; //设置宽度
-                lp.height = (int) ((int)(display.getHeight())/3.9);
-                builder.getWindow().setAttributes(lp);
-                // 确认
-                sure = (TextView) layout.findViewById(R.id.sure);
-                // 取消
-                cancle = (TextView) layout.findViewById(R.id.cancle);
+                    final LayoutInflater inflaterDl = LayoutInflater.from(MyScoreActivity.this);
+                    LinearLayout layout = (LinearLayout) inflaterDl.inflate(R.layout.js_pop, null);
+                    builder = new AlertDialog.Builder(MyScoreActivity.this).create();
+                    builder.show();
+                    builder.getWindow().setContentView(layout);
 
-                // 签收
-                sure.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showLoading("正在提交");
-                        did = myjftData.get(position).getId();
-                        status = 2;
-                        Submitjftstatus();
-                    }
-                });
+                    WindowManager windowManager = MyScoreActivity.this.getWindowManager();
+                    Display display = windowManager.getDefaultDisplay();
+                    WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+                    lp.width = (int) (display.getWidth()) * 4 / 5; //设置宽度
+                    lp.height = (int) ((int) (display.getHeight()) / 3.9);
+                    builder.getWindow().setAttributes(lp);
+                    // 确认
+                    sure = (TextView) layout.findViewById(R.id.sure);
+                    // 取消
+                    cancle = (TextView) layout.findViewById(R.id.cancle);
 
-                // 复议
-                cancle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showLoading("正在提交");
-                        did = myjftData.get(position).getId();
-                        status = 3;
-                        Submitjftstatus();
-                    }
-                });
+                    // 签收
+                    sure.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showLoading("正在提交");
+                            did = myjftData.get(position).getId();
+                            status = 2;
+                            Submitjftstatus();
+                        }
+                    });
+
+                    // 复议
+                    cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showLoading("正在提交");
+                            did = myjftData.get(position).getId();
+                            status = 3;
+                            Submitjftstatus();
+                        }
+                    });
+                }else {
+                    return;
+                }
             }
         });
     }

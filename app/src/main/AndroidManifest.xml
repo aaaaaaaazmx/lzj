@@ -102,10 +102,13 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppSplash">
-
+        <!--发布版本-->
+<!--tyZNRXfKp2c0PQQWaq3V86N8IrOptaGs-->
+        <!--开发版本-->
+        <!--GZ8tuGLWuddfY4ZVOxGh70QQc8yxWI0N-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="GZ8tuGLWuddfY4ZVOxGh70QQc8yxWI0N" />
+            android:value="tyZNRXfKp2c0PQQWaq3V86N8IrOptaGs" />
 
         <activity android:name=".activity.manger.SplashActivity">
             <data

@@ -1,15 +1,11 @@
-package com.example.lcsrq.activity.manger.My;
+package com.example.lcsrq.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.view.ViewPager;
+import android.os.SystemClock;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,60 +15,67 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.My.TabFragment;
 import com.example.lcsrq.bean.req.MyrectificationReqDataim;
 import com.example.lcsrq.bean.req.TiJiaoZgstate;
+import com.example.lcsrq.bean.resq.JuBaoBean;
 import com.example.lcsrq.bean.resq.MyrectificationRespDataim;
+import com.example.lcsrq.crame.CustomDialog;
 import com.example.lcsrq.http.OnLoadComBackListener;
 import com.example.lcsrq.model.LoginModel;
+import com.example.lcsrq.utils.LazyLoadFragment;
 import com.example.lcsrq.value.Global;
 import com.example.lcsrq.view.PullToRefreshView;
+import com.example.lcsrq.xiangce.UiTool;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaochao.lcrapiddeveloplibrary.SmartTab.UtilsV4.v4.FragmentPagerItem;
-import com.xiaochao.lcrapiddeveloplibrary.SmartTab.UtilsV4.v4.FragmentPagerItemAdapter;
-import com.xiaochao.lcrapiddeveloplibrary.SmartTab.UtilsV4.v4.FragmentPagerItems;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import java.util.ArrayList;
 
-public class TabFragment extends Fragment implements PullToRefreshView.OnFooterRefreshListener,PullToRefreshView.OnHeaderRefreshListener{
+/**
+ * Created by 苏毅 on 2017/6/15.
+ */
 
-    TextView tabfragmenttextview;
-    private ListView lv_list;
-    private ArrayList<MyrectificationRespDataim> datas;
+public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.OnHeaderRefreshListener,PullToRefreshView.OnFooterRefreshListener{
+
     private LoginModel loginModel;
-    private MyAdapter myAdapter;
+    private TextView tabfragmenttextview;
+    private int pagesize;
+    private ListView lv_list;
     private PullToRefreshView pullToRefreshView;
     private ProgressActivity type_page_progress;
     private ArrayList<MyrectificationRespDataim> loadMoredatas;
-    private int pagesize;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab, container, false);
+    protected int setContentView() {
+        return R.layout.fragment_tab;
     }
 
+    int  mCurrentPosition = -1;
+
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void lazyLoad() {
         loginModel = new LoginModel();
-        initView(view);
+        loadingDialog = new CustomDialog(getActivity());
+        loadingDialog.bindLoadingLayout("正在加载");
+        UiTool.setDialog(getActivity(), loadingDialog, Gravity.CENTER, -1, 1, -1);
+        initView(view); // 如果当页面== 0,就变成4
         initData();
     }
-
-
 
     // 解析数据
     private void initData() {
         getMyRecti();
     }
-
+    private int page = 2;
+    MyAdapter myAdapter;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
             if (msg.arg1 == 1){
                 myAdapter = new MyAdapter();
                 myAdapter.setList(datas);
@@ -87,8 +90,17 @@ public class TabFragment extends Fragment implements PullToRefreshView.OnFooterR
         }
     };
 
-    int page = 2;
+    //  停止加载
+    @Override
+    protected void stopLoad() {
+
+    }
+
+    private ArrayList<MyrectificationRespDataim> datas;
     private void LoadMore(int page) {
+        if (pagesize == 0){
+            mCurrentPosition = 4;
+        }
         // 我的整改
         MyrectificationReqDataim myrectificationReqDataim = new MyrectificationReqDataim();
         myrectificationReqDataim.setUid(Integer.parseInt(Global.uid));
@@ -117,7 +129,62 @@ public class TabFragment extends Fragment implements PullToRefreshView.OnFooterR
             }
         });
     }
+    private void getMyRecti(){
+        if (pagesize == 0){
+            mCurrentPosition = 4;
+        }
+        // 我的整改
+        MyrectificationReqDataim myrectificationReqDataim = new MyrectificationReqDataim();
+        myrectificationReqDataim.setUid(Integer.parseInt(Global.uid));
+        myrectificationReqDataim.setStatus(mCurrentPosition);
+        loginModel.getMyRectification(getActivity(), myrectificationReqDataim, new OnLoadComBackListener() {
 
+
+            @Override
+            public void onSuccess(Object msg) {
+                loadingDialog.dismiss();
+                datas = (ArrayList<MyrectificationRespDataim>) msg;
+                Message message = handler.obtainMessage();
+                message.arg1 = 1;
+                handler.sendMessage(message);
+
+                pullToRefreshView.onFooterRefreshComplete();
+                pullToRefreshView.onHeaderRefreshComplete();
+            }
+
+            @Override
+            public void onError(String msg) {
+                SystemClock.sleep(1500);  // 睡1.5秒
+                loadingDialog.dismiss();
+                if (msg.toString().equals("无数据")){
+
+                }else {
+                    Toast.makeText(getActivity(),msg.toString(), Toast.LENGTH_LONG).show();
+                }
+                pullToRefreshView.onFooterRefreshComplete();
+                pullToRefreshView.onHeaderRefreshComplete();
+            }
+        });
+    }
+    private void initView(View root) {
+        tabfragmenttextview = (TextView) root.findViewById(R.id.tab_fragment_textview);
+        pagesize = FragmentPagerItem.getPosition(getArguments());
+        tabfragmenttextview.setText(String.valueOf(pagesize));
+        mCurrentPosition = pagesize;
+
+        // ListView
+        lv_list = (ListView) root.findViewById(R.id.lv_list);
+
+        // 下拉刷新
+        pullToRefreshView = (PullToRefreshView) root.findViewById(R.id.pullToRefreshView);
+        pullToRefreshView.setOnHeaderRefreshListener(this);
+        pullToRefreshView.setOnFooterRefreshListener(this);
+
+        // 异常加载页面
+        type_page_progress = (ProgressActivity) root.findViewById(R.id.type_page_progress);
+    }
+
+    //  下拉加载和下拉刷新
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
         LoadMore(page);
@@ -128,6 +195,7 @@ public class TabFragment extends Fragment implements PullToRefreshView.OnFooterR
         page = 2;
         getMyRecti(); //  获取的我整改
     }
+    private CustomDialog loadingDialog;
 
     public class MyAdapter extends BaseAdapter {
 
@@ -235,15 +303,20 @@ public class TabFragment extends Fragment implements PullToRefreshView.OnFooterR
             holder.btn_zg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    loadingDialog.bindLoadingLayout("正在加载");
+                    UiTool.setDialog(getActivity(), loadingDialog, Gravity.CENTER, -1, 1, -1);
                     // 如果是管理人员,则不可以验收  或者是公司人员,不能点击
                     if (Global.m_roleid.equals("3") || Global.m_roleid.equals("2")){
+                        loadingDialog.dismiss();
                         return;
                     }
                     if (list.get(position).getFlag() == "1"){
+                        loadingDialog.dismiss();
                         return;
                     }
                     //状态码
                     String status = list.get(position).getStatus();
+
                     if (Integer.parseInt(status) == 3){  //  如果是已验收, 就直接跳过去
                         return;
                     }
@@ -269,10 +342,12 @@ public class TabFragment extends Fragment implements PullToRefreshView.OnFooterR
                             list.get(position).setFlag("1"); //  添加标记,用来标记已经点击过了
                             Toast.makeText(getActivity(), "查处成功", Toast.LENGTH_SHORT).show();
                             list.remove(position);
+                            loadingDialog.dismiss();
                             notifyDataSetChanged();
                         }
                         @Override
                         public void onError(String msg) {
+                            loadingDialog.dismiss();
                             Toast.makeText(getActivity(), msg.toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -296,62 +371,5 @@ public class TabFragment extends Fragment implements PullToRefreshView.OnFooterR
         public SimpleDraweeView oneImgIv;
         public SimpleDraweeView[] imgs = new SimpleDraweeView[9];
 
-    }
-    int  mCurrentPosition = -1;
-    private void getMyRecti(){
-        Toast.makeText(getActivity(),mCurrentPosition + "",Toast.LENGTH_SHORT).show();
-        // 我的整改
-        MyrectificationReqDataim myrectificationReqDataim = new MyrectificationReqDataim();
-        myrectificationReqDataim.setUid(Integer.parseInt(Global.uid));
-        myrectificationReqDataim.setStatus(mCurrentPosition);
-        loginModel.getMyRectification(getActivity(), myrectificationReqDataim, new OnLoadComBackListener() {
-            @Override
-            public void onSuccess(Object msg) {
-                datas = (ArrayList<MyrectificationRespDataim>) msg;
-                Message message = handler.obtainMessage();
-                message.arg1 = 1;
-                handler.sendMessage(message);
-
-                pullToRefreshView.onFooterRefreshComplete();
-                pullToRefreshView.onHeaderRefreshComplete();
-            }
-
-            @Override
-            public void onError(String msg) {
-                if (msg.toString().equals("无数据")){
-
-                }else {
-                    Toast.makeText(getActivity(),msg.toString(), Toast.LENGTH_LONG).show();
-                }
-                pullToRefreshView.onFooterRefreshComplete();
-                pullToRefreshView.onHeaderRefreshComplete();
-            }
-        });
-    }
-
-    private void initView(View root) {
-
-        tabfragmenttextview = (TextView) root.findViewById(R.id.tab_fragment_textview);
-        pagesize = FragmentPagerItem.getPosition(getArguments());
-        tabfragmenttextview.setText(String.valueOf(pagesize));
-        mCurrentPosition = pagesize;
-
-
-        // 如果当页面== 0,就变成4
-        if (pagesize == 0){
-            mCurrentPosition = 4;
-        }
-
-
-
-        // ListView
-        lv_list = (ListView) root.findViewById(R.id.lv_list);
-
-           // 下拉刷新
-        pullToRefreshView = (PullToRefreshView) root.findViewById(R.id.pullToRefreshView);
-        pullToRefreshView.setOnHeaderRefreshListener(this);
-        pullToRefreshView.setOnFooterRefreshListener(this);
-        // 异常加载页面
-        type_page_progress = (ProgressActivity) root.findViewById(R.id.type_page_progress);
     }
 }

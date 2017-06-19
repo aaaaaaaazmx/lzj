@@ -99,6 +99,7 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
     private GyzMangerAdapter adapter;
     private ProgressActivity type_page_progress;
     private TextView commonRightText;
+    private String jDid;
 
 
     @Override
@@ -191,7 +192,6 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
                 list_gyz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                         //  传送过去一个DID
                         Intent intent = new Intent(GyzMangerActivity.this, GyzDetailActivity.class);
                         intent.putExtra("data_id", datas.get(position).getId());
@@ -300,10 +300,19 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
         if (Global.m_roleid.equals("3")){
             contentGyzRegionReqData.setUid(Global.uid);
         }
-         if (Global.My_dw.equals("长沙市燃气热力管理局")){
-          contentGyzRegionReqData.setUid("");
+        // 如果是管理人员并且公司是长沙市燃气热力管理局 则不需要传UID
+        if (Global.m_roleid.equals("3") && Global.My_dw.equals("长沙市燃气热力管理局")){
+            contentGyzRegionReqData.setUid("0");
         }
+
+        // 如果是公司人员则不传uid (UID为0就是 = null)
+        if (Global.m_roleid.equals("2")){
+            contentGyzRegionReqData.setUid("0");
+        }
+
+
         contentGyzRegionReqData.setLevel(1);  //  返回2级列表
+
         loginModel.getListOfGyzRegion(GyzMangerActivity.this, contentGyzRegionReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
@@ -339,6 +348,12 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
         if (!TextUtils.isEmpty(qXid)) {
             data.setAreaid(qXid);
         }
+
+        if (!TextUtils.isEmpty(jDid)){
+            data.setAreaid(jDid);
+        }
+
+
         if (!TextUtils.isEmpty(gSid)){
             data.setCompany_id(gSid);
         }
@@ -383,6 +398,11 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
         if (!TextUtils.isEmpty(qXid)) {
             data.setAreaid(qXid);
         }
+
+        if (!TextUtils.isEmpty(jDid)){
+            data.setAreaid(jDid);
+        }
+
         if (!TextUtils.isEmpty(gSid)){
             data.setCompany_id(gSid);
         }
@@ -417,6 +437,7 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
     private void initCompany() {
         final ContentCompanyReqData contentCompanyReqData = new ContentCompanyReqData();
         // 如果不是管理人员  就传UID来获取公司列表, 因为管理人员可以看全部
+
         if (!Global.m_roleid.equals("3")){
             // 公司管理
             contentCompanyReqData.setUid(Integer.parseInt(Global.uid));
@@ -582,6 +603,14 @@ public class GyzMangerActivity extends BaseActivity implements PullToRefreshView
                     //返回的分别是三个级别的选中位置
                     String tx = options1ItemsJD.get(options1);
                     tv_jiedao.setText(tx);
+                    // 获取街道ID
+                    if (options1 == 0){
+                        jDid = "0";
+                    }else {
+                        jDid = children.get(options1 - 1).getId();
+                        Toast.makeText(GyzMangerActivity.this, jDid +"",Toast.LENGTH_SHORT).show();
+                    }
+                    initGYZlist(qXid,gSid);
                 }
             }).setTitleSize(20)
                     .setTitleColor(Color.BLACK)//标题文字颜色

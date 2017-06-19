@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.My.MycontactActivity;
 import com.example.lcsrq.activity.manger.hdhc.HdhcCheckActivity;
 import com.example.lcsrq.adapter.CcrAdapter;
+import com.example.lcsrq.adapter.PostListAdapter;
 import com.example.lcsrq.adapter.TiJiaoAdapte;
 import com.example.lcsrq.base.BaseActivity;
 import com.example.lcsrq.bean.GyzCheckBean;
@@ -79,43 +81,49 @@ public class GyzTijiaoActivity extends BaseActivity {
 
         // 遍历
         for (int i =0 ;i<list.size(); i++){
+
             GyzTijiaoBean gyzTijiaoBean = new GyzTijiaoBean();
             gyzTijiaoBean.setCheck_id(list.get(i).getCheck_id());
             gyzTijiaoBean.setContent(list.get(i).getContent());
 //            gyzTijiaoBean.setUploads(list.get(i).getUploads());
-            gyzTijiaoBean.setUploads("0");
-            lists.add(gyzTijiaoBean);
+            gyzTijiaoBean.setUploads("0");  // 上传的时候不知道为什么这个东西不能设置为空, 设置为空就会报错
+            //  如果是check_id为空,就表示是从验收那添加的,不需要添加到出专程lists
+
+            if (TextUtils.isEmpty(list.get(i).getCheck_id())){
+                //  直接不执行添加操作
+                 continue;
+            }else {
+                lists.add(gyzTijiaoBean);
+            }
         }
 
         if (list.size() > 0){
             tv_problem.setVisibility(View.VISIBLE);
             lv_tijiao.setVisibility(View.VISIBLE);
 
-
-
-
             for (GyzCheckBean bean:list ) {
                 String imageUrl = bean.getUploads();
                 if (!TextUtils.isEmpty(imageUrl)){
                     String[] urls = imageUrl.split(",");
-                    Toast.makeText(GyzTijiaoActivity.this,urls[0].toString()+"",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(GyzTijiaoActivity.this,urls[0].toString()+"",Toast.LENGTH_SHORT).show();
                     urlList.add(urls);
                 }
             }
             tijiaoAdapter = new TijiaoAdapter();
             tijiaoAdapter.setList(list);
             lv_tijiao.setAdapter(tijiaoAdapter);
+            tijiaoAdapter.notifyDataSetChanged();
 
-            int count = tijiaoAdapter.getCount();
-            //  动态设置listview的高度
-            for (int i = 0; i< count ; i++){
-                View view = tijiaoAdapter.getView(i, null, lv_tijiao);
-                lv_tijiao.measure(0,0);
-                totalHeight += lv_tijiao.getMeasuredHeight();
+            int totalHeight = 0;
+            for (int i = 0; i < tijiaoAdapter.getCount(); i++) {
+                View listItem = tijiaoAdapter.getView(i, null, lv_tijiao);
+                listItem.measure(0, 0);
+                totalHeight += listItem.getMeasuredHeight();
             }
-            ViewGroup.LayoutParams params = lv_tijiao.getLayoutParams();
-            params.height = totalHeight + (lv_tijiao.getDividerHeight() * (tijiaoAdapter.getCount() - 1));
-            lv_tijiao.setLayoutParams(params);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) lv_tijiao.getLayoutParams();
+            layoutParams.height = totalHeight+ (lv_tijiao.getDividerHeight() * (tijiaoAdapter.getCount()) -1);
+            lv_tijiao.setLayoutParams(layoutParams);
+
         }
 
     }
@@ -213,26 +221,41 @@ public class GyzTijiaoActivity extends BaseActivity {
             // 检查人的名字ID tj_check_uids
             GyzJcReqDuoData duoData = new GyzJcReqDuoData();
             duoData.setCheck_dw(jcdw);  //  检查单位
+//            Toast.makeText(GyzTijiaoActivity.this,jcdw  + "" ,Toast.LENGTH_SHORT).show();
             duoData.setCheck_uids(UUid);  // 检查人的ID
+//            Toast.makeText(GyzTijiaoActivity.this,UUid  + "" ,Toast.LENGTH_SHORT).show();
             duoData.setUid(Integer.parseInt(Global.uid));  // 检查人IDs
-            duoData.setDatas(JSON.toJSON(lists).toString());  // datas
+//            Toast.makeText(GyzTijiaoActivity.this,Global.uid+ "" ,Toast.LENGTH_SHORT).show();
+
+
+            if (lists.size() != 0){
+                duoData.setDatas(JSON.toJSON(lists).toString());  // datas
+                Toast.makeText(GyzTijiaoActivity.this,lists.size() + "" ,Toast.LENGTH_SHORT).show();
+
+            }
+
+//            Toast.makeText(GyzTijiaoActivity.this,duoData.getDatas()+ "" ,Toast.LENGTH_SHORT).show();
 //            System.out.println("woainiwoaini :" +JSON.toJSON(lists).toString()+ "" );
             duoData.setSupply_id(Global.supply_id);
+//            Toast.makeText(GyzTijiaoActivity.this,Global.supply_id+ "" ,Toast.LENGTH_SHORT).show();
 
-            // 如果数据是有的,则不传3
-            if (TextUtils.isEmpty(JSON.toJSON(list).toString())){
+            // 如果数据是有的,则不传3 (3表示data字段无效) (目前不能这样判断了)
+            if (TextUtils.isEmpty(duoData.getDatas())){
                 duoData.setStatus("3");
             }
 
+//            Toast.makeText(GyzTijiaoActivity.this,JSON.toJSON(lists).toString()+ "" ,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(GyzTijiaoActivity.this,duoData.getDatas().toString() + "" ,Toast.LENGTH_SHORT).show();
+
             loginModel.getGyzJcDUO(GyzTijiaoActivity.this, duoData, new OnLoadComBackListener() {
-           //  提交成功
+                //  提交成功
                 @Override
                 public void onSuccess(Object msg) {
                     closeDialog();
 //                    startActivity(new Intent(GyzTijiaoActivity.this,GyzDetailActivity.class)); //跳转到详情页面
                     finish();
                 }
-            //  提交失败
+                //  提交失败
                 @Override
                 public void onError(String msg) {
                     closeDialog();
@@ -356,7 +379,7 @@ public class GyzTijiaoActivity extends BaseActivity {
         }
 
         @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             //图片加载
             Log.d("====路径：",strings[position]);
 //            Glide.with(GyzTijiaoActivity.this)

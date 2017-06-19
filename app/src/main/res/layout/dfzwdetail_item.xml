@@ -18,7 +18,7 @@
         android:textSize="12sp"
         android:textColor="#929292"
         android:layout_centerVertical="true"
-        android:text="被查出人:杨某某"
+        android:text="查出人:杨某某"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -105,17 +105,17 @@
         android:lineSpacingExtra="6dp"
         android:text="1111111111111111111111111111111111111111111111"
         android:textColor="#606060"
+        android:layout_marginBottom="5dp"
         android:textSize="15sp" />
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/oneImgIv"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="left"
         android:layout_marginLeft="@dimen/margin_size_common"
         android:layout_marginRight="11dp"
-        android:layout_marginTop="11dp"
         fresco:actualImageScaleType="centerCrop"
         fresco:placeholderImage="@mipmap/ic_pic_fail"
         fresco:placeholderImageScaleType="centerCrop" />
@@ -245,9 +245,16 @@
                 fresco:actualImageScaleType="centerCrop"
                 fresco:placeholderImage="@mipmap/ic_pic_fail"
                 fresco:placeholderImageScaleType="centerCrop" />
+
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F2F2F2" />
 
 
 

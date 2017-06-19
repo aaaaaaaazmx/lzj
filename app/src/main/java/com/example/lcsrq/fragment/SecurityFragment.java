@@ -226,7 +226,6 @@ public class SecurityFragment extends BaseFragment implements PullToRefreshView.
     }
 
     private void getMYzg(){
-
         GyzListReqData gyzListReqData = new GyzListReqData();
         if (!TextUtils.isEmpty(gSid)){
             gyzListReqData.setCompany_id(gSid);

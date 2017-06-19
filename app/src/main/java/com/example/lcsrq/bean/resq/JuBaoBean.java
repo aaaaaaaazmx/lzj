@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 
 public class JuBaoBean implements Serializable {
-
    private  String id;
    private  String status;
    private  String uid;

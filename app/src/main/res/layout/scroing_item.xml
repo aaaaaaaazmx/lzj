@@ -9,10 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#F7F7F7" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#F7F7F7" />
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="10dp"-->
+        <!--android:background="#F7F7F7" />-->
 
     <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
         xmlns:progressActivity="http://schemas.android.com/apk/res-auto"

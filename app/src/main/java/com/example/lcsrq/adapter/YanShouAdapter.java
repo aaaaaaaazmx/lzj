@@ -3,6 +3,7 @@ package com.example.lcsrq.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,10 +17,12 @@ import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.My.MyRectification;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzCheckActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzYanshouActivity;
+import com.example.lcsrq.base.BaseActivity;
 import com.example.lcsrq.bean.req.TiJiaoZgstate;
 import com.example.lcsrq.bean.respbean.Data_ckloglist;
 import com.example.lcsrq.bean.resq.GyzCheckRespData;
 import com.example.lcsrq.bean.resq.GyzCheckZgJlRespData;
+import com.example.lcsrq.crame.CustomDialog;
 import com.example.lcsrq.http.OnLoadComBackListener;
 import com.example.lcsrq.model.LoginModel;
 import com.example.lcsrq.utils.DensityUtil;
@@ -37,9 +40,18 @@ import java.util.ArrayList;
 
 public class YanShouAdapter extends BaseAdapter {
     private   ArrayList<GyzCheckZgJlRespData> datas = new ArrayList<>();
-    private ArrayList<String >lists = new ArrayList<String>();
+    private ArrayList<String >lists = new ArrayList<String>(); // 需要标红的ID
     private Activity activity;
     private Button btn_zg;
+    private CustomDialog loadingDialog;
+
+    public ArrayList<String> getLists() {
+        return lists;
+    }
+
+    public void setLists(ArrayList<String> lists) {
+        this.lists = lists;
+    }
 
     public YanShouAdapter(Activity activity) {
         this.activity = activity;
@@ -70,7 +82,7 @@ public class YanShouAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null){
             holder= new ViewHolder();
 //            convertView = View.inflate(activity, R.layout.yanshou_item,null);
@@ -82,6 +94,8 @@ public class YanShouAdapter extends BaseAdapter {
              TextView tv_detail;
              TextView tv_jcr;
              */
+
+            loadingDialog = new CustomDialog(activity);
 
             holder.tv_danwei = (TextView) convertView.findViewById(R.id.tv_danwei); //  检查单位
             holder.tv_gongyinghzan = (TextView) convertView.findViewById(R.id.tv_gongyinghzan); //  检查站点
@@ -184,9 +198,13 @@ public class YanShouAdapter extends BaseAdapter {
         holder.btn_wzg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               lists.add(datas.get(position).getCheck_id());
+                loadingDialog.bindLoadingLayout("正在加载");
+                UiTool.setDialog(activity, loadingDialog, Gravity.CENTER, -1, 1, -1);
+                lists.add(datas.get(position).getCheck_id());
                 datas.remove(position);   //  提交成功直接移除
+                loadingDialog.dismiss();
                 notifyDataSetChanged();
+
                 // 没有了,直接跳转
                 if (datas.size() == 0){
                     Intent intent = new Intent(activity, GyzCheckActivity.class);
@@ -202,6 +220,9 @@ public class YanShouAdapter extends BaseAdapter {
         holder.btn_zg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                holder.btn_zg.setClickable(false);
+                loadingDialog.bindLoadingLayout("正在加载");
+                UiTool.setDialog(activity, loadingDialog, Gravity.CENTER, -1, 1, -1);
                 //状态码
                 String status = datas.get(position).getStatus();
                 //检查码
@@ -220,8 +241,9 @@ public class YanShouAdapter extends BaseAdapter {
                 loginModel.TijiaZgstate(activity, tiJiaoZgstate, new OnLoadComBackListener() {
                     @Override
                     public void onSuccess(Object msg) {
-                        Toast.makeText(activity,"提交成功", Toast.LENGTH_SHORT).show();
-                        lists.add(datas.get(position).getCheck_id());
+//                        holder.btn_zg.setClickable(true);
+                        loadingDialog.dismiss();
+//                        lists.add(datas.get(position).getCheck_id());
                         datas.remove(position);   //  提交成功直接移除
                         notifyDataSetChanged();
 //                        lists.add(datas.get(position).getCheck_id());
@@ -229,13 +251,15 @@ public class YanShouAdapter extends BaseAdapter {
                         if (datas.size() == 0){
                             Intent intent = new Intent(activity, GyzCheckActivity.class);
                             intent.putStringArrayListExtra("check_id",lists);
-//                            intent.putExtra("check_id","2");
+//                    intent.putExtra("check_id","2");
                             activity.startActivity(intent);
                             activity.finish();
                         }
                     }
                     @Override
                     public void onError(String msg) {
+//                        holder.btn_zg.setClickable(true);
+                        loadingDialog.dismiss();
                         Toast.makeText(activity, msg.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });

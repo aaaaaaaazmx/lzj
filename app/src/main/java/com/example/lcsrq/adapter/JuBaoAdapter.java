@@ -1,11 +1,13 @@
 package com.example.lcsrq.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lcsrq.R;
 import com.example.lcsrq.bean.resq.HdhcRespData;
@@ -51,10 +53,10 @@ public class JuBaoAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        DfzwAdapter.ViewHolder holder;
+        ViewHolder holder;
         if (convertView == null){
             convertView = View.inflate(activity, R.layout.list_item_dfzw,null);
-            holder = new DfzwAdapter.ViewHolder();
+            holder = new ViewHolder();
             holder.tv_areas = (TextView) convertView.findViewById(R.id.tv_areas);
             holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
             holder.tv_creat_at = (TextView) convertView.findViewById(R.id.tv_creat_at);
@@ -67,9 +69,10 @@ public class JuBaoAdapter extends BaseAdapter {
             holder.tv_dw = (TextView) convertView.findViewById(R.id.tv_dw);
             holder.tv_yijifzr = (TextView) convertView.findViewById(R.id.tv_yijifzr);
             holder.tv_erjifzr = (TextView) convertView.findViewById(R.id.tv_erjifzr);
+            holder.ccfs = (TextView) convertView.findViewById(R.id.ccfs);
             convertView.setTag(holder);
         }else {
-            holder = (DfzwAdapter.ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         //  负责人
         if (list.get(position).getFzrs().size() != 0) {
@@ -88,7 +91,19 @@ public class JuBaoAdapter extends BaseAdapter {
         }
 
         holder.tv_content.setText(list.get(position).getContent());  // 内容
-        holder.tv_address.setText("地址 : " + list.get(position).getAddress());  //  地址
+
+//        // 处理方式
+//        if (!TextUtils.isEmpty(list.get(position).getCclist().get(position).getData_json().getData_method())){
+//            holder.ccfs.setText("处理方式 : " + list.get(position).getCclist().get(position).getData_json().getData_method());
+//        }
+
+
+
+        if (list.get(position).getStatus().equals("2")){
+            holder.tv_address.setText("地址 : " + list.get(position).getAreas());  //  地址
+        }else {
+            holder.tv_address.setText("地址 : " + list.get(position).getAddress());  //  地址
+        }
 //        holder.tv_areas.setText(list.get(position).getAreas());
 
         holder.tv_creat_at.setText("受理时间 : " + list.get(position).getCreat_at());
@@ -131,6 +146,14 @@ public class JuBaoAdapter extends BaseAdapter {
 //                }
 //            }
 //        });
+
+        // 处理方式
+        if (list.get(position).getCclist().size()!=0) {
+            if (!TextUtils.isEmpty(list.get(position).getCclist().get(0).getData_json().getData_method())) {
+                holder.ccfs.setText("处理方式 : " + list.get(position).getCclist().get(0).getData_json().getData_method());
+            }
+        }
+
         return convertView;
     }
 
@@ -147,5 +170,6 @@ public class JuBaoAdapter extends BaseAdapter {
         TextView tv_go;
         ImageView img_dw;
         TextView tv_dw;
+        TextView ccfs;
     }
 }

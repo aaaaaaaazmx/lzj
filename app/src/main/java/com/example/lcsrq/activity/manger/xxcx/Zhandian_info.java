@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzDetailActivity;
 import com.example.lcsrq.adapter.CarAdapter;
 import com.example.lcsrq.adapter.ZhanAdapter;
 import com.example.lcsrq.base.BaseActivity;
@@ -145,6 +147,15 @@ public class Zhandian_info extends BaseActivity implements PullToRefreshView.OnH
     @Override
     protected void addAction() {
         commonLeftBtn.setOnClickListener(this);
+        // 跳转供应站
+        lv_car.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Zhandian_info.this, GyzDetailActivity.class);
+                intent.putExtra("data_id",data.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

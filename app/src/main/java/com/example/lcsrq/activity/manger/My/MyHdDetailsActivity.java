@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.hdhc.DfzwDetaiActivity;
 import com.example.lcsrq.activity.manger.hdhc.HdhcCheckActivity;
 import com.example.lcsrq.adapter.DfzwDetailAdapter;
 import com.example.lcsrq.base.BaseActivity;
@@ -31,6 +34,8 @@ import com.example.lcsrq.utils.DensityUtil;
 import com.example.lcsrq.value.Global;
 import com.example.lcsrq.xiangce.UiTool;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.w3c.dom.ls.LSException;
 
 import java.util.ArrayList;
 
@@ -65,6 +70,10 @@ public class MyHdDetailsActivity extends BaseActivity {
     private TextView commonRightText;
     private String flag;
     private TextView tv_dizhi;
+    private ScrollView sv_container;
+    private RelativeLayout layout_common_title;
+    private View view;
+    private TextView tv_chuli;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,9 +83,18 @@ public class MyHdDetailsActivity extends BaseActivity {
         showLoading("正在加载");
 //        dfzwdatas = (JuBaoBean) getIntent().getSerializableExtra("dfzwdatas"); //  要查处的项目
         did = getIntent().getStringExtra("ID"); //  打非治违传过来的ID
+
         dfzwList = (ArrayList<AllCclistRespData>) getIntent().getSerializableExtra("dfzw"); //  获取传过来的CCList
 
         state = getIntent().getStringExtra("state");  // 传过来的状态
+
+        // 处理方式
+        if (dfzwList.size() != 0) {
+            if (!TextUtils.isEmpty(dfzwList.get(0).getData_json().getData_method())) {
+                tv_chuli.setText("处理方式 : "+ dfzwList.get(0).getData_json().getData_method() + "");
+            }
+        }
+
 
         initData();
 
@@ -85,6 +103,9 @@ public class MyHdDetailsActivity extends BaseActivity {
             // 表示没有数据
             cc_list.setVisibility(View.GONE);
         }else {
+
+
+
             cc_list.setVisibility(View.VISIBLE);
             dfzwDetailAdapter = new DfzwDetailAdapter(MyHdDetailsActivity.this);
             dfzwDetailAdapter.setDfzwList(dfzwList);
@@ -100,7 +121,17 @@ public class MyHdDetailsActivity extends BaseActivity {
             ViewGroup.LayoutParams params = cc_list.getLayoutParams();
             params.height = totalHeight + (cc_list.getDividerHeight() * (dfzwDetailAdapter.getCount() - 1));
             cc_list.setLayoutParams(params);
+            dfzwDetailAdapter.notifyDataSetChanged();
+
+
         }
+
+        cc_list.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+            }
+        });
 
         //区别状态
         if (state.equals("1")){
@@ -119,6 +150,10 @@ public class MyHdDetailsActivity extends BaseActivity {
         if (state.equals("0")){
             iv_state.setVisibility(View.GONE);
         }
+
+        if (Global.States.equals("200")){
+            iv_state.setVisibility(View.GONE);
+        }
     }
     private HdhcDetailRespData data;
     int index = -1;
@@ -133,7 +168,7 @@ public class MyHdDetailsActivity extends BaseActivity {
                 String imgUrlStr = data.getUpload_json();
                 if (!TextUtils.isEmpty(imgUrlStr)) {
                     final String[] imgurls = imgUrlStr.split(",");
-                    if (imgurls.length == 1) {
+                    if (imgurls.length <= 1) {
                         oneImgIv.setVisibility(View.VISIBLE);
                         morePicLayout.setVisibility(View.GONE);
                         DensityUtil.lzj(oneImgIv, imgurls[0]);
@@ -141,6 +176,7 @@ public class MyHdDetailsActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 UiTool.showPic(MyHdDetailsActivity.this, imgurls[0]);
+                                Toast.makeText(MyHdDetailsActivity.this,"0",Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else if (imgurls.length > 1) {
@@ -149,11 +185,11 @@ public class MyHdDetailsActivity extends BaseActivity {
                         for (int i = 0; i <imgs.length; i++) {
                             if (i < imgurls.length) {
                                 DensityUtil.lzj(imgs[i], imgurls[i]);
-                                index = i;
+                                final int finalI = i;
                                 imgs[i].setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        UiTool.showPic(MyHdDetailsActivity.this, imgurls[index]);
+                                        UiTool.showPic(MyHdDetailsActivity.this, imgurls[finalI]);
                                     }
                                 });
                             }
@@ -192,7 +228,6 @@ public class MyHdDetailsActivity extends BaseActivity {
                 tv_address.setText(data.getContent());
                 tv_address.setTextColor(Color.BLACK); //  设置颜色字体
                 tv_cp.setText("车牌号 : " +data.getCart_number()); //  车牌号
-
                 if (dfzwList.size()!= 0) {
                     tv_jbcs.setText("举报次数 : " + dfzwList.size() + "");
 //                    tv_yjfzr.setText("一级负责人 : " + dfzwList.get(0).getM_nickname());
@@ -240,6 +275,17 @@ public class MyHdDetailsActivity extends BaseActivity {
 
     @Override
     protected void findViews() {
+        // 处理方式
+        tv_chuli = (TextView) findViewById(R.id.tv_chuli);
+        // sv_container
+        sv_container = (ScrollView) findViewById(R.id.sv_container);
+        layout_common_title = (RelativeLayout) findViewById(R.id.layout_common_title);
+        layout_common_title.setFocusable(true);
+        layout_common_title.setFocusableInTouchMode(true);
+        layout_common_title.requestFocus();
+        //VIew
+        view = findViewById(R.id.view);
+
         //  头部局
         commonLeftBtn = (LinearLayout) findViewById(R.id.commonLeftBtn);
         commonLeftBtn.setVisibility(View.VISIBLE);
@@ -272,9 +318,7 @@ public class MyHdDetailsActivity extends BaseActivity {
         // 状态
         iv_state = (ImageView) findViewById(R.id.iv_state);
 
-        if (Global.States.equals("200")){
-            iv_state.setVisibility(View.GONE);
-        }
+
         // 查处情况
         tv_ccqk = (TextView) findViewById(R.id.tv_ccqk);
 

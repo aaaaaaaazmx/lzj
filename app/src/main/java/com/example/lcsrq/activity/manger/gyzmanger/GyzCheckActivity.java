@@ -188,15 +188,23 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
 
                 // 从验收项目跳转过来的 要标红
                 for (int i = 0; i < duoData.size() ;i++){
-                ArrayList<GyzCheckRespData> oplist = duoData.get(i).getOplist(); // 假如这个东西有9个
-                for (int a = 0; a < oplist.size();a++){    // oplist.size 有5个
-                    for (int j = 0; j < check_ids.size(); j++) {
-                       if (oplist.get(a).getId().equals(check_ids.get(j).toString())) {
-                           oplist.get(a).setFlag(1);
-                       }
+                    ArrayList<GyzCheckRespData> oplist = duoData.get(i).getOplist(); // 假如这个东西有9个
+                    for (int a = 0; a < oplist.size();a++){    // oplist.size 有5个
+                        for (int j = 0; j < check_ids.size(); j++) {
+
+                            if (oplist.get(a).getId().equals(check_ids.get(j).toString())) {
+                                oplist.get(a).setFlag(1);
+                                oplist.get(a).setState(1);  //  表示传下来的问题不能被点击了
+                                GyzCheckBean gyzCheckBean = new GyzCheckBean();
+                                gyzCheckBean.setCheck_id("");
+                                gyzCheckBean.setUploads("");
+                                // 唯一要传的就是这个title
+                                gyzCheckBean.setContent(oplist.get(a).getTitle());
+                                listmap.add(gyzCheckBean);
+                            }
+                        }
                     }
-                }
-            };
+                };
 
 
                 indicator.setVisibility(View.VISIBLE);
@@ -248,7 +256,7 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
                     }
                     @Override
                     public void onPageSelected(int position) {
-                            mCurrentPosition = position;
+                        mCurrentPosition = position;
                     }
                     @Override
                     public void onPageScrollStateChanged(int state) {
@@ -479,7 +487,7 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
         for (int i = 0; i < bitmaps.size(); i++) {
             Bitmap pic = bitmaps.get(i);
             if (pic != null && !pic.isRecycled()) {
-                    pic.recycle();
+                pic.recycle();
             }
         }
         bitmapsChoice.clear();
@@ -761,6 +769,11 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
             holder.CheckBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //  如果是传下来的带验收项目,则提示已存在问题
+                    if (lists.get(position).getState() == 1){
+                          Toast.makeText(GyzCheckActivity.this,"已存在的问题,不能点击",Toast.LENGTH_SHORT).show();
+                          return;
+                    }
                     //  如果点击了已经查改的,就直接改变样式
                     if (lists.get(position).getFlag() == 1){
                         holder.CheckBtn.setText("是");
@@ -769,9 +782,9 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
                         lists.get(position).setFlag(0);
 
                         for (int i = 0; i<listmap.size(); i++){
-                          if (lists.get(position).getId() == listmap.get(i).getCheck_id()){
-                              listmap.remove(i);
-                          }
+                            if (lists.get(position).getId() == listmap.get(i).getCheck_id()){
+                                listmap.remove(i);
+                            }
                         }
                         return;
                     }
@@ -851,11 +864,11 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
                             title = lists.get(position).getTitle(); //  检查项目的titile
 
                             //  保存ID
-                                lists.get(position).setFlag(1);
-                                state++;
-                                lists.get(position).setState(state);
-                                check_id = lists.get(position).getId();
-                                sendPic();
+                            lists.get(position).setFlag(1);
+                            state++;
+                            lists.get(position).setState(state);
+                            check_id = lists.get(position).getId();
+                            sendPic();
                         }
                     });
 

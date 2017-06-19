@@ -19,9 +19,9 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:drawableLeft="@mipmap/icon_cxr"
+            android:drawableLeft="@mipmap/icon_r"
             android:gravity="center"
-            android:text="人员查询"
+            android:text=" 人员记分"
             android:textSize="24dp" />
 
         <TextView
@@ -31,8 +31,8 @@
             android:textSize="24dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="车辆查询 "
-            android:drawableLeft="@mipmap/icon_cpcx"
+            android:text="车辆记分"
+            android:drawableLeft="@mipmap/icon_cl"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="0dp" />
@@ -42,13 +42,13 @@
             android:drawablePadding="10dp"
             android:id="@+id/tv_zhandian"
             android:layout_width="wrap_content"
-           android:layout_height="0dp"
-           android:layout_gravity="center_horizontal"
-           android:layout_weight="1"
-           android:drawableLeft="@mipmap/icon_zdcx"
-           android:gravity="center"
-           android:text="供应站查询"
-           android:textSize="24dp" />
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/icon_zd"
+            android:gravity="center"
+            android:text=" 站点记分"
+            android:textSize="24dp" />
     </LinearLayout>
 
 

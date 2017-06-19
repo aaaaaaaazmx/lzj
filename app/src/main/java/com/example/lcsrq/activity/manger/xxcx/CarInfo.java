@@ -1,11 +1,13 @@
 package com.example.lcsrq.activity.manger.xxcx;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.car.CarDetailActivity;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzDetailActivity;
 import com.example.lcsrq.adapter.CarAdapter;
 import com.example.lcsrq.adapter.PeoPleAdapter;
 import com.example.lcsrq.base.BaseActivity;
@@ -142,6 +146,15 @@ public class CarInfo extends BaseActivity implements PullToRefreshView.OnHeaderR
     @Override
     protected void addAction() {
         commonLeftBtn.setOnClickListener(this);
+        //跳转车辆详情
+        lv_car.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(CarInfo.this, CarDetailActivity.class);
+                intent.putExtra("did",data.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

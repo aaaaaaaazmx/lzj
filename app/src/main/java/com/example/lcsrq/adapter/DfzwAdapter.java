@@ -2,6 +2,7 @@ package com.example.lcsrq.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -73,6 +74,7 @@ public class DfzwAdapter extends BaseAdapter {
             holder.tv_dw = (TextView) convertView.findViewById(R.id.tv_dw);
             holder.tv_yijifzr = (TextView) convertView.findViewById(R.id.tv_yijifzr);
             holder.tv_erjifzr = (TextView) convertView.findViewById(R.id.tv_erjifzr);
+            holder.ccfs = (TextView) convertView.findViewById(R.id.ccfs);
             convertView.setTag(holder);
         }else {
             holder = (DfzwAdapter.ViewHolder) convertView.getTag();
@@ -93,11 +95,28 @@ public class DfzwAdapter extends BaseAdapter {
         }
 
         holder.tv_content.setText(list.get(position).getContent());  // 内容
-
-        holder.tv_address.setText("地址 : " + list.get(position).getAddress());  //  地址
+        //  如果是查处中,地址显示:区域, 不显示具体地址
+//        if (list.get(position).getStatus().equals("2")){
+//            holder.tv_address.setText("地区 : " + list.get(position).getAreas());  //  地址
+//        }else {
+//            holder.tv_address.setText("地区 : " + list.get(position).getAddress());  //  地址
+//        }
 //        holder.tv_areas.setText(list.get(position).getAreas());
 
+        if (TextUtils.isEmpty(list.get(position).getAreas())){
+            holder.tv_address.setVisibility(View.GONE);
+        }else {
+            holder.tv_address.setText("地区 : " + list.get(position).getAreas());  //  地址
+        }
+
         holder.tv_creat_at.setText("受理时间 : " + list.get(position).getCreat_at());
+
+         // 处理方式
+        if (list.get(position).getCclist().size()!=0) {
+            if (!TextUtils.isEmpty(list.get(position).getCclist().get(0).getData_json().getData_method())) {
+                holder.ccfs.setText("处理方式 : " + list.get(position).getCclist().get(0).getData_json().getData_method());
+            }
+        }
 
         if (list.get(position).getStatus().equals("1")){
             //表示待查处
@@ -153,5 +172,6 @@ public class DfzwAdapter extends BaseAdapter {
         TextView tv_go;
         ImageView img_dw;
         TextView tv_dw;
+        TextView ccfs;
     }
 }

@@ -16,17 +16,21 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:text="扣分项目："
-            android:textColor="#000"
-            android:textSize="16sp" />
+            android:textColor="#333333"
+            android:textSize="15sp" />
 
         <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/tv_xm"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxEms="11"
             android:id="@+id/tv_kfxm"
-            android:textColor="#000"
-            android:textSize="16sp"
+            android:textColor="#808080"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="100dp"
             android:text="1111" />
 
         <RelativeLayout
@@ -69,12 +73,13 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:text="扣分人："
-            android:textColor="#9E9E9E"
+            android:textColor="#333333"
             android:textSize="15sp" />
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/tv_kfry"
-            android:textColor="#9E9E9E"
+            android:textColor="#808080"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -89,9 +94,9 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_marginRight="5dp"
-                android:textColor="#DADADA"
+                android:textColor="#cccccc"
                 android:text="2017-3-27(15:30)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

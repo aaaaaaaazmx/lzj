@@ -75,16 +75,6 @@ public class MyPostGridAdapter extends BaseAdapter {
                 deletePicImp.deletePic(position);
             }
         });
-        //查看大图
-        if(position!=urls.size()){
-            holder.img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UiTool.showPic(context,urls.get(position));
-                }
-            });
-        }
-
         return convertView;
     }
 

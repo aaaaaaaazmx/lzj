@@ -92,6 +92,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -162,6 +163,55 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#CCCCCC" />
+
+    <!--职位-->
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:visibility="gone"
+            style="@style/car_detail"
+            android:layout_marginLeft="15dp"
+            android:text="职位" />
+
+        <TextView
+            android:id="@+id/tv_zw"
+            style="@style/car_detail"
+            android:layout_marginRight="15dp"
+            android:text="43052119941208473111" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F2F2F2" />
+
+    <!--记分情况-->
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:visibility="gone"
+            style="@style/car_detail"
+            android:layout_marginLeft="15dp"
+            android:text="记分情况" />
+
+        <TextView
+            android:id="@+id/tv_jfqk1"
+            style="@style/car_detail"
+            android:layout_marginRight="15dp"
+            android:text="43052119941208473111" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F2F2F2" />
+
 
     <RelativeLayout
         android:background="#fff"

@@ -67,6 +67,7 @@ import com.example.lcsrq.view.ExpandableListViewDY;
 import com.example.lcsrq.xiangce.UiTool;
 import com.lidroid.xutils.BitmapUtils;
 import com.viewpagerindicator.CirclePageIndicator;
+import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -108,6 +109,8 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
     private boolean First = true;
     private DingweiUtil dingweiUtil;
     private TextView tv_fenshu;
+    private TextView tv_zhengshu;
+    private ProgressActivity type_page_progress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -184,7 +187,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 tv_company.setText(data.getCompany());
                 tv_gs_phone.setText(data.getTel());
                 tv_fenshu.setText("累计记分 : " + data.getJf_value() + "分");
-
+                tv_zhengshu.setText("证书有效期 : " + data.getStart_end());
                 //  公司负责人
                 GyzGsFzrAdapter gyzGsFzrAdapter = new GyzGsFzrAdapter(GyzDetailActivity.this, new GyzGsFzrAdapter.OnAddOrdelClick() {
                     @Override
@@ -232,7 +235,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 gsfzr_list.setGroupIndicator(null);
                 gyzGsFzrAdapter.setData_fzr(data.getData_fzr_company());
                 gsfzr_list.setAdapter(gyzGsFzrAdapter);
-//                gsfzr_list.expandGroup(0);
+                gsfzr_list.expandGroup(0);
 
                 gsfzr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
@@ -291,7 +294,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 fzr_list.setGroupIndicator(null);
                 gyzFzrAdapter.setData_fzr(data.getData_fzr());
                 fzr_list.setAdapter(gyzFzrAdapter);
-//                fzr_list.expandGroup(0);
+                fzr_list.expandGroup(0);
 
                 // 点击item跳转详情
                 fzr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -352,7 +355,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 cyrFzrAdapter.setData_ysg(data.getData_ysg());
                 cyr_list.setGroupIndicator(null);
                 cyr_list.setAdapter(cyrFzrAdapter);
-//                cyr_list.expandGroup(0); // 默认展开
+                cyr_list.expandGroup(0); // 默认展开
 
                 //  点击ITEM跳转详情
                 cyr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -380,7 +383,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 dzgAdapter.setData(data);
                 dzg_list.setGroupIndicator(null);
                 dzg_list.setAdapter(dzgAdapter);
-//                dzg_list.expandGroup(0);
+                dzg_list.expandGroup(0);
 
                 // 历史扣分项目
                 GyzLskfAdapter lskfadapter = new GyzLskfAdapter(GyzDetailActivity.this);
@@ -428,6 +431,42 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
         startActivity(intent);
 
     }
+    ArrayList<String >lists = new ArrayList<String>();
+    // 获得验收项目
+    private void getYanShou(){
+        // 获取供应站待整改项目
+        loginModel = new LoginModel();
+        final GyzCheckZgJlReqData gyzCheckZgJlReqData = new GyzCheckZgJlReqData();
+        gyzCheckZgJlReqData.setStatus("1,2,4");//  2 表示已整改  1,2,4
+        gyzCheckZgJlReqData.setSupply_id(Integer.parseInt(data.getId()));
+        loginModel.putGyzCheckZgJl(GyzDetailActivity.this, gyzCheckZgJlReqData, new OnLoadComBackListener() {
+            @Override
+            public void onSuccess(Object msg) {
+                closeDialog();
+                yashouDatas = (ArrayList<GyzCheckZgJlRespData>) msg;
+
+                if (yashouDatas.size()!= 0){
+                    Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
+                    intent.putExtra("data",(Serializable)yashouDatas);
+                    intent.putExtra("supply_id",data.getId());
+                    startActivity(intent);
+                }
+// else {
+//                    startActivity(new Intent(GyzDetailActivity.this, GyzCheckActivity.class));
+//                }
+            }
+            @Override
+            public void onError(String msg) {
+                closeDialog();
+                if (msg.toString().equals("无数据")){
+                    Intent intent = new Intent(GyzDetailActivity.this, GyzCheckActivity.class);
+                    intent.putStringArrayListExtra("check_id",lists);
+//                    intent.putExtra("check_id","2");
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 
     private void initData() {
          // 供应站详情
@@ -438,6 +477,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
         loginModel.getListOfGyzDetail(GyzDetailActivity.this, contentGyzDetailReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
+                type_page_progress.showContent();
                 data = JSON.parseObject((String) msg, ContentGyzDetailRespData.class);
                 Message message = handler.obtainMessage();
                 message.arg1 = 1;
@@ -449,23 +489,14 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
             public void onError(String msg) {
                 ll_parent.removeAllViews();
                 // 加载失败弹出一个加载失败的框框
-                Toast.makeText(GyzDetailActivity.this, msg.toString(), Toast.LENGTH_LONG).show();
-                closeDialog();
-                TextView button = new TextView(GyzDetailActivity.this);
-                button.setText("加载失败");
-                button.setBackgroundResource(R.drawable.button_style);
-                button.setGravity(Gravity.CENTER);
-                button.setPadding(10,10,10,10);
-                ll_parent.addView(button,-2,-2);
-                ll_parent.setGravity(Gravity.CENTER);
-
-                button.setOnClickListener(new View.OnClickListener() {
+                //  异常页面
+                type_page_progress.showError(getResources().getDrawable(R.mipmap.monkey_nodata), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showLoading("正在加载");
+                        // 获取通讯录
                         initData();
                     }
-                });
+                });;
             }
         });
 
@@ -510,7 +541,11 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
 
     @Override
     protected void findViews() {
-        // 扣分项目
+        // 无数据页面
+        type_page_progress = (ProgressActivity) findViewById(R.id.type_page_progress);
+        // 证书有效期
+        tv_zhengshu = (TextView) findViewById(R.id.tv_zhengshu);
+        // 扣分项目o
         tv_fenshu = (TextView) findViewById(R.id.tv_fenshu);
         // 电话
         iv_phone = (ImageView) findViewById(R.id.iv_phone);
@@ -525,7 +560,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
         // 获取did
         Intent intent = getIntent();
         did = intent.getStringExtra("data_id");
-
+        Global.supply_id = did; // 供应站ID
         // 获取viewpagerindicaor
         vv_indicator = (CirclePageIndicator) findViewById(R.id.vv_indicator);
         tv_pager = (TextView) findViewById(R.id.tv_pager);
@@ -638,6 +673,7 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
 //                startActivity(intent);
 //                return;xx
 //            }
+            if (Global.m_roleid.equals("3")){
             showLoading("正在加载");
             ArrayList<Data_ckloglist> ckloglist = data.getCkloglist();
             boolean oPen = isOPen(GyzDetailActivity.this);
@@ -648,16 +684,16 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                     // 如果当前位置在指定范围内
                      // 现在不需要获取待整改项目了,直接传下去就行了
                     //  如果存在问题是空的, 就跳转checkactivity
-                    if (data.getCkloglist().size() != 0){
-                        Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
-                        intent.putExtra("data",(Serializable)ckloglist);
-                        intent.putExtra("supply_id",data.getId());
-                        startActivity(intent);
-                    }else {
-                        closeDialog();
-                        startActivity(new Intent(GyzDetailActivity.this, GyzCheckActivity.class));
-                    }
-                    // 获取供应站待整改项目
+//                    if (data.getCkloglist().size() != 0){
+//                        Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
+//                        intent.putExtra("data",(Serializable)ckloglist);
+//                        intent.putExtra("supply_id",data.getId());
+//                        startActivity(intent);
+//                    }else {
+//                        closeDialog();
+//                        startActivity(new Intent(GyzDetailActivity.this, GyzCheckActivity.class));
+//                    }
+// 获取供应站待整改项目
 //                    loginModel = new LoginModel();
 //                    final GyzCheckZgJlReqData gyzCheckZgJlReqData = new GyzCheckZgJlReqData();
 //                    gyzCheckZgJlReqData.setStatus(1);//  0 表示待整改
@@ -679,23 +715,31 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
 //                            startActivity(new Intent(GyzDetailActivity.this, GyzCheckActivity.class));
 //                        }
 //                    });
-                }else {
+
+                    // 获取验收项目
+                    getYanShou();
+                 }else {
                     closeDialog();
                     Toast.makeText(GyzDetailActivity.this,"您目前没有在查处范围",Toast.LENGTH_SHORT).show();
                 }
 
                 //目前是直接跳转CHECKaCTIVITY 并
-                Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
-                intent.putExtra("data",(Serializable)ckloglist);
-                intent.putExtra("supply_id",data.getId());
-                startActivity(intent);
+//                Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
+//                intent.putExtra("data",(Serializable)ckloglist);
+//                intent.putExtra("supply_id",data.getId());
+//                startActivity(intent);
 
             }else {
                 closeDialog();
                 // 请打开GPS
                 Toast.makeText(GyzDetailActivity.this,"请打开GPS定位",Toast.LENGTH_SHORT).show();
             }
+            }else {
+                Toast.makeText(GyzDetailActivity.this,"您没有权限",Toast.LENGTH_SHORT).show();
+            }
+
         } else if (v.getId() == R.id.ll_weihu) {
+            if (Global.m_roleid.equals("3")){
             showLoading("正在加载");
             // 判断手机是否打开GPS 并判断是否在500米范围内
             boolean oPen = isOPen(GyzDetailActivity.this);
@@ -737,6 +781,9 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 // 请打开GPS
                 Toast.makeText(GyzDetailActivity.this,"请打开GPS定位",Toast.LENGTH_SHORT).show();
             }
+        }else {
+            Toast.makeText(GyzDetailActivity.this,"您没有权限",Toast.LENGTH_SHORT).show();
+        }
         }
         else if (v.getId() == R.id.commonLeftBtn){
             // 返回就是结束这个页面

@@ -3,6 +3,7 @@ package com.example.lcsrq;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.example.lcsrq.activity.manger.LoginActivity;
 import com.example.lcsrq.bean.req.UserinfoReqData;
 import com.example.lcsrq.bean.respbean.M_datajson;
 import com.example.lcsrq.bean.resq.LoginRespData;
@@ -49,9 +51,9 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTabSelection(index);
-
         loginModel = new LoginModel();
         iniData();  //  加载我的页面信息
+
     }
 
     private void iniData() {
@@ -60,15 +62,46 @@ public class HomeActivity extends BaseActivity {
         loginModel.userinfo(this, userinfoReqData, new OnLoadComBackListener() {
             @Override
             public void onSuccess(Object msg) {
+
                 UserinfoRespData userinfoRespData = JSON.parseObject((String) msg, UserinfoRespData.class);
-                Global.usernName = userinfoRespData.getM_nickname(); //姓名
-                Global.company_id = userinfoRespData.getCompany_id(); // 公司ID
-                Global.userIcon = userinfoRespData.getHead_photo(); //用户头像
-                Global.m_roleid = userinfoRespData.getM_roleid(); //用户权限
-                Global.Mysupply_id = userinfoRespData.getSupply_id(); //用户自带的供应站ID
-                Global.My_dw = userinfoRespData.getM_datajson().getDw();  //
+                if (!TextUtils.isEmpty(userinfoRespData.getM_nickname())){
+                    Global.usernName = userinfoRespData.getM_nickname(); //姓名
+                }else {
+                    Global.usernName = "";
+                }
+
+                if (!TextUtils.isEmpty(userinfoRespData.getCompany_id())){
+                    Global.company_id = userinfoRespData.getCompany_id(); // 公司ID
+                }else {
+                    Global.company_id = "";
+                }
+
+                if (!TextUtils.isEmpty(userinfoRespData.getHead_photo())){
+                    Global.userIcon = userinfoRespData.getHead_photo(); //用户头像
+                }else {
+                    Global.userIcon = "";
+                }
+                if (!TextUtils.isEmpty(userinfoRespData.getM_roleid())){
+                    Global.m_roleid = userinfoRespData.getM_roleid(); //用户权限
+                }else {
+                    Global.m_roleid = "";
+                }
+
+                if (!TextUtils.isEmpty(userinfoRespData.getSupply_id())){
+                    Global.Mysupply_id = userinfoRespData.getSupply_id(); //用户自带的供应站ID
+                }else {
+                    Global.Mysupply_id = "";
+                }
+
+                if (!TextUtils.isEmpty(userinfoRespData.getM_datajson().getDw())){
+                    Global.My_dw = userinfoRespData.getM_datajson().getDw();  //单位
+                }else {
+                    Global.My_dw = "";
+                }
+
                 //{"code":"220581199011091197","company_id":"0","head_photo":"http://qzmoo.cn/cart/uploads/upload/20170411/b4b147bc522828731f1a016bfa72c073.png","id":"4","m_account":"rq1","m_datajson":{"cz":"rq1","dw":"rq1","remark":"rq1","sex":"1","zw":"rq1"},
                 // "m_nickname":"rq1","m_roleid":"3","sn":"01","supply_id":"0"}
+
 
                 // TODO 头像
             }

@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 
 import com.example.lcsrq.Constant.Constant;
 import com.example.lcsrq.R;
+import com.example.lcsrq.activity.manger.My.MycontactActivity;
+import com.example.lcsrq.activity.manger.PeopleDetail;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzCheckActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzDetailActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.Info;
@@ -292,6 +295,15 @@ public class People_info extends BaseActivity implements PullToRefreshView.OnHea
     @Override
     protected void addAction() {
         commonLeftBtn.setOnClickListener(this);
+        lv_people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(People_info.this, PeopleDetail.class);
+                intent.putExtra("UID",data.get(position).getId());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

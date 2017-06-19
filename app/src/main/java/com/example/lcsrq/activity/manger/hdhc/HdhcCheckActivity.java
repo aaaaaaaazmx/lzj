@@ -39,6 +39,7 @@ import com.example.lcsrq.R;
 import com.example.lcsrq.activity.manger.InputTextActivity;
 import com.example.lcsrq.activity.manger.My.MycontactActivity;
 import com.example.lcsrq.activity.manger.gyzmanger.GyzCheckActivity;
+import com.example.lcsrq.activity.manger.gyzmanger.GyzXxwhActivity;
 import com.example.lcsrq.activity.manger.training.ChoiseQsActivity;
 import com.example.lcsrq.adapter.CcDwAdapter;
 import com.example.lcsrq.adapter.CcrAdapter;
@@ -149,6 +150,17 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
+                // 点击查看大图
+                if (adapter.getCount() -1 == bitmaps.size() && bitmaps.size() > 0){
+                    if (arg2 == bitmaps.size()){
+                        UiTool.setDialog(HdhcCheckActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        UiTool.showPic(HdhcCheckActivity.this,bitmaps.get(arg2));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
                 if (arg2 == bitmaps.size()) {
                     UiTool.hideKeyboard(HdhcCheckActivity.this);
                     if (bitmaps.size() >= 9) {
@@ -447,7 +459,7 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
             } else {
                 Toast.makeText(this, "没有储存卡", Toast.LENGTH_LONG).show();
             }
-//            choicePhotoDialog.dismiss();
+            choicePhotoDialog.dismiss();
 
             // 从相册选择
         } else if (view.getId() == R.id.item_popupwindows_two) {
@@ -462,7 +474,6 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
 
             // 跳转到相册页面
             XiangCe();
-            // 取消
         }
         else if (view.getId() == R.id.item_popupwindows_cancel) {
             choicePhotoDialog.dismiss();
@@ -783,7 +794,9 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
     public void deletePic(int position) {
         Bitmap pic = bitmaps.get(position);
         pic.recycle();
-        bitmapsChoice.remove(position);
+        if (bitmapsChoice.size()!=0) {
+            bitmapsChoice.remove(position);
+        }
         bitmaps.remove(position);
         filenames.remove(position);
         adapter.notifyDataSetChanged();

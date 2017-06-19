@@ -17,6 +17,7 @@
             android:layout_width="45dp"
             android:layout_height="50dp"
             android:layout_gravity="left"
+            android:layout_centerVertical="true"
             fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/ic_pic_fail"
             fresco:placeholderImageScaleType="centerCrop" />
@@ -40,9 +41,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/iv_pic"
             android:ellipsize="end"
-            android:maxEms="10"
             android:maxLines="2"
-            android:singleLine="true"
             android:text="计分对象: xxx"
             android:textColor="#333333"
             android:textSize="15sp" />
@@ -67,7 +66,7 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginTop="13dp"
             android:ellipsize="end"
-            android:maxEms="10"
+            android:maxEms="13"
             android:maxLines="1"
             android:text="湖南地下管廊有限公司"
             android:textColor="#808080"
@@ -83,7 +82,7 @@
             android:drawablePadding="2dp"
             android:text="5分"
             android:textColor="#f00"
-            android:textSize="15dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/tv_creat"
@@ -91,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_data"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="16dp"
             android:drawablePadding="2dp"
             android:text="2016-03-12"
             android:textColor="#cccccc"

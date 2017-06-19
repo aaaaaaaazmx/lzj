@@ -48,6 +48,8 @@ public class InfomationCarActivity extends BaseActivity{
     private EditText tv_text;
     private String keyWord;
     private String keyWord1;
+    private EditText et_dizhi;
+    private RelativeLayout rl_dizhi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,6 +112,10 @@ private LinearLayout commonLeftBtn;
         rl_sfz = (RelativeLayout) findViewById(R.id.rl_sfz);
         // 输入的类型
         tv_text = (EditText) findViewById(R.id.tv_text);
+
+        //  根据地址查询  输入的地址
+        et_dizhi = (EditText) findViewById(R.id.et_dizhi);
+        rl_dizhi = (RelativeLayout) findViewById(R.id.rl_dizhi);
     }
 
     private AlertDialog builder;
@@ -131,6 +137,7 @@ private LinearLayout commonLeftBtn;
                       break;
                   case 2:
                       keyWord = tv_text.getText().toString();
+                      Toast.makeText(InfomationCarActivity.this,et_dizhi.getText().toString() + "",Toast.LENGTH_SHORT).show();
                       // 表示站点
                       Intent intent1 = new Intent(InfomationCarActivity.this, Zhandian_info.class);
                       intent1.putExtra("type",type);
@@ -150,7 +157,7 @@ private LinearLayout commonLeftBtn;
 
         }else if (v.getId() == R.id.rl_lx){
             LayoutInflater inflaterDl = LayoutInflater.from(this);
-            LinearLayout layout = (LinearLayout) inflaterDl.inflate(R.layout.scro_jflx_dialog, null);
+            LinearLayout layout = (LinearLayout) inflaterDl.inflate(R.layout.scro_xxcx_dialog, null);
             builder = new AlertDialog.Builder(InfomationCarActivity.this).create();
             builder.show();
             builder.getWindow().setContentView(layout);
@@ -170,7 +177,7 @@ private LinearLayout commonLeftBtn;
             ll_ren.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tv_leixing.setText("人");
+                    tv_leixing.setText("人员");
                     tv_leixing.setTextColor(Color.BLACK);
                     tv_input.setText("姓名:");
 //                    rl_jf.setVisibility(View.VISIBLE);
@@ -184,7 +191,7 @@ private LinearLayout commonLeftBtn;
             ll_car.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tv_leixing.setText("车");
+                    tv_leixing.setText("车辆");
                     tv_leixing.setTextColor(Color.BLACK);
                     tv_input.setText("车牌号:");
                     type = 3;  //车牌
@@ -205,6 +212,8 @@ private LinearLayout commonLeftBtn;
 //                    rl_jf.setVisibility(View.GONE);
                     rl_phone.setVisibility(View.GONE);
                     rl_sfz.setVisibility(View.GONE);
+                    //  供应站有地址
+                    rl_dizhi.setVisibility(View.VISIBLE);
                     builder.dismiss();
                 }
             });

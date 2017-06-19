@@ -19,6 +19,6 @@ public class TimerCount extends CountDownTimer {
     @Override
     public void onTick(long millisUntilFinished) {
         v.setClickable(false);
-        v.setText("           " +millisUntilFinished / 1000 + "s" + "     ");
+        v.setText("           " +millisUntilFinished / 1000 + "s" + "   ");
     }
 }

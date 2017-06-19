@@ -68,7 +68,6 @@ public class DingweiUtil {
             mLongtitude = bdLocation.getLongitude();
             Global.latitude = mLatitude;  // 纬度
             Global.longitude = mLongtitude; // 经度
-
             }
         @Override
         public void onConnectHotSpotMessage(String s, int i) {

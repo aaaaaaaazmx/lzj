@@ -9,17 +9,33 @@
 
     <include layout="@layout/layout_title"></include>
 
+
+        <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+            xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/type_page_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
     <ScrollView
         android:scrollbars="none"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -111,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:textColor="#6A6A6A"
+                        android:textColor="#333333"
                         android:textSize="15sp" />
 
                     <RelativeLayout
@@ -135,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxEms="20"
-                            android:textColor="#9D9D9D"
+                            android:textColor="#808080"
                             android:textSize="12sp" />
 
                     </RelativeLayout>
@@ -156,12 +172,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:textColor="#9D9D9D"
+                            android:textColor="#808080"
                             android:textSize="12sp" />
                     </LinearLayout>
 
                     <TextView
-                        android:text="证书有效期 : null"
+                        android:layout_marginTop="1dp"
+                        android:textColor="#808080"
+                        android:textSize="12sp"
+                        android:text=""
                         android:id="@+id/tv_zhengshu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -277,6 +296,8 @@
                 android:background="#F2F2F2" />
         </LinearLayout>
     </ScrollView>
+
+
     <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -338,4 +359,6 @@
                 android:text="信息维护" />
         </LinearLayout>
     </LinearLayout>
+            </LinearLayout>
+        </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
 </LinearLayout>

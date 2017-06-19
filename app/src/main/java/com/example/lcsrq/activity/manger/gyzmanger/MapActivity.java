@@ -75,7 +75,7 @@ import java.util.Map;
  * /供应站mapactivity
  */
 
-public class MapActivity extends Activity implements View.OnClickListener,CloudListener {
+public class MapActivity extends BaseActivity implements View.OnClickListener,CloudListener {
     // 所有数据的集合
     private List<CloudPoiInfo> infos = new ArrayList<>();
     private MapView mMapView;
@@ -106,6 +106,7 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
     private TextView companyTitle;
     private TextView viewById;
     private LinearLayout commonLeftBtn;
+    private CloudManager instance;
 
     public MapActivity() {
     }
@@ -113,20 +114,21 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         SDKInitializer.initialize(getApplicationContext());
         CloudManager.getInstance().init(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.map_activity);
-        findViews();
-        initLocaiton();
+
+//        initLocaiton(); // 加载定位
 
         final UiSettings settings=mBaiDuMap.getUiSettings();
-        settings.setAllGesturesEnabled(false);   //关闭一切手势操作
-        settings.setOverlookingGesturesEnabled(false);//屏蔽双指下拉时变成3D地图
-        settings.setZoomGesturesEnabled(false);
-        settings.setScrollGesturesEnabled(false);
+//        settings.setAllGesturesEnabled(false);   //关闭一切手势操作
+//        settings.setOverlookingGesturesEnabled(false);//屏蔽双指下拉时变成3D地图
+//        settings.setZoomGesturesEnabled(false);
+//        settings.setScrollGesturesEnabled(false);
 
-        // 延迟5秒执行
+        // 延1秒执行
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -137,9 +139,30 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
                 settings.setZoomGesturesEnabled(true);
                 settings.setScrollGesturesEnabled(true);
             }
-        },2000);
+        },1000);
+    }
 
+    private void callPhone(String phonenum){
 
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + "" + phonenum);
+        intent.setData(data);
+        //  检查权限
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            return;
+        }
+        startActivity(intent);
+
+    }
+    private String phonenum;
+    //弹窗
+    private CustomDialog choicePhotoDialog;
+
+    @Override
+    protected void addAction() {
+        // 百度地图marker点击事件
         mBaiDuMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(final Marker marker) {
@@ -241,8 +264,6 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
         });
 
 
-
-
         //点击其他地方的时候 就消失
         mBaiDuMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
             @Override
@@ -256,29 +277,10 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
                 return false;
             }
         });
-
     }
 
-
-
-    private void callPhone(String phonenum){
-
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        Uri data = Uri.parse("tel:" + "" + phonenum);
-        intent.setData(data);
-        //  检查权限
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
-            return;
-        }
-        startActivity(intent);
-
-    }
-    private String phonenum;
-    //弹窗
-    private CustomDialog choicePhotoDialog;
-    private void findViews() {
+    @Override
+    protected void findViews() {
         //弹窗
         choicePhotoDialog = new CustomDialog(this);
         choicePhotoDialog.bindBDMapLayout(this);
@@ -315,6 +317,7 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
         }
 
     }
+
 
     private void showContacts(MapView mMapView) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -385,8 +388,15 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        mMapView.onDestroy();
-        CloudManager.getInstance().destroy(); // 云检索销毁
+
+        if (mMapView!= null){
+            mMapView.onDestroy();
+        }
+        if (instance!=null){
+            instance.destroy();
+        }
+
+//        CloudManager.getInstance().destroy(); // 云检索销毁
     }
 
 
@@ -415,7 +425,7 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
-        zhoubian();
+//        zhoubian();
     }
 
 
@@ -500,7 +510,6 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
          * NearbySearchInfo:周边检索设置参数类，继承自 BaseCloudSearchInfo
          * */
         NearbySearchInfo info = new NearbySearchInfo();
-
         //access_key（必须），最大长度50
         info.ak = Global.baidu_ak;
         ////geo table 表主键（必须）
@@ -514,8 +523,8 @@ public class MapActivity extends Activity implements View.OnClickListener,CloudL
 //        Toast.makeText(BaiDuYunActivity.this, latitude + "+" + longitude + "", Toast.LENGTH_SHORT).show();
 //            info.location = "116.404566,39.914974,";
         info.location = mLongtitude + "," + mLatitude;
-//        CloudManager instance = CloudManager.getInstance();
-        CloudManager.getInstance().nearbySearch(info);
+        instance = CloudManager.getInstance();
+        instance.nearbySearch(info);
     }
     OverlayOptions options;
     Marker marker = null;

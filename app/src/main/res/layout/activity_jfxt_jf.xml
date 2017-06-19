@@ -76,6 +76,9 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:ellipsize="end"
+                    android:maxEms="10"
+                    android:maxLines="1"
                     android:id="@+id/tv_jfxm"
                     android:textSize="12sp"
                     android:focusable="false"
