@@ -61,7 +61,7 @@ public class ScoringAdapter extends BaseAdapter {
 
         ViewHolder holder;
         if (convertView == null){
-           convertView = View.inflate(activity, R.layout.scroing_list, null);
+           convertView = View.inflate(activity, R.layout.jf_list, null);
             holder = new ViewHolder();
             holder.tv_data = (TextView) convertView.findViewById(R.id.tv_data);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
@@ -69,16 +69,17 @@ public class ScoringAdapter extends BaseAdapter {
             holder.tv_creat = (TextView) convertView.findViewById(R.id.tv_creat);
             holder.iv_pic = (SimpleDraweeView) convertView.findViewById(R.id.iv_pic);
             holder.tv_oid_name = (TextView) convertView.findViewById(R.id.tv_oid_name);
+            holder.tv_jfxm = (TextView) convertView.findViewById(R.id.tv_jfxm);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tv_creat.setText(datas.get(position).getCreat_at());
         holder.tv_title.setText("记分对象: " + datas.get(position).getOid_name());
-        holder.tv_dt.setText("记分公司 : " + datas.get(position).getCompany_name());
+        holder.tv_oid_name.setText("记分公司 : " + datas.get(position).getCompany_name());
         holder.tv_data.setText("记分情况 : " + datas.get(position).getOid_value() + "分");
-        holder.tv_oid_name.setText("记分人员 : "  + datas.get(position).getOid_name());
-
+        holder.tv_dt.setText("记分人员 : "  + datas.get(position).getM_nickname());
+        holder.tv_jfxm.setText("记分项目 : " + datas.get(position).getPtitle());
         switch (datas.get(position).getStatus()){
             case "1" :
                 holder.iv_pic.setImageResource(R.mipmap.icon_dqs);
@@ -106,5 +107,6 @@ public class ScoringAdapter extends BaseAdapter {
         TextView tv_data;
         TextView tv_creat;
         TextView tv_oid_name;
+        TextView tv_jfxm;
     }
 }

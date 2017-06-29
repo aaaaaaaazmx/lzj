@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.TaskStackBuilder;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ import com.example.lcsrq.adapter.TiJiaoAdapte;
 import com.example.lcsrq.base.BaseActivity;
 import com.example.lcsrq.bean.GyzCheckBean;
 import com.example.lcsrq.bean.req.GyzJcReqDuoData;
+import com.example.lcsrq.bean.req.TsjgReqData;
 import com.example.lcsrq.bean.respbean.GyzTijiaoBean;
 import com.example.lcsrq.bean.respbean.TiJiaoBean;
 import com.example.lcsrq.http.OnLoadComBackListener;
@@ -71,6 +75,8 @@ public class GyzTijiaoActivity extends BaseActivity {
     private int totalHeight = 0;
     private ArrayList<GyzTijiaoBean> lists = new ArrayList<>();
     private TextView tv_problem;
+    private EditText postedContentEt;
+    private String wtms;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +87,6 @@ public class GyzTijiaoActivity extends BaseActivity {
 
         // 遍历
         for (int i =0 ;i<list.size(); i++){
-
             GyzTijiaoBean gyzTijiaoBean = new GyzTijiaoBean();
             gyzTijiaoBean.setCheck_id(list.get(i).getCheck_id());
             gyzTijiaoBean.setContent(list.get(i).getContent());
@@ -139,6 +144,9 @@ public class GyzTijiaoActivity extends BaseActivity {
 
     @Override
     protected void findViews() {
+        // 问题描述
+        postedContentEt = (EditText) findViewById(R.id.postedContentEt);
+
         // 存在问题这一行
         tv_problem = (TextView) findViewById(R.id.tv_problem);
 
@@ -201,8 +209,9 @@ public class GyzTijiaoActivity extends BaseActivity {
         if (v.getId() == R.id.commonLeftBtn){
             finish();
         }else if (v.getId() == R.id.btn_submit){
-
+            // 提交
             showLoading("正在加载");
+            wtms = postedContentEt.getText().toString(); // 问题描述
             jcdw = tv_jcdw.getText().toString(); //  检查单位
             jcdw = Global.My_dw + "";
             // 表示没有添加检查人
@@ -219,41 +228,41 @@ public class GyzTijiaoActivity extends BaseActivity {
             }
 
             // 检查人的名字ID tj_check_uids
-            GyzJcReqDuoData duoData = new GyzJcReqDuoData();
+            final GyzJcReqDuoData duoData = new GyzJcReqDuoData();
             duoData.setCheck_dw(jcdw);  //  检查单位
-//            Toast.makeText(GyzTijiaoActivity.this,jcdw  + "" ,Toast.LENGTH_SHORT).show();
             duoData.setCheck_uids(UUid);  // 检查人的ID
-//            Toast.makeText(GyzTijiaoActivity.this,UUid  + "" ,Toast.LENGTH_SHORT).show();
             duoData.setUid(Integer.parseInt(Global.uid));  // 检查人IDs
-//            Toast.makeText(GyzTijiaoActivity.this,Global.uid+ "" ,Toast.LENGTH_SHORT).show();
-
+            // 问题描述
+            if (!TextUtils.isEmpty(wtms)){
+                duoData.setRemark(wtms);
+            }
 
             if (lists.size() != 0){
                 duoData.setDatas(JSON.toJSON(lists).toString());  // datas
-                Toast.makeText(GyzTijiaoActivity.this,lists.size() + "" ,Toast.LENGTH_SHORT).show();
-
             }
 
-//            Toast.makeText(GyzTijiaoActivity.this,duoData.getDatas()+ "" ,Toast.LENGTH_SHORT).show();
-//            System.out.println("woainiwoaini :" +JSON.toJSON(lists).toString()+ "" );
             duoData.setSupply_id(Global.supply_id);
-//            Toast.makeText(GyzTijiaoActivity.this,Global.supply_id+ "" ,Toast.LENGTH_SHORT).show();
 
             // 如果数据是有的,则不传3 (3表示data字段无效) (目前不能这样判断了)
             if (TextUtils.isEmpty(duoData.getDatas())){
                 duoData.setStatus("3");
             }
 
-//            Toast.makeText(GyzTijiaoActivity.this,JSON.toJSON(lists).toString()+ "" ,Toast.LENGTH_SHORT).show();
-//            Toast.makeText(GyzTijiaoActivity.this,duoData.getDatas().toString() + "" ,Toast.LENGTH_SHORT).show();
-
             loginModel.getGyzJcDUO(GyzTijiaoActivity.this, duoData, new OnLoadComBackListener() {
                 //  提交成功
                 @Override
                 public void onSuccess(Object msg) {
-                    closeDialog();
-//                    startActivity(new Intent(GyzTijiaoActivity.this,GyzDetailActivity.class)); //跳转到详情页面
-                    finish();
+//                    closeDialog();
+//                    finish();
+                    if (TextUtils.isEmpty(duoData.getDatas())){
+                        closeDialog();
+                        finish();
+                    }else {
+                        Message message = handler.obtainMessage();
+                        message.arg1 = 1;
+                        handler.sendMessage(message);
+                    }
+
                 }
                 //  提交失败
                 @Override
@@ -264,6 +273,33 @@ public class GyzTijiaoActivity extends BaseActivity {
             });
         }
     }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.arg1 == 1){
+                // 激光推送别名
+                String alias = Global.Gyz_FzrUid + "," + Global.Gyz_GsUid;
+                TsjgReqData tsjgReqData = new TsjgReqData();
+                tsjgReqData.setAlert("检查成功");
+                tsjgReqData.setAlias(alias);  //  设置别名
+                loginModel.Tsjg(GyzTijiaoActivity.this, tsjgReqData, new OnLoadComBackListener() {
+                    @Override
+                    public void onSuccess(Object msg) {
+                        closeDialog();
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                  Toast.makeText(GyzTijiaoActivity.this,msg.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        }
+    };
 
     private String UID = "";
     @Override

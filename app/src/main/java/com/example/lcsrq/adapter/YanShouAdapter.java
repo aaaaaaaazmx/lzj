@@ -176,7 +176,7 @@ public class YanShouAdapter extends BaseAdapter {
         holder.tv_danwei.setText("检查单位 : " +datas.get(position).getCheck_dw());
         holder.tv_detail.setText(datas.get(position).getContent());
         holder.tv_gongyinghzan.setText("检查站点 : " + datas.get(position).getSupply_name());
-        holder.tv_jcr.setText("检查人 : " + datas.get(position).getM_nickname());
+        holder.tv_jcr.setText("检查人 : " + datas.get(position).getCheck_uids_names());
         holder.tv_time.setText("检查时间 : " + datas.get(position).getCreat_at());
 
         switch (datas.get(position).getStatus()) {
@@ -198,21 +198,63 @@ public class YanShouAdapter extends BaseAdapter {
         holder.btn_wzg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                loadingDialog.bindLoadingLayout("正在加载");
+//                UiTool.setDialog(activity, loadingDialog, Gravity.CENTER, -1, 1, -1);
+//                lists.add(datas.get(position).getCheck_id());
+//                datas.remove(position);   //  提交成功直接移除
+//                loadingDialog.dismiss();
+//                notifyDataSetChanged();
+//
+//                // 没有了,直接跳转
+//                if (datas.size() == 0){
+//                    Intent intent = new Intent(activity, GyzCheckActivity.class);
+//                    intent.putStringArrayListExtra("check_id",lists);
+////                    intent.putExtra("check_id","2");
+//                    activity.startActivity(intent);
+//                    activity.finish();
+//                }
+
                 loadingDialog.bindLoadingLayout("正在加载");
                 UiTool.setDialog(activity, loadingDialog, Gravity.CENTER, -1, 1, -1);
-                lists.add(datas.get(position).getCheck_id());
-                datas.remove(position);   //  提交成功直接移除
-                loadingDialog.dismiss();
-                notifyDataSetChanged();
+                //状态码
+                String status = datas.get(position).getStatus();
+                //检查码
+                String check_id = datas.get(position).getLogid();
+                // 用户UID
+                String uid = Global.uid;
+                // 设置请求参数
+                TiJiaoZgstate tiJiaoZgstate = new TiJiaoZgstate();
+                tiJiaoZgstate.setDid(Integer.parseInt(check_id));
+                tiJiaoZgstate.setStatus_uid(Integer.parseInt(uid));
+                // 不管是几 反正都变成3
+                status = "1";  // 变成待整改
 
-                // 没有了,直接跳转
-                if (datas.size() == 0){
-                    Intent intent = new Intent(activity, GyzCheckActivity.class);
-                    intent.putStringArrayListExtra("check_id",lists);
+                tiJiaoZgstate.setStatus(Integer.parseInt(status));
+                LoginModel  loginModel = new LoginModel();
+                loginModel.TijiaZgstate(activity, tiJiaoZgstate, new OnLoadComBackListener() {
+                    @Override
+                    public void onSuccess(Object msg) {
+                        loadingDialog.dismiss();
+                        lists.add(datas.get(position).getCheck_id());
+                        datas.remove(position);   //  提交成功直接移除
+                        notifyDataSetChanged();
+                        // 没有了,直接跳转
+                        if (datas.size() == 0){
+                            Intent intent = new Intent(activity, GyzCheckActivity.class);
+                            intent.putStringArrayListExtra("check_id",lists);
 //                    intent.putExtra("check_id","2");
-                    activity.startActivity(intent);
-                    activity.finish();
-                }
+                            activity.startActivity(intent);
+                            activity.finish();
+                        }
+                    }
+                    @Override
+                    public void onError(String msg) {
+//                        holder.btn_zg.setClickable(true);
+                        loadingDialog.dismiss();
+                        Toast.makeText(activity, msg.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
@@ -241,17 +283,14 @@ public class YanShouAdapter extends BaseAdapter {
                 loginModel.TijiaZgstate(activity, tiJiaoZgstate, new OnLoadComBackListener() {
                     @Override
                     public void onSuccess(Object msg) {
-//                        holder.btn_zg.setClickable(true);
                         loadingDialog.dismiss();
-//                        lists.add(datas.get(position).getCheck_id());
+                        lists.add(datas.get(position).getCheck_id());
                         datas.remove(position);   //  提交成功直接移除
                         notifyDataSetChanged();
-//                        lists.add(datas.get(position).getCheck_id());
                         // 没有了,直接跳转
                         if (datas.size() == 0){
                             Intent intent = new Intent(activity, GyzCheckActivity.class);
                             intent.putStringArrayListExtra("check_id",lists);
-//                    intent.putExtra("check_id","2");
                             activity.startActivity(intent);
                             activity.finish();
                         }

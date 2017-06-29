@@ -34,6 +34,35 @@ public class GyzCheckZgJlRespData implements Serializable {
     private String m_account;
     private String m_nickname;
 
+    private String gsuid; //  公司人员UID
+    private String fzuid; // 负责人员UID
+
+    private String check_uids_names; // 检查人
+
+    public String getCheck_uids_names() {
+        return check_uids_names;
+    }
+
+    public void setCheck_uids_names(String check_uids_names) {
+        this.check_uids_names = check_uids_names;
+    }
+
+    public String getGsuid() {
+        return gsuid;
+    }
+
+    public void setGsuid(String gsuid) {
+        this.gsuid = gsuid;
+    }
+
+    public String getFzuid() {
+        return fzuid;
+    }
+
+    public void setFzuid(String fzuid) {
+        this.fzuid = fzuid;
+    }
+
     public String getCheck_dw() {
         return check_dw;
     }

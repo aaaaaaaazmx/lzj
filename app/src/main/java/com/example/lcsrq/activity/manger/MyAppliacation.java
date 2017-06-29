@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.lcsrq.HomeActivity;
 import com.example.lcsrq.R;
 import com.example.lcsrq.fragment.FirstFragment;
+import com.example.lcsrq.utils.CrashHandler;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.memory.MemoryTrimType;
 import com.facebook.common.memory.MemoryTrimmableRegistry;
@@ -45,5 +46,10 @@ public class MyAppliacation extends Application {
 
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        //  异常管理
+        CrashHandler handler = new CrashHandler();
+        handler.init(getApplicationContext());
+        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 }

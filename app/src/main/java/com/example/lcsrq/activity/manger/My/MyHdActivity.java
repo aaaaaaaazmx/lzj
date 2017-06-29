@@ -314,10 +314,13 @@ public class MyHdActivity extends BaseActivity implements PullToRefreshView.OnHe
                 // 我的黑点,全部能点击
                 // 跳传详情页面
                 ArrayList<AllCclistRespData> cclist = hdData.get(position).getCclist();
+                JuBaoBean juBaoBean = hdData.get(position);
                 Intent intent = new Intent(MyHdActivity.this, MyHdDetailsActivity.class);
+                intent.putExtra("dfzwdatas",(Serializable) juBaoBean);
                 intent.putExtra("dfzw", (Serializable) cclist);
                 intent.putExtra("ID", hdData.get(position).getId());
                 intent.putExtra("state",hdData.get(position).getStatus());
+                intent.putExtra("clfs",hdData.get(position).getCc_method());
                 Global.Flag = "100";
                 Global.States = "0";
                 startActivity(intent);

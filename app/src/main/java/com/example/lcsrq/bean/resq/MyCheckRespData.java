@@ -30,6 +30,15 @@ public class MyCheckRespData  implements Serializable{
     private String supply_name;
     private String company_id;
     private String company_name;
+    private String check_uids_names;
+
+    public String getCheck_uids_names() {
+        return check_uids_names;
+    }
+
+    public void setCheck_uids_names(String check_uids_names) {
+        this.check_uids_names = check_uids_names;
+    }
 
     public String getId() {
         return id;

@@ -47,13 +47,13 @@ public class MyrectificationRespDataim implements Serializable {
         this.flag = flag;
     }
 
-    private ArrayList<Check_uids_names> check_uids_names;
+    private String check_uids_names;
 
-    public ArrayList<Check_uids_names> getCheck_uids_names() {
+    public String getCheck_uids_names() {
         return check_uids_names;
     }
 
-    public void setCheck_uids_names(ArrayList<Check_uids_names> check_uids_names) {
+    public void setCheck_uids_names(String check_uids_names) {
         this.check_uids_names = check_uids_names;
     }
 

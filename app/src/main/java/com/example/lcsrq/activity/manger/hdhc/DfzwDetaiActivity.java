@@ -73,6 +73,10 @@ public class DfzwDetaiActivity extends BaseActivity {
     private String flag;
     private ScrollView sv_container;
     private RelativeLayout layout_common_title;
+    private TextView tv_jbcotent;
+    private TextView tv_dizhi;
+    private TextView tv_chuli;
+    private String clfs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,31 +88,12 @@ public class DfzwDetaiActivity extends BaseActivity {
         did = getIntent().getStringExtra("ID"); //  打非治违传过来的ID
         dfzwList = (ArrayList<AllCclistRespData>) getIntent().getSerializableExtra("dfzw"); //  获取传过来的CCList
         state = getIntent().getStringExtra("state");  // 传过来的状态
-
+        clfs = getIntent().getStringExtra("clfs");
         initData();
 
-        //  设置lstview的Adapter (查处情况)
-        if (dfzwList.size() == 0 ){
-            // 表示没有数据
-            cc_list.setVisibility(View.GONE);
-        }else {
-            cc_list.setVisibility(View.VISIBLE);
-            dfzwDetailAdapter = new DfzwDetailAdapter(DfzwDetaiActivity.this);
-            dfzwDetailAdapter.setDfzwList(dfzwList);
-            cc_list.setAdapter(dfzwDetailAdapter);
-
-
-            int count = dfzwDetailAdapter.getCount();
-            //  动态设置listview的高度
-            for (int i = 0; i< count ; i++){
-                View view = dfzwDetailAdapter.getView(i, null, cc_list);
-                cc_list.measure(0,0);
-                totalHeight += cc_list.getMeasuredHeight();
-            }
-            ViewGroup.LayoutParams params = cc_list.getLayoutParams();
-            params.height = totalHeight + (cc_list.getDividerHeight() * (dfzwDetailAdapter.getCount() - 1));
-            cc_list.setLayoutParams(params);
-
+        // 查处方式
+        if (!TextUtils.isEmpty(clfs)){
+            tv_chuli.setText("处理方式 : " + clfs);
         }
 
         //区别状态
@@ -127,8 +112,6 @@ public class DfzwDetaiActivity extends BaseActivity {
         if (state.equals("0")){
             iv_state.setVisibility(View.GONE);
         }
-
-
     }
     private HdhcDetailRespData data;
     int index = -1;
@@ -137,6 +120,40 @@ public class DfzwDetaiActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.arg1 == 2 ){
+                //  设置lstview的Adapter (查处情况)
+                if (dfzwList.size() == 0 ){
+                    // 表示没有数据
+                    cc_list.setVisibility(View.GONE);
+                }else {
+                    //  查处人
+                    String cc_user = "";
+                    if (TextUtils.isEmpty(data.getCc_user())){
+                        cc_user = "null";
+                    }else {
+                        cc_user = data.getCc_user();
+                    }
+                    cc_list.setVisibility(View.VISIBLE);
+                    dfzwDetailAdapter = new DfzwDetailAdapter(DfzwDetaiActivity.this);
+                    dfzwDetailAdapter.setDfzwList(dfzwList);
+                    dfzwDetailAdapter.setCcuser(cc_user);
+                    cc_list.setAdapter(dfzwDetailAdapter);
+
+
+                    int count = dfzwDetailAdapter.getCount();
+                    //  动态设置listview的高度
+                    for (int i = 0; i< count ; i++){
+                        View view = dfzwDetailAdapter.getView(i, null, cc_list);
+                        cc_list.measure(0,0);
+                        totalHeight += cc_list.getMeasuredHeight();
+                    }
+                    ViewGroup.LayoutParams params = cc_list.getLayoutParams();
+                    params.height = totalHeight + (cc_list.getDividerHeight() * (dfzwDetailAdapter.getCount() - 1));
+                    cc_list.setLayoutParams(params);
+
+                }
+
+
+
             // 图片现在不需要显示了
                 commonTitleTv.setText(data.getAreas());
 
@@ -199,8 +216,7 @@ public class DfzwDetaiActivity extends BaseActivity {
                  tv_content1 = (TextView) findViewById(R.id.tv_content1);
                  */
                 tv_creat.setText("时间 : " + data.getCreat_at());
-                tv_address.setText(data.getAddress());
-                tv_address.setTextColor(Color.BLACK); //  设置颜色字体
+                tv_address.setText(dfzwdatas.getCc_title());
 //                tv_cp.setText("车牌号 : " +data.getCart_number());
 
                 if (dfzwList.size()!= 0) {
@@ -210,11 +226,14 @@ public class DfzwDetaiActivity extends BaseActivity {
                 }
 
                 tv_content1.setText(data.getContent());  //  查处内容
+                // 查处内容
+                tv_jbcotent.setText("举报内容 : " + data.getContent());
+                //  查处地址
+                tv_dizhi.setText("举报地址 : " + data.getAddress());
             }
         }
     };
     private void initData() {
-
         // 供应站详情
         loginModel = new LoginModel();
         HdhcDetailReqData hdhcDetailReqData = new HdhcDetailReqData();
@@ -283,7 +302,10 @@ public class DfzwDetaiActivity extends BaseActivity {
         iv_state = (ImageView) findViewById(R.id.iv_state);
         // 查处情况
         tv_ccqk = (TextView) findViewById(R.id.tv_ccqk);
-
+        // 举报详情 - 举报内容
+        tv_jbcotent = (TextView) findViewById(R.id.tv_jbcotent);
+        //  举报地址
+        tv_dizhi = (TextView) findViewById(R.id.tv_dizhi);
         // 图片
         oneImgIv = (SimpleDraweeView) findViewById(R.id.oneImgIv);
         imgs[0] = (SimpleDraweeView) findViewById(R.id.imgIv1);
@@ -302,6 +324,9 @@ public class DfzwDetaiActivity extends BaseActivity {
 
         cc_list = (ListView) findViewById(R.id.cc_list);
 //        //  查处情况  传过来的CCLIST
+
+        // 处理方式
+        tv_chuli = (TextView) findViewById(R.id.tv_chuli);
 
 
     }

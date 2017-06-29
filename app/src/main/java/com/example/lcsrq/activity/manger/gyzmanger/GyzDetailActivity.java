@@ -139,6 +139,10 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
             }
         }, 5000, 5000);
     }
+    // 公司人员UID
+    String GSuID = "";
+    //  负责人员UID
+    String FZUid = "";
 
     // 图片的输地址
     private String[] imageUrl = new String[]{};
@@ -236,6 +240,17 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 gyzGsFzrAdapter.setData_fzr(data.getData_fzr_company());
                 gsfzr_list.setAdapter(gyzGsFzrAdapter);
                 gsfzr_list.expandGroup(0);
+                //  获取公司人员UID
+
+                for (int i= 0; i < data.getData_fzr_company().size(); i++){
+                    if (i == 0 ){
+                        GSuID  =  data.getData_fzr_company().get(i).getUid();
+                    }else {
+                        GSuID = GSuID + "," +   data.getData_fzr_company().get(i).getUid();
+                    }
+                }
+                //添加公司人员uid
+                Global.Gyz_GsUid = GSuID;
 
                 gsfzr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
@@ -295,6 +310,17 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 gyzFzrAdapter.setData_fzr(data.getData_fzr());
                 fzr_list.setAdapter(gyzFzrAdapter);
                 fzr_list.expandGroup(0);
+
+                // 获取负责人UID
+                for (int i = 0; i < data.getData_fzr().size(); i++){
+                    if (i == 0){
+                        FZUid = data.getData_fzr().get(i).getUid();
+                    }else {
+                        FZUid = FZUid +  "," + data.getData_fzr().get(i).getUid();
+                    }
+                }
+                // 天机负责人员uid
+                Global.Gyz_FzrUid = FZUid;
 
                 // 点击item跳转详情
                 fzr_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -446,14 +472,14 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 yashouDatas = (ArrayList<GyzCheckZgJlRespData>) msg;
 
                 if (yashouDatas.size()!= 0){
+//                    // 添加公司人员UID和负责人员UID
+//                    yashouDatas.get(0).setGsuid(GSuID);
+//                    yashouDatas.get(0).setFzuid(FZUid);
                     Intent intent = new Intent(GyzDetailActivity.this, GyzYanshouActivity.class);
                     intent.putExtra("data",(Serializable)yashouDatas);
                     intent.putExtra("supply_id",data.getId());
                     startActivity(intent);
                 }
-// else {
-//                    startActivity(new Intent(GyzDetailActivity.this, GyzCheckActivity.class));
-//                }
             }
             @Override
             public void onError(String msg) {
@@ -461,7 +487,6 @@ public class GyzDetailActivity extends BaseActivity implements ViewPager.OnPageC
                 if (msg.toString().equals("无数据")){
                     Intent intent = new Intent(GyzDetailActivity.this, GyzCheckActivity.class);
                     intent.putStringArrayListExtra("check_id",lists);
-//                    intent.putExtra("check_id","2");
                     startActivity(intent);
                 }
             }

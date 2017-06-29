@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class CarDetailActivity extends BaseActivity {
     private String did;
 
     private  TextView tv_cp,tv_jsy,tv_jf,tv_yyy,tv_sj_number,tv_dl,tv_jq,tv_company;
+    private RelativeLayout rl_siji;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -145,9 +147,12 @@ public class CarDetailActivity extends BaseActivity {
         gyz_list = (ExpandableListView) findViewById(R.id.gyz_list);    // 供应站下拉列表
 
 
-
-
-
+        // 司机电话这一行
+        rl_siji = (RelativeLayout) findViewById(R.id.rl_siji);
+        // 只有管理员才能看
+        if (!Global.m_roleid.equals("3")){
+            rl_siji.setVisibility(View.GONE);
+        }
 
         commonLeftBtn = (LinearLayout) findViewById(R.id.commonLeftBtn);
         commonLeftBtn.setVisibility(View.VISIBLE);

@@ -21,6 +21,15 @@ public class Data_cklogtimeslist implements Serializable {
     private  String m_account;
     private  String m_nickname;
     private  String check_dw;
+    private String check_uids_names;
+
+    public String getCheck_uids_names() {
+        return check_uids_names;
+    }
+
+    public void setCheck_uids_names(String check_uids_names) {
+        this.check_uids_names = check_uids_names;
+    }
 
     public String getCheck_dw() {
         return check_dw;

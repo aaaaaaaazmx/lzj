@@ -110,14 +110,14 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
     private LoginModel loginModel;
     private EditText et_address, et_chr, et_dizhi;
 
-    private RelativeLayout rl_address, rl_qxjd,rl_car;
+    private RelativeLayout rl_address, rl_qxjd, rl_car;
     private Intent intent;
     private int type = -1; // 判断是黑车还是黑点
     private EditText et_carnum;
-    private  String urlStrs;
+    private String urlStrs;
     private ImageView iv_dingwei;
     private String dingweiDZ;
-    private TextView et_leixing,et_diqu;
+    private TextView et_leixing, et_diqu;
     private ImageView iv_xiala;
     private ArrayList<ContentGyzRegionRespData> reportDatas;
     private OptionsPickerView optionsPopupWindow;
@@ -135,14 +135,14 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         // 参数已经传过来
         if (type == 1) {  // 黑车
             rl_car.setVisibility(View.VISIBLE);
-        }else {  // 黑点
+        } else {  // 黑点
             rl_car.setVisibility(View.GONE);
         }
 
         // 参数已经传过来
         if (type == 1) {  // 黑车
             et_leixing.setText("黑车举报");
-        }else {  // 黑点
+        } else {  // 黑点
             et_leixing.setText("黑点举报");
         }
 
@@ -167,6 +167,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                 handler.sendMessage(message);
                 closeDialog();
             }
+
             @Override
             public void onError(String msg) {
                 Toast.makeText(ReportActivity.this, msg.toString(), Toast.LENGTH_LONG).show();
@@ -182,16 +183,17 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 //        commonRightBtn.setOnClickListener(this);
         postedContentEt.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+        et_diqu.setOnClickListener(this);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 点击查看大图
-                if (adapter.getCount() -1 == bitmaps.size() && bitmaps.size() > 0){
-                    if (position == bitmaps.size()){
+                if (adapter.getCount() - 1 == bitmaps.size() && bitmaps.size() > 0) {
+                    if (position == bitmaps.size()) {
                         UiTool.setDialog(ReportActivity.this, choicePhotoDialog, Gravity.CENTER, -1, 1, -1);
                         adapter.notifyDataSetChanged();
-                    }else {
-                        UiTool.showPic(ReportActivity.this,bitmaps.get(position));
+                    } else {
+                        UiTool.showPic(ReportActivity.this, bitmaps.get(position));
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -257,29 +259,30 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         iv_dingwei = (ImageView) findViewById(R.id.iv_dingwei);
 
     }
+
     ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
-    private ArrayList<ContentGyzRegionRespData>  options1Items = new ArrayList<>();
+    private ArrayList<ContentGyzRegionRespData> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.arg1 == 20){
+            if (msg.arg1 == 20) {
                 // 提交黑车举报
 //                System.out.println("lzlzlzlzlzllzllzlzl :" + urlStrs.toString());
 
-                sendPost(type,chepaihao,address,dizhi,content,urlStrs);
-            }else if (msg.arg1 == 30){
+                sendPost(type, chepaihao, address, dizhi, content, urlStrs);
+            } else if (msg.arg1 == 30) {
                 // 提交黑点举报
 //                System.out.println("lzlzlzlzlzllzllzlzl :" + urlStrs.toString());
-                sendPost(type,chepaihao,address,dizhi,content,urlStrs);
+                sendPost(type, chepaihao, address, dizhi, content, urlStrs);
 
-            }else if (msg.arg2 == 20){
+            } else if (msg.arg2 == 20) {
                 //  条件选择器
-                 options1Items  = reportDatas;
+                options1Items = reportDatas;
 
-                for (int i=0;i<reportDatas.size();i++) {//遍历省份
+                for (int i = 0; i < reportDatas.size(); i++) {//遍历省份
                     ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
                     for (int c = 0; c < reportDatas.get(i).getChild().size(); c++) {
                         //遍历该省份的所有城市
@@ -292,19 +295,19 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 
 
                 //条件选择器
-                pvOptions = new  OptionsPickerView.Builder(ReportActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
+                pvOptions = new OptionsPickerView.Builder(ReportActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
                     @Override
-                    public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
-                         String s =  options1Items.get(options1).getPickerViewText()+options2Items.get(options1).get(option2).toString();
+                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                        String s = options1Items.get(options1).getPickerViewText() + options2Items.get(options1).get(option2).toString();
 //                        String s =  options1Items.get(options1).toString();
-                        et_diqu.setText(s+"");
+                        et_diqu.setText(s + "");
                         String id1 = reportDatas.get(options1).getId(); //  区域ID
-                        String id2= reportDatas.get(options1).getChild().get(option2).getId();
+                        String id2 = reportDatas.get(options1).getChild().get(option2).getId();
                         areas = id1 + "," + id2;
                     }
                 }).build();
 
-                pvOptions.setPicker(options1Items,options2Items);
+                pvOptions.setPicker(options1Items, options2Items);
             }
         }
 
@@ -312,7 +315,8 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
     };
     private String areas;
     private int MY_PERMISSIONS_REQUEST_XIANGJI = 1;
-    private String ccr,chepaihao,content,address,dizhi;
+    private String ccr, chepaihao, content, address, dizhi;
+
     // 相机
     private void XiangJi() {
         //先验证手机是否有sdcard
@@ -338,6 +342,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         }
         choicePhotoDialog.dismiss();
     }
+
     //相册
     private void XiangCe() {
 //        Intent intent = new Intent(this, ChoicePicActivity.class);
@@ -366,9 +371,13 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.commonLeftBtn) {
+        // 选择地区
+        if (view.getId() == R.id.et_diqu) {
+            pvOptions.show();
+        } else if (view.getId() == R.id.commonLeftBtn) {
             finish();
         } else {
             if (view.getId() == R.id.btn_submit) {
@@ -415,36 +424,35 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 //                startActivityForResult(intent, IMAGE_CODE);
 //                choicePhotoDialog.dismiss();
                 // 取消
-            }
-            else if (view.getId() == R.id.parent || view.getId() == R.id.item_popupwindows_cancel) {
+            } else if (view.getId() == R.id.parent || view.getId() == R.id.item_popupwindows_cancel) {
                 choicePhotoDialog.dismiss();
-            }
-
-            else if (view.getId() == R.id.iv_dingwei){
+            } else if (view.getId() == R.id.iv_dingwei) {
                 //  跳转定位
 //                Toast.makeText(ReportActivity.this,"dian",Toast.LENGTH_LONG).show();
                 // 现在没有供应站经纬度
                 // 如果安装了
-                if(isAvilible(this,"com.baidu.BaiduMap")){
+                if (isAvilible(this, "com.baidu.BaiduMap")) {
                     Intent intent = new Intent(ReportActivity.this, MyJuabaoMap.class);
-                    startActivityForResult(intent,100);
-                }else {
+                    startActivityForResult(intent, 100);
+                } else {
                     showDialog();
                     choicePhotoDialog.dismiss();
                 }
-            }else if (view.getId() == R.id.iv_xiala){
+            } else if (view.getId() == R.id.iv_xiala) {
                 //加载地区
-                pvOptions.show();
+//                pvOptions.show();
             }
         }
     }
+
     /**
      * 检查手机上是否安装了指定的软件
+     *
      * @param context
      * @param packageName：应用包名
      * @return
      */
-    private boolean isAvilible(Context context, String packageName){
+    private boolean isAvilible(Context context, String packageName) {
         //获取packagemanager
         final PackageManager packageManager = context.getPackageManager();
         //获取所有已安装程序的包信息
@@ -452,8 +460,8 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         //用于存储所有已安装程序的包名
         List<String> packageNames = new ArrayList<String>();
         //从pinfo中将包名字逐一取出，压入pName list中
-        if(packageInfos != null){
-            for(int i = 0; i < packageInfos.size(); i++){
+        if (packageInfos != null) {
+            for (int i = 0; i < packageInfos.size(); i++) {
                 String packName = packageInfos.get(i).packageName;
                 packageNames.add(packName);
             }
@@ -461,6 +469,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         //判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
         return packageNames.contains(packageName);
     }
+
     /**
      * 提示未安装百度地图app或app版本过低
      */
@@ -479,7 +488,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 //                Intent intent = new Intent("android.intent.action.MAIN");
 //                intent.addCategory("android.intent.category.APP_MARKET");
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(Intent.createChooser(intent,"请选择要查看的市场"));
+                startActivity(Intent.createChooser(intent, "请选择要查看的市场"));
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -491,17 +500,19 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
         builder.create().show();
 
     }
+
     private String imagUrl;
+
     // 提交图片上传
     private void sendPicPost(final int type) {
 
         // 如果添加了新的照片,就清除之前的集合  表示添加了图片或者删除了图片
-        if (filenames.size() != urlList.size()){
+        if (filenames.size() != urlList.size()) {
             urlList.clear();
-            urlStrs="";
+            urlStrs = "";
         }
 
-        if (filenames.size() <=0){
+        if (filenames.size() <= 0) {
             urlStrs = "";
             Message message = new Message();
             message.arg1 = 20;
@@ -509,7 +520,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
             return;
         }
 
-        if (!TextUtils.isEmpty(imagUrl)  && urlList.size() == filenames.size()) {
+        if (!TextUtils.isEmpty(imagUrl) && urlList.size() == filenames.size()) {
             if (imagUrl.equals(urlStrs)) {
                 if (type == 1) {
                     Message message = new Message();
@@ -523,7 +534,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                     return;
                 }
             }
-        }else {
+        } else {
             for (int i = 0; i < filenames.size(); i++) {
                 ModelHttp.postPicHttpClient(ReportActivity.this, "http://qzmoo.cn/rqapi/apiwx/formuploadimg", filenames.get(i), new ProcessListener() {
                     @Override
@@ -595,7 +606,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
             if (data != null) {
-                ArrayList<String> photos =data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                ArrayList<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
 //                        bitmapsChoice.clear();
                 filenamesChoice.clear();
                 for (String path : photos) {
@@ -615,7 +626,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                 filenames.addAll(filenamesChoice);
                 return;
             }
-        }else {
+        } else {
             switch (requestCode) {
                 case TAKE_PICTURE:
                     if (resultCode == this.RESULT_OK) {
@@ -695,7 +706,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
             }
         }
 
-        if (resultCode == 100){
+        if (resultCode == 100) {
             Bundle bundleExtra = data.getBundleExtra("bundle");
             dingweiDZ = bundleExtra.getString("address");
             String substring = dingweiDZ.substring(2, dingweiDZ.length());
@@ -725,23 +736,23 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
     public void deletePic(int position) {
         Bitmap pic = bitmaps.get(position);
         pic.recycle();
-            // 相册选择的图片
-        if (bitmapsChoice.size()!=0) {
+        // 相册选择的图片
+        if (bitmapsChoice.size() != 0) {
             bitmapsChoice.remove(position);
         }
 
-            bitmaps.remove(position);
-            filenames.remove(position);
-            adapter.notifyDataSetChanged();
+        bitmaps.remove(position);
+        filenames.remove(position);
+        adapter.notifyDataSetChanged();
     }
 
     // 黑车举报
 
     public void sendPost(int type, String et_carnum, String address, String dizhi, String content, String urlStrs) {
-        if (type == 1){
+        if (type == 1) {
             // 黑车举报
             ContentSumbitHdhcReqData contentSumbitHdhcReqData = new ContentSumbitHdhcReqData();
-            contentSumbitHdhcReqData.setUid(Integer.parseInt(Global.uid));
+            contentSumbitHdhcReqData.setUid(Integer.parseInt(Global.uid));  //  举报人
             contentSumbitHdhcReqData.setType(type); // 类型
             contentSumbitHdhcReqData.setCart_number(et_carnum); //  车牌号码
             contentSumbitHdhcReqData.setAreas(et_diqu.getText().toString()); // 区县
@@ -757,6 +768,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                             closeDialog();
                             finish();
                         }
+
                         @Override
                         public void onError(String msg) {
                             Toast.makeText(ReportActivity.this, msg.toString(), Toast.LENGTH_LONG).show();
@@ -767,7 +779,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
 
             );
             closeDialog();
-        }else {
+        } else {
             //  黑点举报
             ContentSumbitHdhcReqData contentSumbitHdhcReqData = new ContentSumbitHdhcReqData();
             contentSumbitHdhcReqData.setUid(Integer.parseInt(Global.uid)); // 用户ID
@@ -783,6 +795,7 @@ public class ReportActivity extends BaseActivity implements MyPostGridAdapter.De
                             Toast.makeText(ReportActivity.this, "黑点提交成功", Toast.LENGTH_LONG).show();
                             finish();
                         }
+
                         @Override
                         public void onError(String msg) {
                             Toast.makeText(ReportActivity.this, msg.toString(), Toast.LENGTH_LONG).show();

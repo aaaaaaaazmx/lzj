@@ -44,6 +44,7 @@ import com.baidu.mapapi.cloud.NearbySearchInfo;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.CircleOptions;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdate;
@@ -54,6 +55,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.Stroke;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
@@ -515,9 +517,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener,Cl
         ////geo table 表主键（必须）
         info.geoTableId = 166887;
         //检索半径，可选；单位为米，默认为1000米。样例：500
-        info.radius = 30000;
+        info.radius = 500;
         //  默认最大显示50个供应站
-        info.pageSize = 50;
+        info.pageSize = 10;
 
         //检索中心点坐标（经纬度），必选；样例：116.4321,38.76623
 //        Toast.makeText(BaiDuYunActivity.this, latitude + "+" + longitude + "", Toast.LENGTH_SHORT).show();
@@ -568,6 +570,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener,Cl
                  * 向地图添加一个 Overlay
                  * */
                 mBaiDuMap.addOverlay(oo).setZIndex(j);
+
 
                 /**
                  * public LatLngBounds.Builder include(LatLng point)
@@ -629,10 +632,18 @@ public class MapActivity extends BaseActivity implements View.OnClickListener,Cl
                     .latitude(bdLocation.getLatitude())//
                     .longitude(bdLocation.getLongitude()).build();
             mBaiDuMap.setMyLocationData(data);
+
             // 设置图标
             MyLocationConfiguration configuration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mIconLocation);
             mBaiDuMap.setMyLocationConfiguration(configuration);
 
+            //  设置百度地图的精度圈
+            MyLocationData locData = new MyLocationData.Builder()
+                    .accuracy(0)
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(0).latitude(bdLocation.getLatitude())
+                    .longitude(bdLocation.getLongitude()).build();
+            mBaiDuMap.setMyLocationData(locData);
 
             // 更新经纬度
             mLatitude = bdLocation.getLatitude();

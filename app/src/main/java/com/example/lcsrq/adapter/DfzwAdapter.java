@@ -94,7 +94,7 @@ public class DfzwAdapter extends BaseAdapter {
             holder.tv_dw.setText("查处单位 : " + "null"); //  查处单位
         }
 
-        holder.tv_content.setText(list.get(position).getContent());  // 内容
+        holder.tv_content.setText(list.get(position).getCc_title());  // 标题
         //  如果是查处中,地址显示:区域, 不显示具体地址
 //        if (list.get(position).getStatus().equals("2")){
 //            holder.tv_address.setText("地区 : " + list.get(position).getAreas());  //  地址
@@ -116,6 +116,11 @@ public class DfzwAdapter extends BaseAdapter {
             if (!TextUtils.isEmpty(list.get(position).getCclist().get(0).getData_json().getData_method())) {
                 holder.ccfs.setText("处理方式 : " + list.get(position).getCclist().get(0).getData_json().getData_method());
             }
+        }
+
+        // 处理方式
+        if (!TextUtils.isEmpty(list.get(position).getCc_method())){
+            holder.ccfs.setText("处理方式 : " + list.get(position).getCc_method());
         }
 
         if (list.get(position).getStatus().equals("1")){

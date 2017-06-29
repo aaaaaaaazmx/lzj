@@ -25,6 +25,24 @@ public class JuBaoBean implements Serializable {
    private  String upload_json;
    private ArrayList<FzrsBean> fzrs;
     public ArrayList<AllCclistRespData> cclist;
+    private String cc_title;
+    private String cc_method;
+
+    public String getCc_method() {
+        return cc_method;
+    }
+
+    public void setCc_method(String cc_method) {
+        this.cc_method = cc_method;
+    }
+
+    public String getCc_title() {
+        return cc_title;
+    }
+
+    public void setCc_title(String cc_title) {
+        this.cc_title = cc_title;
+    }
 
     public String getId() {
         return id;

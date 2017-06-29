@@ -142,6 +142,7 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_gyz_check);
         showLoading("正在加载");
 
@@ -771,7 +772,7 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
                 public void onClick(View v) {
                     //  如果是传下来的带验收项目,则提示已存在问题
                     if (lists.get(position).getState() == 1){
-                          Toast.makeText(GyzCheckActivity.this,"已存在的问题,不能点击",Toast.LENGTH_SHORT).show();
+                          Toast.makeText(GyzCheckActivity.this,"已存在的问题",Toast.LENGTH_SHORT).show();
                           return;
                     }
                     //  如果点击了已经查改的,就直接改变样式
@@ -865,8 +866,8 @@ public class GyzCheckActivity extends BaseActivity implements MyPostGridAdapter.
 
                             //  保存ID
                             lists.get(position).setFlag(1);
-                            state++;
-                            lists.get(position).setState(state);
+//                            state++;
+//                            lists.get(position).setState(state);
                             check_id = lists.get(position).getId();
                             sendPic();
                         }

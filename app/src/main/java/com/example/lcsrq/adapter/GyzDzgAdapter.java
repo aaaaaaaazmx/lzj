@@ -137,7 +137,7 @@ public class GyzDzgAdapter extends BaseExpandableListAdapter {
 
         //  时间和站点
 //        holder.dzg_tv.setText("检查站点 : " + data.getCkloglist().get(childPosition).getSupply_name());
-        holder.dzg_tv.setText("存在问题 : " + data.getCkloglist().get(childPosition).getContent());
+        holder.dzg_tv.setText(data.getCkloglist().get(childPosition).getContent());
         holder.tv_creat.setText("检查时间 : " +data.getCkloglist().get(childPosition).getCreat_at());
         holder.tv_danwei.setText("检查单位 : " + data.getCkloglist().get(childPosition).getCheck_dw());
 

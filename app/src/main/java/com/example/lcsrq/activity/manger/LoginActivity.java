@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity{
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_TAGS:
-                    JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set<String>) msg.obj, mTagsCallback);
+                    JPushInterface.setAliasAndTags(getApplicationContext(), Global.uid, (Set<String>) msg.obj, mTagsCallback);
                     break;
             }
         }
@@ -262,10 +262,10 @@ public class LoginActivity extends BaseActivity{
             }
 
             // 验证码  打开就需要发验证码
-//            if (!password.equals(yzm)){
-//                Toast.makeText(LoginActivity.this,"验证码错误",Toast.LENGTH_SHORT).show();
-//                return;
-//            }
+            if (!password.equals(yzm)){
+                Toast.makeText(LoginActivity.this,"验证码错误",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
 
 

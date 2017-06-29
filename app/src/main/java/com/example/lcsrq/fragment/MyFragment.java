@@ -154,17 +154,13 @@ public class MyFragment extends BaseFragment {
     public void onClick(View v) {
         //  跳转我的整改
         if (v.getId() == R.id.rl_my_zg) {
+            // 谁都可以看了
 //            startActivity(new Intent(getActivity(), MyRectification.class));
-            // 从业人员和管理人员都可以查看我的
-            if (Global.m_roleid.equals("1") || Global.m_roleid.equals("3")){
                 startActivity(new Intent(getActivity(), MyZhengGaiActiviity.class));
-            }else {
-                Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();
-            }
         } else if (v.getId() == R.id.rl_my_hdhc) {
             // 我的黑点
             if (Global.m_roleid.equals("3")) {
-//                startActivity(new Intent(getActivity(), MyHdHcactvity.class));
+//
                 startActivity(new Intent(getActivity(), MyHdActivity.class));
             }else {
                 Toast.makeText(getActivity(),"您没有权限",Toast.LENGTH_SHORT).show();

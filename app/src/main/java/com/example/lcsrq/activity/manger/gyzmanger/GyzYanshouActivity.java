@@ -97,8 +97,6 @@ public class GyzYanshouActivity extends BaseActivity implements PullToRefreshVie
             }
         }
 
-        Toast.makeText(GyzYanshouActivity.this,lists.size() + "",Toast.LENGTH_SHORT).show(); // 18个
-
         //  如果已整改项目是空的 跳转到检查页面
         if (YzgDatas.size() == 0){
             Intent intent = new Intent(GyzYanshouActivity.this, GyzCheckActivity.class);

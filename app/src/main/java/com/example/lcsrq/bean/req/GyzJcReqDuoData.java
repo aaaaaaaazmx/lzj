@@ -18,6 +18,15 @@ public class GyzJcReqDuoData implements Serializable{
     private String datas;
     private String apisecret;
     private String status;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getStatus() {
         return status;

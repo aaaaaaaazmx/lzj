@@ -92,10 +92,13 @@ public class TabJbFragment extends Fragment implements PullToRefreshView.OnHeade
 //                        startActivity(intent);
 
                         ArrayList<AllCclistRespData> cclist = hcData.get(position).getCclist();
+                        JuBaoBean juBaoBean = hcData.get(position);
                         Intent intent = new Intent(getActivity(), MyHdDetailsActivity.class);
+                        intent.putExtra("dfzwdatas",(Serializable) juBaoBean);
                         intent.putExtra("dfzw", (Serializable) cclist);
                         intent.putExtra("ID", hcData.get(position).getId());
                         intent.putExtra("state",hcData.get(position).getStatus());
+                        intent.putExtra("clfs",hcData.get(position).getCc_method());
                         Global.Flag = "0";
                         Global.States = "200";
                         startActivity(intent);

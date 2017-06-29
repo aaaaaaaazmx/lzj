@@ -27,6 +27,11 @@ public class Global {
     public static String Flag = null;   //  我的打非治违
     public static String States = null;   //  我的举报查处状态
 
+    public static String Gyz_GsUid = null;   //  供应站公司人员UID
+    public static String Gyz_FzrUid = null;   //   供应站负责人人员UID
+
+
+
 
 
 

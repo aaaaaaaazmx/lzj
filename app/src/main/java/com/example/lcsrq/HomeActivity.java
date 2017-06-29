@@ -3,16 +3,21 @@ package com.example.lcsrq;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.alibaba.fastjson.JSON;
 import com.example.lcsrq.activity.manger.LoginActivity;
+import com.example.lcsrq.bean.FirstEvent;
 import com.example.lcsrq.bean.req.UserinfoReqData;
 import com.example.lcsrq.bean.respbean.M_datajson;
 import com.example.lcsrq.bean.resq.LoginRespData;
@@ -25,7 +30,11 @@ import com.example.lcsrq.fragment.MessageFragment;
 import com.example.lcsrq.fragment.SecurityFragment;
 import com.example.lcsrq.http.OnLoadComBackListener;
 import com.example.lcsrq.model.LoginModel;
+import com.example.lcsrq.utils.RedPointDrawable;
 import com.example.lcsrq.value.Global;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by 苏毅 on 2017/3/29.
@@ -46,14 +55,31 @@ public class HomeActivity extends BaseActivity {
     private TextView anquanTv;
     private LinearLayout anquanLl;
     private SecurityFragment securityFragment;
+    private FrameLayout iv_red;
+    private TextView tv_num;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        EventBus.getDefault().register(this); // EVENTBUS开始
         setTabSelection(index);
         loginModel = new LoginModel();
         iniData();  //  加载我的页面信息
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    private int i = 0;
+
+    //eventbus 接受消息的方法
+    @Subscribe
+    public void onEventMainThread(FirstEvent event) {
+        iv_red.setVisibility(View.VISIBLE);
+        i++;
+        tv_num.setText(i + "");
     }
 
     private void iniData() {
@@ -92,12 +118,13 @@ public class HomeActivity extends BaseActivity {
                 }else {
                     Global.Mysupply_id = "";
                 }
-
-                if (!TextUtils.isEmpty(userinfoRespData.getM_datajson().getDw())){
+                //  只有管理人员才有
+                if (Global.m_roleid.equals("3") && !TextUtils.isEmpty(userinfoRespData.getM_datajson().getDw())){
                     Global.My_dw = userinfoRespData.getM_datajson().getDw();  //单位
                 }else {
                     Global.My_dw = "";
                 }
+
 
                 //{"code":"220581199011091197","company_id":"0","head_photo":"http://qzmoo.cn/cart/uploads/upload/20170411/b4b147bc522828731f1a016bfa72c073.png","id":"4","m_account":"rq1","m_datajson":{"cz":"rq1","dw":"rq1","remark":"rq1","sex":"1","zw":"rq1"},
                 // "m_nickname":"rq1","m_roleid":"3","sn":"01","supply_id":"0"}
@@ -142,6 +169,13 @@ public class HomeActivity extends BaseActivity {
         secondFragment = new MessageFragment();
         myFragment = new MyFragment();
         securityFragment = new SecurityFragment();
+
+        //  小红点
+        iv_red = (FrameLayout) findViewById(R.id.iv_red);
+        iv_red.setVisibility(View.GONE);
+
+        //小红点数量
+        tv_num = (TextView) findViewById(R.id.tv_num);
     }
 
     @Override
@@ -198,6 +232,8 @@ public class HomeActivity extends BaseActivity {
                 break;
             // 我的
             case 2:
+                //  隐藏小红点
+                iv_red.setVisibility(View.GONE);
                 selfTv.setTextColor(getResources().getColor(R.color.green));
                 selfIv.setImageResource(R.mipmap.icon_wddl);
                 if (!myFragment.isAdded()) {

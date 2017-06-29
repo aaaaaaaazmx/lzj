@@ -37,6 +37,7 @@ import com.example.lcsrq.bean.req.SubmitjftReqData;
 import com.example.lcsrq.bean.req.SubmitjftstatusReqData;
 import com.example.lcsrq.bean.req.TiJiaoZgstate;
 import com.example.lcsrq.bean.req.TijiaoPicReqData;
+import com.example.lcsrq.bean.req.TsjgReqData;
 import com.example.lcsrq.bean.req.UserinfoReqData;
 import com.example.lcsrq.bean.resq.BaseRespData;
 import com.example.lcsrq.bean.resq.ContentListCarRespData;
@@ -866,4 +867,25 @@ public class LoginModel {
         });
     }
 
+    //  激光推送
+    //  获取个人信息
+    public void Tsjg(Context context, TsjgReqData baseReq, final OnLoadComBackListener listener) {
+
+        ModelHttp.postHttpClient(context, UrlParser.Key_tsjg, baseReq, new ProcessListener() {
+            @Override
+            public boolean onDone(String key, String str) {
+
+                BaseRespData respData = JSON.parseObject(str, BaseRespData.class);
+
+                if (respData != null && respData.getCode() == 1) {
+
+                    listener.onSuccess(respData.getData());
+                } else {
+                    listener.onError(respData.getMsg());
+
+                }
+                return false;
+            }
+        });
+    }
 }

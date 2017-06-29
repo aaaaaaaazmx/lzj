@@ -68,7 +68,7 @@ public class PeopleDetail extends BaseActivity {
                 // 设置编号
                 tv_bianhao.setText("编号 : "+datas.getSn()+ "");
                 // 公司名称
-                tv_company.setText("公司名称 : " + datas.getM_datajson().getDw()+ "");
+                tv_company.setText("公司名称 : " + datas.getCompany_name()+ "");
                 //  身份证号码
                 tv_code.setText("身份证号码 : "+datas.getCode()+ "");
                 //  电话号码

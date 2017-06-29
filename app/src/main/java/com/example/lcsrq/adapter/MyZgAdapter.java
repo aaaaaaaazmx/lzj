@@ -65,7 +65,7 @@ public class MyZgAdapter extends BaseAdapter {
         }
 
         holder.tv_jianchazhandian.setText("检查站点 : " + list.get(position).getSupply_name() + "");
-        holder.tv_jiancharen.setText("检查人 : " + Global.usernName);
+        holder.tv_jiancharen.setText("检查人 : " + list.get(position).getCheck_uids_names());
         holder.tv_creat.setText("检查时间 : " + list.get(position).getCreat_at()+ "");
         return convertView;
 

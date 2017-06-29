@@ -183,7 +183,7 @@ public class GyzJcAdapter extends BaseExpandableListAdapter {
         }else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.tv_jcr.setText("检查人 : " + data.getCklogtimeslist().get(childPosition).getM_nickname());
+        viewHolder.tv_jcr.setText("检查人 : " + data.getCklogtimeslist().get(childPosition).getCheck_uids_names());
 //        viewHolder.tv_bh.setText("编号 : " + data.getCklogtimeslist().get(childPosition).getLogid() );
         viewHolder.tv_creat_at.setText("检查时间 : " + data.getCklogtimeslist().get(childPosition).getTimes_at());
         viewHolder.tv_danwei.setText("检查单位 : " + data.getCklogtimeslist().get(childPosition).getCheck_dw());

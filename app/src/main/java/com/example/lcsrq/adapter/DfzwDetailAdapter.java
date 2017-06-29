@@ -28,8 +28,17 @@ public class DfzwDetailAdapter extends BaseAdapter {
 
     private ArrayList<AllCclistRespData> dfzwList = new ArrayList<>();
     private Activity activity;
+    private String ccuser;
     public DfzwDetailAdapter(Activity activity) {
         this.activity = activity;
+    }
+
+    public String getCcuser() {
+        return ccuser;
+    }
+
+    public void setCcuser(String ccuser) {
+        this.ccuser = ccuser;
     }
 
     public ArrayList<AllCclistRespData> getDfzwList() {
@@ -90,7 +99,8 @@ public class DfzwDetailAdapter extends BaseAdapter {
             holder.tv_sp = (TextView) convertView.findViewById(R.id.tv_sp);
             //  查处内容
             holder.cc_content = (TextView) convertView.findViewById(R.id.cc_content);
-
+            //  查处对象
+            holder.tv_ccdx  = (TextView) convertView.findViewById(R.id.tv_ccdx);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -140,19 +150,17 @@ public class DfzwDetailAdapter extends BaseAdapter {
 
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_remark())){
             //   查处内容
-            holder.cc_content.setText(dfzwList.get(position).getData_json().getData_remark() + "");
+            holder.cc_content.setText( "备注 : " + dfzwList.get(position).getData_json().getData_remark() + "");
         }else {
             //   查处内容
             holder.cc_content.setText("");
         }
 
-
-        holder.tv_beichachuren.setText("查处人 : " + dfzwList.get(position).getData_json().getData_man());
-        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_man())){
+        if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_man()) && !TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_tel()) ){
             //  被查出人
-            holder.tv_beichachuren.setText("查处人 : " + dfzwList.get(position).getData_json().getData_man());
+            holder.tv_ccdx.setText("查处对象 : " + dfzwList.get(position).getData_json().getData_man() + "(" + dfzwList.get(position).getData_json().getData_tel() + ")");
         }else {
-            holder.tv_beichachuren.setText("查处人 : " + " ");
+            holder.tv_ccdx.setText("查处对象 : " + " ");
         }
 
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_tel())){
@@ -181,19 +189,31 @@ public class DfzwDetailAdapter extends BaseAdapter {
 
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_kp())){
             // 空瓶
-            holder.tv_kp.setText("没收空瓶 : " + dfzwList.get(position).getData_json().getData_kp());
+            holder.tv_kp.setText("暂扣空瓶 : " + dfzwList.get(position).getData_json().getData_kp());
         }else {
             // 空瓶
-            holder.tv_kp.setText("没收空瓶 : " + "");
+            holder.tv_kp.setText("暂扣空瓶 : " + "");
         }
 
         if (!TextUtils.isEmpty(dfzwList.get(position).getData_json().getData_sp())){
             // 实瓶
-            holder.tv_sp.setText("没收实瓶 : " + dfzwList.get(position).getData_json().getData_sp());
+            holder.tv_sp.setText("暂扣实瓶 : " + dfzwList.get(position).getData_json().getData_sp());
         }else {
             // 实瓶
-            holder.tv_sp.setText("没收实瓶 : " + "");
+            holder.tv_sp.setText("暂扣实瓶 : " + "");
         }
+
+        // 查处人
+//        if (!TextUtils.isEmpty(dfzwList.get(position).getM_nickname()) && !TextUtils.isEmpty(dfzwList.get(position).getDw())){
+//            holder.tv_beichachuren.setText("查处人 : " + dfzwList.get(position).getM_nickname() + "(" +dfzwList.get(position).getDw() + ")" );
+//        }else {
+//            holder.tv_beichachuren.setText("查处人 : " + "null" );
+//        }
+
+            // 查处人
+            holder.tv_beichachuren.setText("查处人 : " + ccuser );
+
+
         return convertView;
     }
 
@@ -212,9 +232,11 @@ public class DfzwDetailAdapter extends BaseAdapter {
         TextView tv_phone;
         // 气源
         TextView tv_qiyuan;
-        // 没收实瓶
+        // 暂扣实瓶
         TextView tv_sp;
-        // 没收空瓶
+        // 暂扣空瓶
         TextView tv_kp;
+        //  查处对象
+        TextView tv_ccdx;
     }
 }

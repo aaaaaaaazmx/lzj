@@ -84,7 +84,6 @@ public class IndustryDetailActivity extends BaseActivity {
 
         mWebView.loadUrl("file:///android_asset/new.html");
 
-
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

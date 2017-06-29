@@ -29,6 +29,24 @@ public class GetlistjftData implements Serializable {
     private String status;
     private String creat_at;
     private String oid_name;
+    private String m_nickname;
+    private String ptitle;
+
+    public String getM_nickname() {
+        return m_nickname;
+    }
+
+    public void setM_nickname(String m_nickname) {
+        this.m_nickname = m_nickname;
+    }
+
+    public String getPtitle() {
+        return ptitle;
+    }
+
+    public void setPtitle(String ptitle) {
+        this.ptitle = ptitle;
+    }
 
     public String getId() {
         return id;

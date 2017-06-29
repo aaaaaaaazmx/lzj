@@ -101,6 +101,7 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
     private void initData() {
         // 获取公司列表
         initCompany();
+
         // 供应站地区列表
         ContentGyzRegionReqData contentGyzRegionReqData = new ContentGyzRegionReqData();
         contentGyzRegionReqData.setLevel(1);  //  返回2级列表
@@ -372,6 +373,7 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
                 if (!dfzwdatas.get(position).getStatus().equals("3")){
                         return;
                 }
+
                 // 跳传详情页面
                 JuBaoBean hdhcRespData = dfzwdatas.get(position); // 带入的数据
                 ArrayList<AllCclistRespData> cclist = dfzwdatas.get(position).getCclist();// 带入的数据
@@ -380,6 +382,7 @@ public class DfzwActivity extends BaseActivity implements PullToRefreshView.OnFo
                 intent.putExtra("dfzw",(Serializable)cclist);
                 intent.putExtra("ID",dfzwdatas.get(position).getId());
                 intent.putExtra("state",dfzwdatas.get(position).getStatus());
+                intent.putExtra("clfs",dfzwdatas.get(position).getCc_method());
                 startActivity(intent);
             }
         });

@@ -89,7 +89,7 @@ public class MyHdAdapter extends BaseAdapter {
             holder.tv_dw.setText("查处单位 : " + "null"); //  查处单位
         }
 
-        holder.tv_content.setText(list.get(position).getContent());  // 内容
+        holder.tv_content.setText(list.get(position).getCc_title());  // 内容
 
 //        if (list.get(position).getStatus().equals("2")){
 //            holder.tv_address.setText("地区 : " + list.get(position).getAreas());  //  地址
@@ -105,10 +105,8 @@ public class MyHdAdapter extends BaseAdapter {
         }
 
         // 处理方式
-        if (list.get(position).getCclist().size()!=0) {
-            if (!TextUtils.isEmpty(list.get(position).getCclist().get(0).getData_json().getData_method())) {
-                holder.ccfs.setText("处理方式 : " + list.get(position).getCclist().get(0).getData_json().getData_method());
-            }
+        if (!TextUtils.isEmpty(list.get(position).getCc_method())){
+            holder.ccfs.setText("处理方式 : " +list.get(position).getCc_method() + "");
         }
 
 //        holder.tv_areas.setText(list.get(position).getAreas());

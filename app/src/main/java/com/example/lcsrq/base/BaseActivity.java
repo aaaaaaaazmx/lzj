@@ -31,16 +31,18 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        if (this instanceof LoginActivity || this instanceof SplashActivity ) {
-            tintManager.setStatusBarTintResource(R.color.touming1);
-        } else {
-            tintManager.setStatusBarTintResource(R.color.title_bg);
-        }
+        // 状态栏颜色
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            setTranslucentStatus(true);
+//        }
+//
+//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        tintManager.setStatusBarTintEnabled(true);
+//        if (this instanceof LoginActivity || this instanceof SplashActivity ) {
+//            tintManager.setStatusBarTintResource(R.color.touming1);
+//        } else {
+//            tintManager.setStatusBarTintResource(R.color.title_bg);
+//        }
 
         // 友盟统计
         MobclickAgent.openActivityDurationTrack(false); // 不统计Activity
@@ -68,8 +70,6 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     }
 
     // 页面按下事件
-
-
     private long exitTime = 0;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

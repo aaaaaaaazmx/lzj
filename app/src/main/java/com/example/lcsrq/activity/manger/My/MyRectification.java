@@ -62,7 +62,6 @@ import java.util.List;
  */
 public class MyRectification extends BaseActivity
      implements PullToRefreshView.OnFooterRefreshListener, PullToRefreshView.OnHeaderRefreshListener {
-
     private ArrayList<MyrectificationRespDataim> datas;
     private LoginModel loginModel;
     private ListView lv_wdzg;
@@ -502,7 +501,7 @@ public class MyRectification extends BaseActivity
             holder.tv_riqi.setText("检查公司 : " + list.get(position).getCompany_name());
             holder.tv_riqi.setMaxEms(6);
             holder.tv_riqi.setEllipsize(TextUtils.TruncateAt.END);
-            holder.tv_jcr.setText("检查人 : " + list.get(position).getCheck_uids_names().get(0).getUname());
+            holder.tv_jcr.setText("检查人 : " + list.get(position).getCheck_uids_names());
             holder.tv_danwei.setText("检查单位 : " + list.get(position).getCheck_dw());
 
             switch (list.get(position).getStatus()) {

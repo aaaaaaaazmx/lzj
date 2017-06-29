@@ -53,7 +53,7 @@
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:hint="请输入姓名...                              "
+                    android:hint="请输入记分对象...                              "
                     android:inputType="text" />
 
             </LinearLayout>

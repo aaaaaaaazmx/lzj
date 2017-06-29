@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:padding="5dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_pic"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:layout_centerVertical="true"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/ic_pic_fail"
+            fresco:placeholderImageScaleType="centerCrop" />
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_pic"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:padding="1dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+
+
+
+        <TextView
+            android:id="@+id/tv_jfxm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/iv_pic"
+            android:layout_alignParentTop="true"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="计分项目: xxx"
+            android:textColor="#333333"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_below="@+id/tv_jfxm"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/iv_pic"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="计分对象: xxx"
+            android:textColor="#808080"
+            android:textSize="13dp" />
+        <!--tv_oid_name-->
+        <TextView
+            android:id="@+id/tv_dt"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:text="人员"
+            android:ellipsize="end"
+            android:maxEms="13"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            />
+
+        <TextView
+            android:text="湖南地下管廊有限公司"
+            android:id="@+id/tv_oid_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tv_title"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="13dp"
+            android:textColor="#808080"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:layout_below="@+id/tv_jfxm"
+            android:id="@+id/tv_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="2dp"
+            android:text="5分"
+            android:textColor="#f00"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_creat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="2dp"
+            android:text="2016-03-12"
+            android:textColor="#cccccc"
+            android:textSize="12dp"
+            android:layout_below="@+id/tv_data"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#F7F7F7" />
+</LinearLayout>

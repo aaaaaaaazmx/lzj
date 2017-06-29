@@ -76,6 +76,9 @@
                     android:text="距离200米"
                     android:textColor="#fff5eb" />
                 <TextView
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxEms="13"
                     android:id="@+id/id_info_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

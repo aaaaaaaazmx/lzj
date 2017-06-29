@@ -290,7 +290,8 @@
                 <category android:name="com.example.lcsrq" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.manger.jfxt.ScoringGuideActivitye" />
+
+        <!--<activity android:name=".activity.manger.jfxt.ScoringGuideActivitye" />-->
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

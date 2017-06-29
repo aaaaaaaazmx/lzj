@@ -118,6 +118,9 @@ public class UrlParser {
     // 提交计分状态
     public static final String Key_submitjftstatus = "submitjftstatus";
 
+    // 极光推送
+    public static final String Key_tsjg= "tsjg";
+
     // 返回数据列表
 
     public static String getUrl(String key) {
@@ -191,6 +194,8 @@ public class UrlParser {
             return BASE_URL + Key_getlistjft;
         }else if ((key != null && key.equals(Key_submitjftstatus))) {
             return BASE_URL + Key_submitjftstatus;
+        }else if ((key != null && key.equals(Key_tsjg))) {
+            return BASE_URL + Key_tsjg;
         }
         return null;
     }

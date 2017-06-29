@@ -206,47 +206,6 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
 
             @Override
             public void onTextClick(final int position) {
-//                Intent intent = new Intent(HdhcCheckActivity.this, InputTextActivity.class);
-//                intent.putExtra("position", position);
-//                startActivityForResult(intent, 0);
-
-
-//                tipsTv1 = (EditText) findViewById(R.id.tipsTv1);
-//
-//                input.bindEdittextLayout(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        switch (v.getId()) {
-//                            case R.id.okTv:
-//                                ccrtext = tipsTv1.getText().toString();
-//                                input.dismiss();
-//                                break;
-//                        }
-//                    }
-//                });
-
-//                final AlertDialog dialog = new AlertDialog.Builder(new ContextThemeWrapper(HdhcCheckActivity.this, R.style.Theme_Transparent)).create();
-//                dialog.setView(LayoutInflater.from(HdhcCheckActivity.this).inflate(R.layout.edittext_dialog, null), 0, 0, 0, 0);
-//                UiTool.setDialog(HdhcCheckActivity.this, dialog, Gravity.CENTER, -1, 0.9, -1); //弹出Dialog
-//
-//                TextView okTv = (TextView) dialog.findViewById(R.id.okTv);
-//                TextView cancleTv = (TextView) dialog.findViewById(R.id.cancleTv);
-//                final EditText tipsTv1 = (EditText) dialog.findViewById(R.id.tipsTv1);
-//                okTv.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//
-//                        dialog.dismiss();
-//                    }
-//                });
-//                cancleTv.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                    }
-//                });
                 weizhi = position;
                 // 跳转联系人
                 Intent intent = new Intent(HdhcCheckActivity.this, MycontactActivity.class);
@@ -331,7 +290,7 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
         commonRightText = (TextView) findViewById(R.id.commonRightText);
         commonRightBtn = (RelativeLayout) findViewById(R.id.commonRightBtn);
         commonRightText.setVisibility(View.VISIBLE);
-        commonRightText.setText("查处");
+        commonRightText.setText("提交");
         commonRightText.setBackgroundResource(R.drawable.corner_toumingbg_greenborder_2dp);
 
         postedContentEt = (EditText) findViewById(R.id.postedContentEt);
@@ -369,7 +328,9 @@ public class HdhcCheckActivity extends BaseActivity implements MyPostGridAdapter
         tv_chulifangshi = (EditText) findViewById(R.id.tv_chulifangshi);
         // 查处单位
         et_ccdw = (EditText) findViewById(R.id.et_ccdw);
-
+        //  写入自带的单位
+        et_ccdw.setText(Global.My_dw);
+        et_ccdw.setFocusable(false);
     }
 
     String ccr = "";

@@ -40,6 +40,15 @@ public class HdhcDetailRespData implements Serializable{
     public String getUid() {
         return uid;
     }
+    private String cc_user;
+
+    public String getCc_user() {
+        return cc_user;
+    }
+
+    public void setCc_user(String cc_user) {
+        this.cc_user = cc_user;
+    }
 
     public void setUid(String uid) {
         this.uid = uid;

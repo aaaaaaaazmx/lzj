@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * Created by 苏毅 on 2017/6/15.
  */
 
-public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.OnHeaderRefreshListener,PullToRefreshView.OnFooterRefreshListener{
+public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener {
 
     private LoginModel loginModel;
     private TextView tabfragmenttextview;
@@ -53,7 +53,7 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
         return R.layout.fragment_tab;
     }
 
-    int  mCurrentPosition = -1;
+    int mCurrentPosition = -1;
 
     @Override
     protected void lazyLoad() {
@@ -69,20 +69,20 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
     private void initData() {
         getMyRecti();
     }
+
     private int page = 2;
     MyAdapter myAdapter;
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            if (msg.arg1 == 1){
+            if (msg.arg1 == 1) {
                 myAdapter = new MyAdapter();
                 myAdapter.setList(datas);
                 lv_list.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
-            }
-            else if (msg.arg2 == 2){
+            } else if (msg.arg2 == 2) {
                 page++;
                 datas.addAll(loadMoredatas);
                 myAdapter.notifyDataSetChanged();
@@ -97,8 +97,9 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
     }
 
     private ArrayList<MyrectificationRespDataim> datas;
+
     private void LoadMore(int page) {
-        if (pagesize == 0){
+        if (pagesize == 0) {
             mCurrentPosition = 4;
         }
         // 我的整改
@@ -123,23 +124,23 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getActivity(),"没有更多的数据", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "没有更多的数据", Toast.LENGTH_LONG).show();
                 pullToRefreshView.onFooterRefreshComplete();
                 pullToRefreshView.onHeaderRefreshComplete();
             }
         });
     }
-    private void getMyRecti(){
-        if (pagesize == 0){
+
+    private void getMyRecti() {
+        if (pagesize == 0) {
             mCurrentPosition = 4;
         }
         // 我的整改
         MyrectificationReqDataim myrectificationReqDataim = new MyrectificationReqDataim();
         myrectificationReqDataim.setUid(Integer.parseInt(Global.uid));
         myrectificationReqDataim.setStatus(mCurrentPosition);
+
         loginModel.getMyRectification(getActivity(), myrectificationReqDataim, new OnLoadComBackListener() {
-
-
             @Override
             public void onSuccess(Object msg) {
                 loadingDialog.dismiss();
@@ -156,16 +157,17 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
             public void onError(String msg) {
                 SystemClock.sleep(1500);  // 睡1.5秒
                 loadingDialog.dismiss();
-                if (msg.toString().equals("无数据")){
+                if (msg.toString().equals("无数据")) {
 
-                }else {
-                    Toast.makeText(getActivity(),msg.toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), msg.toString(), Toast.LENGTH_LONG).show();
                 }
                 pullToRefreshView.onFooterRefreshComplete();
                 pullToRefreshView.onHeaderRefreshComplete();
             }
         });
     }
+
     private void initView(View root) {
         tabfragmenttextview = (TextView) root.findViewById(R.id.tab_fragment_textview);
         pagesize = FragmentPagerItem.getPosition(getArguments());
@@ -195,6 +197,7 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
         page = 2;
         getMyRecti(); //  获取的我整改
     }
+
     private CustomDialog loadingDialog;
 
     public class MyAdapter extends BaseAdapter {
@@ -230,7 +233,7 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = View.inflate(getActivity(), R.layout.myzhenggai, null);
-                holder.tv_detail= (TextView) convertView.findViewById(R.id.tv_detail); // 整改详情
+                holder.tv_detail = (TextView) convertView.findViewById(R.id.tv_detail); // 整改详情
                 holder.tv_gongyinghzan = (TextView) convertView.findViewById(R.id.tv_gongyinghzan); //  供应站
                 holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time); // 时间
                 holder.tv_riqi = (TextView) convertView.findViewById(R.id.tv_riqi);  // 检查时间
@@ -256,13 +259,14 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
+
             holder.tv_gongyinghzan.setText("检查站点 : " + list.get(position).getSupply_name());
-            holder.tv_detail.setText(list.get(position).getRemark());
+            holder.tv_detail.setText(list.get(position).getContent());
             holder.tv_time.setText("检查时间 : " + list.get(position).getCreat_at());
             holder.tv_riqi.setText("检查公司 : " + list.get(position).getCompany_name());
             holder.tv_riqi.setMaxEms(6);
             holder.tv_riqi.setEllipsize(TextUtils.TruncateAt.END);
-            holder.tv_jcr.setText("检查人 : " + list.get(position).getCheck_uids_names().get(0).getUname());
+            holder.tv_jcr.setText("检查人 : " + list.get(position).getCheck_uids_names());
             holder.tv_danwei.setText("检查单位 : " + list.get(position).getCheck_dw());
 
             switch (list.get(position).getStatus()) {
@@ -293,10 +297,12 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
 //                holder.easyRecyclerView.setAdapter(radapter);
 //            }
 
-            if (list.get(position).getFlag() == "1"){
-                holder.btn_zg.setText("查处中");
-                holder.btn_zg.setTextColor(Color.WHITE);
-                holder.btn_zg.setBackgroundResource(R.drawable.jiancha_button);
+            if (!TextUtils.isEmpty(list.get(position).getFlag())) {
+                if (list.get(position).getFlag().equals("1")) {
+                    holder.btn_zg.setText("查处中");
+                    holder.btn_zg.setTextColor(Color.WHITE);
+                    holder.btn_zg.setBackgroundResource(R.drawable.jiancha_button);
+                }
             }
 
             // 整改点击事件  提交整改状态
@@ -306,18 +312,22 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
                     loadingDialog.bindLoadingLayout("正在加载");
                     UiTool.setDialog(getActivity(), loadingDialog, Gravity.CENTER, -1, 1, -1);
                     // 如果是管理人员,则不可以验收  或者是公司人员,不能点击
-                    if (Global.m_roleid.equals("3") || Global.m_roleid.equals("2")){
+                    if (Global.m_roleid.equals("3") || Global.m_roleid.equals("2")) {
                         loadingDialog.dismiss();
                         return;
                     }
-                    if (list.get(position).getFlag() == "1"){
+                    if (list.get(position).getFlag().equals("1")) {
                         loadingDialog.dismiss();
                         return;
                     }
                     //状态码
                     String status = list.get(position).getStatus();
 
-                    if (Integer.parseInt(status) == 3){  //  如果是已验收, 就直接跳过去
+                    if (Integer.parseInt(status) == 3) {  //  如果是已验收, 就直接跳过去
+                        return;
+                    }
+                    // 如果是已整改直接跳转
+                    if (Integer.parseInt(status) == 2) {
                         return;
                     }
                     //检查码
@@ -332,7 +342,7 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
                         status = "2";
                     } else if (Integer.parseInt(status) == 2) { // 已整改
                         status = "3";
-                    }else if(Integer.parseInt(status) == 4) { //  代签收
+                    } else if (Integer.parseInt(status) == 4) { //  代签收
                         status = "1";
                     }
                     tiJiaoZgstate.setStatus(Integer.parseInt(status));
@@ -340,11 +350,12 @@ public class MyZgFrgament extends LazyLoadFragment implements PullToRefreshView.
                         @Override
                         public void onSuccess(Object msg) {
                             list.get(position).setFlag("1"); //  添加标记,用来标记已经点击过了
-                            Toast.makeText(getActivity(), "查处成功", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "查处成功", Toast.LENGTH_SHORT).show();
                             list.remove(position);
                             loadingDialog.dismiss();
                             notifyDataSetChanged();
                         }
+
                         @Override
                         public void onError(String msg) {
                             loadingDialog.dismiss();
